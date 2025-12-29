@@ -3,6 +3,15 @@
 char map[14][8];
 char spawn_line[8];
 
+void init_map(void)
+{
+  memset(spawn_line,'\0',sizeof(char)*8);
+  for(int i = 0;i<14;++i)
+    {
+      memset(map[i],'\0',sizeof(char)*8);
+    }
+}
+
 void draw_borders(void)
 {
   //top border
@@ -49,7 +58,10 @@ void draw_map(void)
   for(int y =0;y<14;++y)
     for(int x =0;x<8;++x)
       {
-	sprintf(str,"%c\n",map[y][x]);
-	draw_block(x,y,str);
+	if(map[y][x] != '\0')
+	  {
+	    sprintf(str,"%c\n",map[y][x]);
+	    draw_block(x,y,str);
+	  }
       }
 }
