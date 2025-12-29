@@ -1,6 +1,7 @@
 #include"map.h"
 
 char map[14][8];
+char spawn_line[8];
 
 void draw_borders(void)
 {
@@ -36,4 +37,9 @@ void draw_borders(void)
 	       WHITE);
     }
 
+}
+void draw_block(int x, int y,char* str)
+{
+  DrawRectangle(GPX(x),GPX(y),CELL_SIZE,CELL_SIZE,WHITE);
+  DrawText(str,GPX(x)+20,GPY(y)+16,32,BLACK);
 }
