@@ -1,6 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include<raylib.h>
+#include<stdio.h> //sprintf
 
 #define CELL_SIZE 62
 #define BORDER_WIDTH CELL_SIZE*8
@@ -17,4 +18,5 @@ extern char spawn_line[8];
 
 extern void draw_borders(void);
 extern void draw_block(int x, int y,char* str);
+extern void draw_map(void);
 #endif

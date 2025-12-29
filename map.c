@@ -43,3 +43,13 @@ void draw_block(int x, int y,char* str)
   DrawRectangle(GPX(x),GPX(y),CELL_SIZE,CELL_SIZE,WHITE);
   DrawText(str,GPX(x)+20,GPY(y)+16,32,BLACK);
 }
+void draw_map(void)
+{
+  char str[2];
+  for(int y =0;y<14;++y)
+    for(int x =0;x<8;++x)
+      {
+	sprintf(str,"%c\n",map[y][x]);
+	draw_block(x,y,str);
+      }
+}
