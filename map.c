@@ -12,8 +12,7 @@ void init_map(void)
       memset(map[i],'\0',sizeof(char)*8);
     }
 
-  map[1][1] = 'A';
-  block_x = 1, block_y = 1;
+  block_x = -1, block_y = -1;
 }
 
 void draw_borders(void)
