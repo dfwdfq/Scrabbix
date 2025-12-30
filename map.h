@@ -16,10 +16,13 @@
 
 extern char map[14][8];
 extern char spawn_line[8];
+extern int block_x, block_y;
+
 
 void init_map(void);
 
 extern void draw_borders(void);
 extern void draw_block(int x, int y,char* str);
 extern void draw_map(void);
+extern void update_map(void);
 #endif

@@ -2,6 +2,7 @@
 
 char map[14][8];
 char spawn_line[8];
+int block_x, block_y;
 
 void init_map(void)
 {
@@ -10,6 +11,9 @@ void init_map(void)
     {
       memset(map[i],'\0',sizeof(char)*8);
     }
+
+  map[1][1] = 'A';
+  block_x = 1, block_y = 1;
 }
 
 void draw_borders(void)
@@ -64,4 +68,25 @@ void draw_map(void)
 	    draw_block(x,y,str);
 	  }
       }
+}
+void update_map(void)
+{
+  if(block_x == -1 &&
+     block_y == -1)
+    return;
+  
+  if(block_y == 13)
+    {
+      block_x = -1;
+      block_y = -1;
+    }
+  else
+    {
+      char val = map[block_y][block_x];
+      if(map[block_y+1][block_x] == '\0')
+	{
+	  map[block_y][block_x] = '\0';
+	  map[++block_y][block_x] = val;
+	}
+    }
 }
