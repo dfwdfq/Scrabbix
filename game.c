@@ -36,6 +36,13 @@ void handle_keys(void)
 }
 void run_game(void)
 {
+  if(block_x == -1 &&
+     block_y == -1)
+    {
+      generate_random_start_pos();
+      map[block_y][block_x] = get_next_letter();
+    }
+  
   handle_keys();
 
   UPDATE_TIMER;
