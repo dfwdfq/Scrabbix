@@ -15,7 +15,6 @@
 #define GPY(y) (4+ BORDER_OY+(y*CELL_SIZE) )
 
 extern char map[14][8];
-extern char spawn_line[8];
 extern int block_x, block_y;
 
 

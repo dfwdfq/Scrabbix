@@ -1,12 +1,10 @@
 #include"map.h"
 
 char map[14][8];
-char spawn_line[8];
 int block_x, block_y;
 
 void init_map(void)
 {
-  memset(spawn_line,'\0',sizeof(char)*8);
   for(int i = 0;i<14;++i)
     {
       memset(map[i],'\0',sizeof(char)*8);
