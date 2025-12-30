@@ -1,6 +1,8 @@
 #include"bag.h"
 
 char bag[100];
+int current_letter = 0;
+
 
 void init_bag(void)
 {
@@ -24,4 +26,13 @@ void shuffle(char* array, size_t n)
 	    array[i] = t;
 	  }
     }
+}
+char get_next_letter(void)
+{
+  if(current_letter == 99)
+    {
+      shuffle(bag,100);
+      current_letter = 0;
+    }
+  return bag[current_letter++];
 }
