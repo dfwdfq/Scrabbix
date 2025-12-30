@@ -26,7 +26,7 @@ void handle_keys(void)
     }
   if(IsKeyReleased(KEY_S))
     {
-      if(block_y < 13)
+      if(block_y < 13 && map[block_y+1][block_x] == '\0')
 	{
 	  char val = map[block_y][block_x];
 	  map[block_y][block_x] = '\0';
@@ -66,5 +66,4 @@ void draw_labels(void)
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
   DrawText(str,625,300,32,BLACK);
-
 }
