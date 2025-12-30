@@ -1,5 +1,9 @@
 #include"game.h"
 
+void init_game(void)
+{
+  init_bag();
+}
 void handle_keys(void)
 {
   if(IsKeyReleased(KEY_A) && block_y != -1)
@@ -34,7 +38,6 @@ void run_game(void)
 {
   handle_keys();
 
-  printf("%d %d\n",block_x,block_y);
   UPDATE_TIMER;
   if(IS_DONE)
     {
