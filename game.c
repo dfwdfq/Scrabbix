@@ -64,7 +64,7 @@ void draw_labels(void)
   DrawRectangle(620,300,CELL_SIZE/2,CELL_SIZE/2,WHITE);
   
   char str[2];
-  sprintf(str,"%c\n",bag[current_letter+1]);
+  sprintf(str,"%c\n",bag[current_letter]);
   DrawText(str,625,300,32,BLACK);
 
 }
