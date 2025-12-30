@@ -25,4 +25,6 @@ extern void draw_borders(void);
 extern void draw_block(int x, int y,char* str);
 extern void draw_map(void);
 extern void update_map(void);
+
+extern void generate_random_start_pos(void);
 #endif
