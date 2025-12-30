@@ -6,7 +6,8 @@ void init_game(void)
 }
 void handle_keys(void)
 {
-  if(IsKeyReleased(KEY_A) && block_y != -1)
+  if(IsKeyReleased(KEY_A) &&
+     block_y != -1)
     {
       if(block_x > 0)
 	{
@@ -15,7 +16,8 @@ void handle_keys(void)
 	  map[block_y][--block_x] = val;
 	}
     }
-  if(IsKeyReleased(KEY_D) && block_y != -1)
+  if(IsKeyReleased(KEY_D) &&
+     block_y != -1)
     {
       if(block_x < 7)
 	{
@@ -44,13 +46,20 @@ void run_game(void)
     }
   
   handle_keys();
-
+  if(map[block_y+1][block_x] != '\0')
+    {
+      block_x = -1;
+      block_y = -1;
+    }
+  
   UPDATE_TIMER;
   if(IS_DONE)
     {
       RESET_TIMER;
       update_map();
     }
+
+  printf("%d %d\n",block_x,block_y);
 }
 void draw_game(void)
 {
