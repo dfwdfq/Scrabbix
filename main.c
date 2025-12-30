@@ -3,7 +3,7 @@
 
 int main()
 {
-  InitWindow(800,930,"Scrabble");
+  InitWindow(800,930,"Scrabrix");
   SetTargetFPS(60);
 
   init_map();
