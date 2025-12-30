@@ -3,10 +3,10 @@
 
 int main()
 {
-  InitWindow(800,640,"Scrabble");
+  InitWindow(800,930,"Scrabble");
   SetTargetFPS(60);
 
-
+  init_map();
   while(!WindowShouldClose())
     {
       run_game();
