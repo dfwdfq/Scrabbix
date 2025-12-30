@@ -7,6 +7,7 @@ int main()
   SetTargetFPS(60);
 
   init_map();
+  init_game();
   while(!WindowShouldClose())
     {
       run_game();
