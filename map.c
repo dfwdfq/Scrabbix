@@ -85,12 +85,6 @@ void update_map(void)
 	  map[block_y][block_x] = '\0';
 	  map[++block_y][block_x] = val;
 	}
-      else
-	{
-	  //can't move further, then trigger new block generation
-	  block_y = -1;
-	  block_x = -1;
-	}
     }
 }
 void generate_random_start_pos(void)
