@@ -5,10 +5,15 @@
 #include"map.h"
 #include"timer.h"
 #include"bag.h"
+#include"vertex_list.h"
 
+extern VertexListNode* letters_head;
+			
 extern void handle_keys(void);
 
 extern void init_game(void);
+extern void free_game(void);
+
 extern void run_game(void);
 extern void draw_game(void);
 extern void draw_labels(void);

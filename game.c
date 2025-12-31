@@ -1,8 +1,15 @@
 #include"game.h"
 
+VertexListNode* letters_head;
+
 void init_game(void)
 {
   init_bag();
+  letters_head = NULL;
+}
+void free_game(void)
+{
+  clear_VertexList(letters_head);
 }
 void handle_keys(void)
 {
@@ -50,8 +57,10 @@ void run_game(void)
   if(map[block_y+1][block_x] != '\0' ||
      block_y == 13)
     {
+      push_node(&letters_head,block_x,block_y);
       block_x = -1;
       block_y = -1;
+      print_list(letters_head);
     }
   
   UPDATE_TIMER;
@@ -61,7 +70,7 @@ void run_game(void)
       update_map();
     }
 
-  printf("%d %d\n",block_x,block_y);
+  //printf(" current block position: %d %d\n",block_x,block_y);
 }
 void draw_game(void)
 {
