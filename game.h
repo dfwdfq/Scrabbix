@@ -6,6 +6,7 @@
 #include"timer.h"
 #include"bag.h"
 #include"vertex_list.h"
+#include"word_searcher.h"
 
 extern VertexListNode* letters_head;
 			

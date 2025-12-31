@@ -60,7 +60,8 @@ void run_game(void)
       push_node(&letters_head,block_x,block_y);
       block_x = -1;
       block_y = -1;
-      print_list(letters_head);
+      search(letters_head);
+      //print_list(letters_head);
     }
   
   UPDATE_TIMER;
