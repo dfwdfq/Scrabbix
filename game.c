@@ -46,7 +46,9 @@ void run_game(void)
     }
   
   handle_keys();
-  if(map[block_y+1][block_x] != '\0')
+  //this fancy-pancy hack prevents block from being moved when it get stucked
+  if(map[block_y+1][block_x] != '\0' ||
+     block_y == 13)
     {
       block_x = -1;
       block_y = -1;
