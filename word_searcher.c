@@ -11,121 +11,76 @@ bool does_match(char* word)
     }
   return false;
 }
+
 void search(VertexListNode* head)
 {
   VertexListNode* current = head;
 
-  int start_x, start_y;
+  
   char word[8];
+  int i = 0;
   while(current != NULL)
     {
-      //look in 4 direction, check word, if it matches, then destroy
+      printf("%d# letter:%c\n",
+	     i,
+	     map[current->y][current->x]);
       
-      //search leftward
-      search_along_ox(-1,
-		      current->x,
-		      current->y,
-		      word,
-		      &start_x,
-		      &start_y);
+      search_leftward(current->x,current->y,word);
+      conv_to_lower(word);
+      printf("word found in left direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
+	  printf("%s matched!\n",word);
+	}
 
-	}
-      else
-	{
-	  printf("%s is not word!\n",word);
-	}
-      
-      //search rightward
-      search_along_ox(1,
-		      current->x,
-		      current->y,
-		      word,
-		      &start_x,
-		      &start_y);
+      search_rightward(current->x,current->y,word);
+      conv_to_lower(word);
+      printf("word found right direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-
+	  printf("%s matched!\n",word);
 	}
-      else
-	{
-	  printf("%s is not word!\n",word);
-	}
-
-      //search downward
-      search_along_oy(1,
-		      current->x,
-		      current->y,
-		      word,
-		      &start_x,
-		      &start_y);          
-      if(does_match(word))
-	{
-
-	}
-      else
-	{
-	  printf("%s is not word!\n",word);
-	}
-
-      //search upward
-      search_along_oy(-1,
-		      current->x,
-		      current->y,
-		      word,
-		      &start_x,
-		      &start_y);
-      if(does_match(word))
-	{
-
-	}
-      else
-	{
-	  printf("%s is not word!\n",word);
-	}
-
-      printf("found string:%s,len %d\n",word,strlen(word));
       
       current = current->next;
+      i++;
     }
+  printf("\n\n");
 
 }
-void search_along_ox(int dx,
-		     int x,
-		     int y,
-		     char *word,
-		     int* start_x,
-		     int* start_y)
+void search_rightward(int start_x, int start_y, char* word)
 {
-  *start_y = y;
-  int cur = x;
+  int x = start_x;
   int i = 0;
-  while(map[y][cur] != '\0')
-    {      
-      word[i++] = map[y][cur];
-      cur+=dx;
-      if(cur == 0 || cur == 7)break;
+  word[i++] = map[start_y][x++];
+  while(1)
+    {
+      if(i == 8) break;
+      if(map[start_y][x] == '\0')break;
+      if(start_x == 8)break;
+      word[i++] = map[start_y][x++];
     }
   word[i] = '\0';
-  *start_x = cur;
 }
-void search_along_oy(int dy,
-		     int x,
-		     int y,
-		     char *word,
-		     int* start_x,
-		     int* start_y)
+void search_leftward(int start_x, int start_y, char* word)
 {
-  *start_x = x;
-  int cur = y;
+  int x = start_x;
   int i = 0;
-  while(map[cur][x] != '\0')
-    {      
-      word[i++] = map[cur][x];
-      cur+=dy;
-      if(cur == 0 || cur == 7)break;
+  word[i++] = map[start_y][x--];
+  while(1)
+    {
+      if(i == -1) break;
+      if(map[start_y][x] == '\0')break;
+      if(start_x == -1)break;
+      word[i++] = map[start_y][x--];
     }
-  word[i] = '\0';
-  *start_y =  cur;
+  word[i] = '\0';  
+}
+void conv_to_lower(char* word)
+{
+  int i =0;
+  while(1)
+    {
+      if(i == 8)break;
+      word[i++] = tolower(word[i]);
+    }
 }
