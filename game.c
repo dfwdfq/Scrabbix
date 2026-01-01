@@ -68,7 +68,8 @@ void run_game(void)
       generate_random_start_pos();
       map[block_y][block_x] = get_next_test_letter();
     }
-  
+
+  //move blocks down every 60 tick
   UPDATE_MOV_TIMER;
   if(IS_MOV_TIMER_DONE)
     {
@@ -76,7 +77,8 @@ void run_game(void)
       update_map();
     }
 
-  
+
+  //if there are words to erase, start counting down the timer to erase them
   if(found_words_counter > 0)
     {
       UPDATE_ER_TIMER;
@@ -110,13 +112,23 @@ void run_game(void)
 		map[y][x-i] = '\0';
 		letters_head = remove_by_value(letters_head,x-i,y);
 	      }
-	  }      
+	  }
+
+	//up(2)
+	if(dir == 2)
+	  {
+	    for(int i =0;i<len;++i)
+	      {
+		map[y-i][x] = '\0';
+		letters_head = remove_by_value(letters_head,x,y-i);
+	      }
+	  }
+	
       }
     printf("\n");
     found_words_counter = 0;
   }
 
-  //printf(" current block position: %d %d\n",block_x,block_y);
 }
 void draw_game(void)
 {
