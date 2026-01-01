@@ -40,10 +40,10 @@ void search(VertexListNode* head)
 	     
       search_leftward(current->x,current->y,word);
       conv_to_lower(word);
-      //printf("word found in left direction:%s %d\n",word,strlen(word));
+      printf("word found in left direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  //printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("%s matched! len:%d\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -53,10 +53,10 @@ void search(VertexListNode* head)
 
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
-      //printf("word found right direction:%s %d\n",word,strlen(word));
+      printf("word found right direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  //printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("%s matched! len:%d\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -66,15 +66,15 @@ void search(VertexListNode* head)
 
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
-      //printf("word found upward:%s %d\n",word,strlen(word));
+      printf("word found upward:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  //printf("%s matched! len:%d\n",word,strlen(word));
-	  //strcpy(found_words[found_words_counter],word);
-	  //found_words_data[found_words_counter].x = current->x;
-	  //found_words_data[found_words_counter].y = current->y;
-	  //found_words_data[found_words_counter].dir = 2;
-	  //found_words_counter++;
+	  printf("%s matched! len:%d\n",word,strlen(word));
+	  strcpy(found_words[found_words_counter],word);
+	  found_words_data[found_words_counter].x = current->x;
+	  found_words_data[found_words_counter].y = current->y;
+	  found_words_data[found_words_counter].dir = 2;
+	  found_words_counter++;
 	}
 
       search_downward(current->x,current->y,word);
@@ -105,7 +105,7 @@ void search_rightward(int start_x, int start_y, char* word)
   while(1)
     {
       if(map[start_y][x] == '\0')break;
-      if(x == 8)break;
+      if(x == MAP_WIDTH)break;
       word[i++] = map[start_y][x++];
     }
   word[i] = '\0';
@@ -140,7 +140,7 @@ void search_upward(int start_x, int start_y, char* word)
 }
 void search_downward(int start_x,int start_y,char* word)
 {
-  if(start_y == 13)return;
+  if(start_y == MAP_HEIGHT-1)return;
   
   int y = start_y;
   int i = 0;
@@ -148,7 +148,7 @@ void search_downward(int start_x,int start_y,char* word)
   while(1)
     {
       if(map[y][start_x] == '\0')break;
-      if(y == 14)break;
+      if(y == MAP_HEIGHT)break;
       word[i++] = map[y++][start_x];
     }
   word[i] = '\0';
@@ -158,7 +158,7 @@ void conv_to_lower(char* word)
   int i =0;
   while(1)
     {
-      if(i == 8)break;
+      if(i == MAP_WIDTH)break;
       word[i++] = tolower(word[i]);
     }
 }

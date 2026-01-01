@@ -1,9 +1,10 @@
 #include<raylib.h>
+#include"constants.h"
 #include"game.h"
 
 int main()
 {
-  InitWindow(800,930,"Scrabrix");
+  InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetTargetFPS(60);
 
   init_map();
