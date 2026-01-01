@@ -36,3 +36,34 @@ void print_list(VertexListNode* head)
     }
   printf("end!\n");
 }
+VertexListNode* remove_by_value(VertexListNode* head,
+				int x,
+				int y)
+{
+  VertexListNode *current = head;
+  VertexListNode *prev    = NULL;
+
+  while(current != NULL &&
+	current->x != x &&
+	current->y != y)
+    {
+      prev = current;
+      current = current->next;
+    }
+
+  if(current == NULL)
+    {
+      return head;
+    }
+
+  if(prev == NULL)
+    {
+      head = current->next;
+    }
+  else
+    {
+      prev->next = current->next;
+    }
+  free(current);
+  return head;  
+}

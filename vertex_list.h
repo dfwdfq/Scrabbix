@@ -3,6 +3,7 @@
 #include<stddef.h>
 #include<stdlib.h>
 #include<stdio.h>
+#include<stdbool.h>
 
 typedef struct VertexListNode
 {
@@ -14,5 +15,8 @@ extern VertexListNode* create_node(int x, int y);
 extern void push_node(VertexListNode** head,int x,int y);
 extern void clear_VertexList(VertexListNode* head);
 extern void print_list(VertexListNode* head);
+extern VertexListNode* remove_by_value(VertexListNode* head,
+				       int x,
+				       int y);
 
 #endif
