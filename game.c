@@ -103,7 +103,10 @@ void run_game(void)
 	//left(0)
 	if(dir == 0)
 	  {
-	    
+	    for(int i = 0;i<len;++i)
+	      {
+		map[y][x-i] = '\0';
+	      }
 	  }
 	
       }
