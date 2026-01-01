@@ -9,7 +9,7 @@ void init_game(void)
   letters_head = NULL;
 
   generate_random_start_pos();
-  map[block_y][block_x] = get_next_letter();
+  map[block_y][block_x] = get_next_test_letter();
 
 }
 void free_game(void)
@@ -58,7 +58,7 @@ void run_game(void)
   if(map[block_y+1][block_x] != '\0' ||
      block_y == 13)
     {
-      push_node(&letters_head,block_x,block_y); //add new block to existing
+      push_node(&letters_head,block_x,block_y); //add new block to list of existing blocks
 
       //nullify block
       block_x = -1;
@@ -66,7 +66,7 @@ void run_game(void)
       search(letters_head);
 
       generate_random_start_pos();
-      map[block_y][block_x] = get_next_letter();
+      map[block_y][block_x] = get_next_test_letter();
     }
   
   UPDATE_MOV_TIMER;
@@ -77,7 +77,6 @@ void run_game(void)
     }
 
   
-
   if(found_words_counter > 0)
     {
       UPDATE_ER_TIMER;
@@ -96,8 +95,11 @@ void run_game(void)
 	//right(1)
 	if(dir == 1)
 	  {
-	    for(int i = x;i<x+len;i++)	     
-	      map[y][i] = '\0';	     
+	    for(int i = x;i<x+len;i++)
+	      {
+		map[y][i] = '\0';
+		letters_head = remove_by_value(letters_head,i,y);
+	      }
 	  }
 	
 	//left(0)
@@ -106,9 +108,9 @@ void run_game(void)
 	    for(int i = 0;i<len;++i)
 	      {
 		map[y][x-i] = '\0';
+		letters_head = remove_by_value(letters_head,x-i,y);
 	      }
-	  }
-	
+	  }      
       }
     printf("\n");
     found_words_counter = 0;
