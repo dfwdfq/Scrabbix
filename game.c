@@ -89,6 +89,7 @@ void run_game(void)
   {
     RESET_ER_TIMER;
     erase_blocks();
+    reupdate_blocks();
   }
 
 }
@@ -175,5 +176,18 @@ void erase_blocks(void)
 }
 void reupdate_blocks(void)
 {
-
+  VertexListNode* current = letters_head;
+  while(current != NULL)
+    {
+      if(current->y != 13)
+	{
+	  if(map[current->y+1][current->x] == '\0')
+	    {
+	      current->y+=1;
+	      map[current->y][current->x] = map[current->y-1][current->x];
+	      map[current->y-1][current->x] = '\0';
+	    }
+	}
+      current = current->next;
+    }
 }
