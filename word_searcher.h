@@ -27,6 +27,7 @@ extern int str_cmp(const void* str1, const void* str2);
 extern void search_rightward(int start_x, int start_y, char* word);
 extern void search_leftward(int start_x, int start_y, char* word);
 extern void search_upward(int start_x, int start_y, char* word);
+extern void search_downward(int start_x,int start_y,char* word);
 extern void conv_to_lower(char*word);
 
 #endif

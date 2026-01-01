@@ -9,7 +9,7 @@ void init_game(void)
   letters_head = NULL;
 
   generate_random_start_pos();
-  map[block_y][block_x] = get_next_test_letter();
+  map[block_y][block_x] = get_next_letter();
 
 }
 void free_game(void)
@@ -66,7 +66,7 @@ void run_game(void)
       search(letters_head);
 
       generate_random_start_pos();
-      map[block_y][block_x] = get_next_test_letter();
+      map[block_y][block_x] = get_next_letter();
     }
 
   //move blocks down every 60 tick
@@ -123,7 +123,17 @@ void run_game(void)
 		letters_head = remove_by_value(letters_head,x,y-i);
 	      }
 	  }
-	
+
+	//down(3)
+	if(dir == 3)
+	  {
+	    for(int i =y;i<y+len;++i)
+	      {
+		map[i][x] = '\0';
+		letters_head = remove_by_value(letters_head,x,i);
+	      }
+	  }
+		
       }
     printf("\n");
     found_words_counter = 0;
