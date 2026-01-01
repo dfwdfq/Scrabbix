@@ -1,22 +1,33 @@
 #include"word_searcher.h"
 
+
+char found_words[10][8];
+FWord found_words_data[10];
+int found_words_counter = 0;
+
 bool does_match(char* word)
-{
+{  
   //just for now
   //sure it's not good, because it's O(n), but I tried bsearch and it didn't work  
   for(size_t n = 0;n<google_words_len;++n)
-    {
-      if(strcmp(word,google_words[n]) == 0)
-	return true;
-    }
-  return false;
+      {
+	if(str_cmp(word,google_words[n]) == 0)
+	  {
+	    printf("%s matches %s\n",word,google_words[n]);
+	    return true;
+	  }
+      }
+
+    return false;
+  //    char** found = (char**) bsearch(&word,google_words,google_words_len,sizeof(char*),str_cmp);
+  //    return found != NULL;
+  
 }
 
 void search(VertexListNode* head)
 {
   VertexListNode* current = head;
 
-  
   char word[8];
   int i = 0;
   while(current != NULL)
@@ -30,7 +41,12 @@ void search(VertexListNode* head)
       printf("word found in left direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched!\n",word);	  
+	  printf("%s matched! len:%d\n",word,strlen(word));
+	  strcpy(found_words[found_words_counter],word);
+	  found_words_data[found_words_counter].x = current->x;
+	  found_words_data[found_words_counter].y = current->y;
+	  found_words_data[found_words_counter].dir = 0;
+	  found_words_counter++;
 	}
 
       search_rightward(current->x,current->y,word);
@@ -38,7 +54,12 @@ void search(VertexListNode* head)
       printf("word found right direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched!\n",word);
+	  printf("%s matched! len:%d\n",word,strlen(word));
+	  strcpy(found_words[found_words_counter],word);
+	  found_words_data[found_words_counter].x = current->x;
+	  found_words_data[found_words_counter].y = current->y;
+	  found_words_data[found_words_counter].dir = 1;
+	  found_words_counter++;
 	}
       
       current = current->next;
@@ -83,4 +104,8 @@ void conv_to_lower(char* word)
       if(i == 8)break;
       word[i++] = tolower(word[i]);
     }
+}
+int str_cmp(const void* str1, const void* str2)
+{
+  return strcmp((char *) str1, (char *) str2);
 }

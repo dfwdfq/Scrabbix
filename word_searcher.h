@@ -4,9 +4,21 @@
 #include<stdbool.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<unistd.h>
 #include"vertex_list.h"
 #include"map.h"
 #include"google_words.h"
+
+typedef struct
+{
+  int x,y; //start position
+  short dir;
+} FWord;
+
+
+extern char found_words[10][8];
+extern int found_words_counter;
+extern FWord found_words_data[10];
 
 extern void search(VertexListNode* head);
 extern bool does_match(char* word);
