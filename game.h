@@ -9,7 +9,8 @@
 #include"word_searcher.h"
 
 extern VertexListNode* letters_head;
-			
+extern int score;
+
 extern void handle_keys(void);
 
 extern void init_game(void);

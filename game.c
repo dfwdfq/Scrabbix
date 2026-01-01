@@ -93,6 +93,7 @@ void run_game(void)
 	int x     = found_words_data[i].x;
 	int y     = found_words_data[i].y;
 	int len   = strlen(found_words[i]);
+	score     += len*10;
 	
 	//right(1)
 	if(dir == 1)
@@ -148,12 +149,24 @@ void draw_game(void)
 }
 void draw_labels(void)
 {
-  DrawText("next:",535,300,32,WHITE);
-  DrawRectangle(620,300,CELL_SIZE/2,CELL_SIZE/2,WHITE);
+  DrawText("next:",570,250,32,WHITE);
+  DrawRectangle(655,250,CELL_SIZE/2,CELL_SIZE/2,WHITE);
   
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
-  DrawText(str,625,300,32,BLACK);
+  DrawText(str,660,250,32,BLACK);
 
   DrawText("Scrabbix",540,20,56,WHITE);
+
+  char score_line[7] = {'0','0','0','0','0','0','\0'};
+  char score_str[6];
+  sprintf(score_str,"%d",score);
+  int j = 0;
+  for(int i = 6-strlen(score_str);i<6;++i)
+    {
+     score_line[i] = score_str[j++];     
+    }
+  char _score[30];
+  sprintf(_score,"score:%s",score_line);
+  DrawText(_score,550,200,32,WHITE);
 }
