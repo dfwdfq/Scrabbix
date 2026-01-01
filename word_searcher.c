@@ -30,7 +30,7 @@ void search(VertexListNode* head)
       printf("word found in left direction:%s %d\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched!\n",word);
+	  printf("%s matched!\n",word);	  
 	}
 
       search_rightward(current->x,current->y,word);
@@ -56,7 +56,7 @@ void search_rightward(int start_x, int start_y, char* word)
     {
       if(i == 8) break;
       if(map[start_y][x] == '\0')break;
-      if(start_x == 8)break;
+      if(x == 8)break;
       word[i++] = map[start_y][x++];
     }
   word[i] = '\0';
@@ -70,7 +70,7 @@ void search_leftward(int start_x, int start_y, char* word)
     {
       if(i == -1) break;
       if(map[start_y][x] == '\0')break;
-      if(start_x == -1)break;
+      if(x == -1)break;
       word[i++] = map[start_y][x--];
     }
   word[i] = '\0';  
