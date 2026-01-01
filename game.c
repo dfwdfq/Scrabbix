@@ -1,11 +1,16 @@
 #include"game.h"
 
 VertexListNode* letters_head;
+int score = 0;
 
 void init_game(void)
 {
   init_bag();
   letters_head = NULL;
+
+  generate_random_start_pos();
+  map[block_y][block_x] = get_next_letter();
+
 }
 void free_game(void)
 {
@@ -16,7 +21,8 @@ void handle_keys(void)
   if(IsKeyReleased(KEY_A) &&
      block_y != -1)
     {
-      if(block_x > 0)
+      if(block_x > 0 &&
+	 map[block_y][block_x-1] == '\0')
 	{
 	  char val = map[block_y][block_x];
 	  map[block_y][block_x] = '\0';
@@ -26,7 +32,8 @@ void handle_keys(void)
   if(IsKeyReleased(KEY_D) &&
      block_y != -1)
     {
-      if(block_x < 7)
+      if(block_x < 7 &&
+	 map[block_y][block_x+1] == '\0')
 	{
 	  char val = map[block_y][block_x];
 	  map[block_y][block_x] = '\0';
@@ -44,32 +51,65 @@ void handle_keys(void)
     }
 }
 void run_game(void)
-{
-  if(block_x == -1 &&
-     block_y == -1)
-    {
-      generate_random_start_pos();
-      map[block_y][block_x] = get_next_letter();
-    }
-  
+{  
   handle_keys();
+  
   //this fancy-pancy hack prevents block from being moved when it get stucked
   if(map[block_y+1][block_x] != '\0' ||
      block_y == 13)
     {
-      push_node(&letters_head,block_x,block_y);
+      push_node(&letters_head,block_x,block_y); //add new block to existing
+
+      //nullify block
       block_x = -1;
       block_y = -1;
       search(letters_head);
-      //print_list(letters_head);
+
+      generate_random_start_pos();
+      map[block_y][block_x] = get_next_letter();
     }
   
-  UPDATE_TIMER;
-  if(IS_DONE)
+  UPDATE_MOV_TIMER;
+  if(IS_MOV_TIMER_DONE)
     {
-      RESET_TIMER;
+      RESET_MOV_TIMER;
       update_map();
     }
+
+  
+
+  if(found_words_counter > 0)
+    {
+      UPDATE_ER_TIMER;
+    }
+
+  if(IS_ER_TIMER_DONE)
+  {
+    RESET_ER_TIMER;
+    for(int i = 0;i<found_words_counter;++i)
+      {	
+	short dir = found_words_data[i].dir;
+	int x     = found_words_data[i].x;
+	int y     = found_words_data[i].y;
+	int len   = strlen(found_words[i]);
+	
+	//right(1)
+	if(dir == 1)
+	  {
+	    for(int i = x;i<x+len;i++)	     
+	      map[y][i] = '\0';	     
+	  }
+	
+	//left(0)
+	if(dir == 0)
+	  {
+	    
+	  }
+	
+      }
+    printf("\n");
+    found_words_counter = 0;
+  }
 
   //printf(" current block position: %d %d\n",block_x,block_y);
 }
@@ -86,5 +126,5 @@ void draw_labels(void)
   
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
-  DrawText(str,625,300,32,BLACK);
+  DrawText(str,625,300,32,BLACK);  
 }
