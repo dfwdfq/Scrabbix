@@ -1,3 +1,4 @@
 #include"timer.h"
-int counter = 60;
+int mov_counter = 60;
+int er_counter = 8;
 

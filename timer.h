@@ -5,10 +5,16 @@ to move down blocks automatically.
 */  
 #ifndef TIMER
 #define TIMER
-extern int counter;
+extern int mov_counter;
+extern int er_counter;
 
-#define UPDATE_TIMER --counter;
-#define IS_DONE      (counter == 0)
-#define RESET_TIMER  counter=60;
+#define UPDATE_MOV_TIMER    --mov_counter;
+#define IS_MOV_TIMER_DONE   (mov_counter == 0)
+#define RESET_MOV_TIMER     mov_counter=60;
+
+
+#define UPDATE_ER_TIMER    --er_counter;
+#define IS_ER_TIMER_DONE   (er_counter == 0)
+#define RESET_ER_TIMER     er_counter=8;
 
 #endif
