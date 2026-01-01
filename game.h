@@ -20,4 +20,6 @@ extern void run_game(void);
 extern void draw_game(void);
 extern void draw_labels(void);
 
+extern void erase_blocks(void);
+extern void reupdate_blocks(void);
 #endif

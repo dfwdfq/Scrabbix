@@ -84,60 +84,11 @@ void run_game(void)
       UPDATE_ER_TIMER;
     }
 
+  //erase words
   if(IS_ER_TIMER_DONE)
   {
     RESET_ER_TIMER;
-    for(int i = 0;i<found_words_counter;++i)
-      {	
-	short dir = found_words_data[i].dir;
-	int x     = found_words_data[i].x;
-	int y     = found_words_data[i].y;
-	int len   = strlen(found_words[i]);
-	score     += len*10;
-	
-	//right(1)
-	if(dir == 1)
-	  {
-	    for(int i = x;i<x+len;i++)
-	      {
-		map[y][i] = '\0';
-		letters_head = remove_by_value(letters_head,i,y);
-	      }
-	  }
-	
-	//left(0)
-	if(dir == 0)
-	  {
-	    for(int i = 0;i<len;++i)
-	      {
-		map[y][x-i] = '\0';
-		letters_head = remove_by_value(letters_head,x-i,y);
-	      }
-	  }
-
-	//up(2)
-	if(dir == 2)
-	  {
-	    for(int i =0;i<len;++i)
-	      {
-		map[y-i][x] = '\0';
-		letters_head = remove_by_value(letters_head,x,y-i);
-	      }
-	  }
-
-	//down(3)
-	if(dir == 3)
-	  {
-	    for(int i =y;i<y+len;++i)
-	      {
-		map[i][x] = '\0';
-		letters_head = remove_by_value(letters_head,x,i);
-	      }
-	  }
-		
-      }
-    printf("\n");
-    found_words_counter = 0;
+    erase_blocks();
   }
 
 }
@@ -169,4 +120,60 @@ void draw_labels(void)
   char _score[30];
   sprintf(_score,"score:%s",score_line);
   DrawText(_score,550,200,32,WHITE);
+}
+void erase_blocks(void)
+{
+  for(int i = 0;i<found_words_counter;++i)
+    {	
+      short dir = found_words_data[i].dir;
+      int x     = found_words_data[i].x;
+      int y     = found_words_data[i].y;
+      int len   = strlen(found_words[i]);
+      score     += len*10;
+      
+      //right(1)
+      if(dir == 1)
+	{
+	  for(int i = x;i<x+len;i++)
+	    {
+	      map[y][i] = '\0';
+	      letters_head = remove_by_value(letters_head,i,y);
+	    }
+	}
+      
+      //left(0)
+      if(dir == 0)
+	{
+	  for(int i = 0;i<len;++i)
+	    {
+	      map[y][x-i] = '\0';
+	      letters_head = remove_by_value(letters_head,x-i,y);
+	    }
+	}
+      
+      //up(2)
+      if(dir == 2)
+	{
+	  for(int i =0;i<len;++i)
+	    {
+	      map[y-i][x] = '\0';
+	      letters_head = remove_by_value(letters_head,x,y-i);
+	    }
+	}
+
+      //down(3)
+      if(dir == 3)
+	{
+	  for(int i =y;i<y+len;++i)
+	    {
+	      map[i][x] = '\0';
+	      letters_head = remove_by_value(letters_head,x,i);
+	      }
+	}		
+    }
+  found_words_counter = 0;
+}
+void reupdate_blocks(void)
+{
+
 }
