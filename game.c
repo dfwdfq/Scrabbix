@@ -153,5 +153,7 @@ void draw_labels(void)
   
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
-  DrawText(str,625,300,32,BLACK);  
+  DrawText(str,625,300,32,BLACK);
+
+  DrawText("Scrabbix",540,20,56,WHITE);
 }
