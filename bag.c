@@ -9,9 +9,9 @@ void init_bag(void)
   srand(time(0));
   memcpy(bag,
 	 "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
-	 99);
+	 98);
 
-    shuffle(bag,100);
+    shuffle(bag,98);
 }
 void shuffle(char* array, size_t n)
 {
