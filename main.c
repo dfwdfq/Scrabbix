@@ -18,7 +18,7 @@ int main()
       EndDrawing();
       
     }
-
+  free_game();
   CloseWindow();
   return 0;
 }
