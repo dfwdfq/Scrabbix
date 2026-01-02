@@ -124,12 +124,12 @@ void draw_labels(void)
 }
 void erase_blocks(void)
 {
-  for(int i = 0;i<found_words_counter;++i)
+  for(int n = 0;n<found_words_counter;++n)
     {	
-      short dir = found_words_data[i].dir;
-      int x     = found_words_data[i].x;
-      int y     = found_words_data[i].y;
-      int len   = strlen(found_words[i]);
+      short dir = found_words_data[n].dir;
+      int x     = found_words_data[n].x;
+      int y     = found_words_data[n].y;
+      int len   = strlen(found_words[n]);
       score     += len*10;
       
       //right(1)
