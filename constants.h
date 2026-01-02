@@ -13,4 +13,7 @@
 #define MAP_HEIGHT 14
 #define MAP_WIDTH  8
 
+#define DEBUG 
+
+
 #endif
