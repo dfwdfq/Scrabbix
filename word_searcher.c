@@ -35,7 +35,7 @@ void search(VertexListNode* head)
 {
   VertexListNode* current = head;
 
-  char word[8];
+  char word[14];
   int i = 0;
   while(current != NULL)
     {
