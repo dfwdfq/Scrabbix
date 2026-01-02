@@ -40,10 +40,10 @@ void search(VertexListNode* head)
 	     
       search_leftward(current->x,current->y,word);
       conv_to_lower(word);
-      printf("word found in left direction:%s %d\n",word,strlen(word));
+      printf("word found in left direction:%s %ld\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -53,10 +53,10 @@ void search(VertexListNode* head)
 
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
-      printf("word found right direction:%s %d\n",word,strlen(word));
+      printf("word found right direction:%s %ld\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -66,10 +66,10 @@ void search(VertexListNode* head)
 
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
-      printf("word found upward:%s %d\n",word,strlen(word));
+      printf("word found upward:%s %ld\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -79,10 +79,10 @@ void search(VertexListNode* head)
 
       search_downward(current->x,current->y,word);
       conv_to_lower(word);
-      printf("word found downward:%s %d\n",word,strlen(word));
+      printf("word found downward:%s %ld\n",word,strlen(word));
       if(does_match(word))
 	{
-	  printf("%s matched! len:%d\n",word,strlen(word));
+	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  found_words_data[found_words_counter].x = current->x;
 	  found_words_data[found_words_counter].y = current->y;
@@ -150,11 +150,9 @@ void search_upward(int start_x, int start_y, char* word)
 }
 void conv_to_lower(char* word)
 {
-  int i =0;
-  while(1)
+  for (int i = 0; word[i] != '\0'; i++)
     {
-      if(i == MAP_WIDTH)break;
-      word[i++] = tolower(word[i]);
+      word[i] = tolower(word[i]);
     }
 }
 int str_cmp(const void* str1, const void* str2)
