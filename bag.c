@@ -1,19 +1,26 @@
 #include"bag.h"
 
 char bag[100];
-char test_bag[3] = {'T','S','I'};
 int current_letter = 0;
 
 
 void init_bag(void)
 {
+
   srand(time(0));
+#ifndef DEBUG 
   memcpy(bag,
 	 "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
 	 98);
 
     shuffle(bag,98);
-
+#endif
+#ifdef DEBUG 
+    memcpy(bag,
+	   "CATBAGWORDHELLOBINBITDOGBOTBONEWELLHELLDEATHWORLDWISDOMLOVEHATEVAGINASEXGOBLINUNOMAMATINFOILFFF",
+	   98);
+#endif
+    
 }
 void shuffle(char* array, size_t n)
 {
@@ -35,7 +42,4 @@ char get_next_letter(void)
     }
   return bag[current_letter++];
 }
-char get_next_test_letter(void)
-{
-  return test_bag[current_letter++];
-}
+
