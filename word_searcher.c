@@ -120,15 +120,7 @@ void search_leftward(int start_x, int start_y, char* word)
     word[i++] = map[start_y][x];
     x--;
   }
-  word[i] = '\0';
-  
-  int len = i;
-  for(int j = 0; j < len/2; j++)
-  {
-    char temp = word[j];
-    word[j] = word[len-1-j];
-    word[len-1-j] = temp;
-  }
+  word[i] = '\0';  
 }
 
 void search_downward(int start_x, int start_y, char* word)
@@ -154,15 +146,7 @@ void search_upward(int start_x, int start_y, char* word)
     word[i++] = map[y][start_x];
     y--;
   }
-  word[i] = '\0';
-  
-  int len = i;
-  for(int j = 0; j < len/2; j++)
-  {
-    char temp = word[j];
-    word[j] = word[len-1-j];
-    word[len-1-j] = temp;
-  }
+  word[i] = '\0';  
 }
 void conv_to_lower(char* word)
 {
