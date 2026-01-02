@@ -23,7 +23,14 @@ bool does_match(char* word)
   //    return found != NULL;
   
 }
-
+void save_found_word(char* word, int x, int y,short dir)
+{
+  strcpy(found_words[found_words_counter],word);
+  found_words_data[found_words_counter].x = x;
+  found_words_data[found_words_counter].y = y;
+  found_words_data[found_words_counter].dir = dir;
+  found_words_counter++;
+}
 void search(VertexListNode* head)
 {
   VertexListNode* current = head;
@@ -44,11 +51,7 @@ void search(VertexListNode* head)
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  strcpy(found_words[found_words_counter],word);
-	  found_words_data[found_words_counter].x = current->x;
-	  found_words_data[found_words_counter].y = current->y;
-	  found_words_data[found_words_counter].dir = 0;
-	  found_words_counter++;
+	  save_found_word(word,current->x,current->y,0);
 	}
 
       search_rightward(current->x,current->y,word);
@@ -57,11 +60,7 @@ void search(VertexListNode* head)
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  strcpy(found_words[found_words_counter],word);
-	  found_words_data[found_words_counter].x = current->x;
-	  found_words_data[found_words_counter].y = current->y;
-	  found_words_data[found_words_counter].dir = 1;
-	  found_words_counter++;
+	  save_found_word(word,current->x,current->y,1);
 	}
 
       search_upward(current->x,current->y,word);
@@ -71,10 +70,7 @@ void search(VertexListNode* head)
 	{
 	  printf("@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
-	  found_words_data[found_words_counter].x = current->x;
-	  found_words_data[found_words_counter].y = current->y;
-	  found_words_data[found_words_counter].dir = 2;
-	  found_words_counter++;
+	  save_found_word(word,current->x,current->y,2);
 	}
 
       search_downward(current->x,current->y,word);
@@ -83,12 +79,7 @@ void search(VertexListNode* head)
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  strcpy(found_words[found_words_counter],word);
-	  found_words_data[found_words_counter].x = current->x;
-	  found_words_data[found_words_counter].y = current->y;
-	  found_words_data[found_words_counter].dir = 3;
-	  found_words_counter++;
-
+	  save_found_word(word,current->x,current->y,3);
 	}
       
       current = current->next;
