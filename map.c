@@ -1,11 +1,11 @@
 #include"map.h"
 
-char map[14][8];
+char map[MAP_HEIGHT][MAP_WIDTH];
 int block_x, block_y;
 
 void init_map(void)
 {
-  for(int i = 0;i<14;++i)
+  for(int i = 0;i<MAP_HEIGHT;++i)
     {
       memset(map[i],'\0',sizeof(char)*8);
     }
@@ -56,8 +56,8 @@ void draw_block(int x, int y,char* str)
 void draw_map(void)
 {
   char str[2];
-  for(int y =0;y<14;++y)
-    for(int x =0;x<8;++x)
+  for(int y =0;y<MAP_HEIGHT;++y)
+    for(int x =0;x<MAP_WIDTH;++x)
       {
 	if(map[y][x] != '\0')
 	  {
@@ -72,7 +72,7 @@ void update_map(void)
      block_y == -1)
     return;
   
-  if(block_y == 13)
+  if(block_y == MAP_HEIGHT-1)
     {
       block_x = -1;
       block_y = -1;

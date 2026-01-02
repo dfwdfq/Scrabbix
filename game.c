@@ -32,7 +32,7 @@ void handle_keys(void)
   if(IsKeyReleased(KEY_D) &&
      block_y != -1)
     {
-      if(block_x < 7 &&
+      if(block_x < MAP_WIDTH-1 &&
 	 map[block_y][block_x+1] == '\0')
 	{
 	  char val = map[block_y][block_x];
@@ -42,7 +42,7 @@ void handle_keys(void)
     }
   if(IsKeyReleased(KEY_S))
     {
-      if(block_y < 13 && map[block_y+1][block_x] == '\0')
+      if(block_y < MAP_HEIGHT-1 && map[block_y+1][block_x] == '\0')
 	{
 	  char val = map[block_y][block_x];
 	  map[block_y][block_x] = '\0';
@@ -56,7 +56,7 @@ void run_game(void)
   
   //this fancy-pancy hack prevents block from being moved when it get stucked
   if(map[block_y+1][block_x] != '\0' ||
-     block_y == 13)
+     block_y == MAP_HEIGHT-1)
     {
       push_node(&letters_head,block_x,block_y); //add new block to list of existing blocks
 
@@ -181,7 +181,6 @@ void reupdate_blocks(void)
   do {
     moved = false;
     VertexListNode* current = letters_head;
-
     while(current != NULL)
     {
       if(current->y < 13)

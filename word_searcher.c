@@ -153,7 +153,7 @@ void conv_to_lower(char* word)
   int i =0;
   while(1)
     {
-      if(i == 8)break;
+      if(i == MAP_WIDTH)break;
       word[i++] = tolower(word[i]);
     }
 }
