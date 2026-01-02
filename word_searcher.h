@@ -16,7 +16,7 @@ typedef struct
 } FWord;
 
 
-extern char found_words[10][8];
+extern char found_words[10][14];
 extern int found_words_counter;
 extern FWord found_words_data[10];
 

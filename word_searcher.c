@@ -1,7 +1,7 @@
 #include"word_searcher.h"
 
 
-char found_words[10][8];
+char found_words[10][14];
 FWord found_words_data[10];
 int found_words_counter = 0;
 
@@ -11,7 +11,7 @@ bool does_match(char* word)
   //sure it's not good, because it's O(n), but I tried bsearch and it didn't work  
   for(size_t n = 0;n<google_words_len;++n)
       {
-	if(str_cmp(word,google_words[n]) == 0)
+	if(strcmp(word,google_words[n]) == 0)
 	  {
 	    printf("%s matches %s\n",word,google_words[n]);
 	    return true;
@@ -157,5 +157,8 @@ void conv_to_lower(char* word)
 }
 int str_cmp(const void* str1, const void* str2)
 {
-  return strcmp((char *) str1, (char *) str2);
+  const char *key = (const char*)str1;
+  const char *element = *(const char**)str2;
+  
+  return strcmp(key, element);
 }
