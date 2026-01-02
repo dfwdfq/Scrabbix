@@ -44,8 +44,8 @@ VertexListNode* remove_by_value(VertexListNode* head,
   VertexListNode *prev    = NULL;
 
   while(current != NULL &&
-	current->x != x &&
-	current->y != y)
+	!(current->x == x &&
+	  current->y == y))
     {
       prev = current;
       current = current->next;
