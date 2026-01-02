@@ -6,7 +6,7 @@
 #include<time.h>
 #include"constants.h"
 
-extern char bag[100];
+extern char bag[98];
 extern int current_letter;
 
 extern void init_bag(void);
