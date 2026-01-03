@@ -22,6 +22,8 @@ extern FWord found_words_data[10];
 
 extern void search(VertexListNode* head);
 extern void save_found_word(char* word, int x, int y,short dir);
+
+extern char* get_next_substring(const char* str, int reset,int* start_index);
 extern bool does_match(char* word);
 extern int str_cmp(const void* str1, const void* str2);
 

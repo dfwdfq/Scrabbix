@@ -36,58 +36,199 @@ void search(VertexListNode* head)
   VertexListNode* current = head;
 
   char word[14];
-  int i = 0;
+  char* substr = NULL;
+  int substr_start = -1;
+  int i = 0;  
   while(current != NULL)
     {
-      
+#if PRINT_DEBUG == 1      
       printf("%d# letter:%c\n",
 	     i,
 	     map[current->y][current->x]);
-      
+#endif      
 	     
       search_leftward(current->x,current->y,word);
       conv_to_lower(word);
+#if PRINT_DEBUG == 1       
       printf("word found in left direction:%s %ld\n",word,strlen(word));
+#endif      
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  save_found_word(word,current->x,current->y,0);
 	}
+      else
+	{
+	  substr = get_next_substring(word,1,&substr_start);
+	  while (substr != NULL)
+	    {
+	      //check word
+	      if(does_match(substr))
+		{
+		  printf("##@@@@@@%s substr matched in left! start pos:%d\n",substr,substr_start);
+		  save_found_word(substr,current->x-substr_start,current->y,0);
+		}
+
+	      free(substr);	      
+	      substr = get_next_substring(NULL, 0,&substr_start);
+	    }
+	}
 
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
+#if PRINT_DEBUG == 1      
       printf("word found right direction:%s %ld\n",word,strlen(word));
+#endif      
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  save_found_word(word,current->x,current->y,1);
 	}
+      else
+	{
+	  substr = get_next_substring(word,1,&substr_start);
+	  while (substr != NULL)
+	    {
+	      //check word
+	      if(does_match(substr))
+		{
+		  printf("##@@@@@@%s substr matched in right! substr start:%d\n",substr,substr_start);
+		  save_found_word(substr,current->x+substr_start,current->y,1);
+		}
+
+	      free(substr);	      
+	      substr = get_next_substring(NULL, 0,&substr_start);
+	    }
+	}
 
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
+#if PRINT_DEBUG == 1      
       printf("word found upward:%s %ld\n",word,strlen(word));
+#endif      
       if(does_match(word))
 	{
 	  printf("@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  strcpy(found_words[found_words_counter],word);
 	  save_found_word(word,current->x,current->y,2);
 	}
+      else
+	{
+	  substr = get_next_substring(word,1,&substr_start);
+	  while (substr != NULL)
+	    {
+	      //check word
+	      if(does_match(substr))
+		{
+		  printf("##@@@@@@%s substr matched in up! substr start:%d\n",substr,substr_start);
+		  save_found_word(substr,current->x,current->y-substr_start,2);
+		}
+
+	      free(substr);	      
+	      substr = get_next_substring(NULL, 0,&substr_start);
+	    }
+
+	}
 
       search_downward(current->x,current->y,word);
       conv_to_lower(word);
+#if PRINT_DEBUG == 1      
       printf("word found downward:%s %ld\n",word,strlen(word));
+#endif      
       if(does_match(word))
 	{
 	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
 	  save_found_word(word,current->x,current->y,3);
 	}
+      else
+	{
+	  substr = get_next_substring(word,1,&substr_start);
+	  while (substr != NULL)
+	    {
+	      //check word
+	      if(does_match(substr))
+		{
+		  printf("##@@@@@@%s substr matched in down! substr start: %d\n",substr,substr_start);
+		  save_found_word(substr,current->x,current->y+substr_start,3);
+		}
+
+	      free(substr);	      
+	      substr = get_next_substring(NULL, 0,&substr_start);
+	    }
+
+	}
       
       current = current->next;
       i++;
+
+      get_next_substring(NULL,1,&substr_start); //reset
     }
   printf("\n\n");
-
 }
+char* get_next_substring(const char* str, int reset, int* start_index)
+{
+  static const char* saved_str = NULL;
+  static int len = 0;
+  static int sub_len = 3;
+  static int start = 0;
+  
+  if (reset || str != NULL)
+    {
+      if (str != NULL)
+        {
+	  saved_str = str;
+	  len = strlen(str);
+        }
+      else
+        {
+	  saved_str = NULL;
+	  len = 0;
+        }
+        sub_len = 3;
+        start = 0;
+        
+        if (str == NULL && reset)
+	  {
+            if (start_index) *start_index = -1;
+            return NULL;
+	  }
+    }
+  
+  if (saved_str == NULL || len < 3)
+    {
+      if (start_index) *start_index = -1;
+      return NULL;
+    }
+  
+  while (sub_len <= 13 && sub_len <= len)
+    {
+      if (start <= len - sub_len)
+        {
+	  char* substr = (char*)malloc(sub_len + 1);
+	  if (!substr) 
+            {
+	      if (start_index) *start_index = -1;
+	      return NULL;
+            }
+	  
+	  strncpy(substr, saved_str + start, sub_len);
+	  substr[sub_len] = '\0';
+          
+	  if (start_index) 
+	    *start_index = start;
+	  
+	  start++;            
+	  return substr;
+        }
+      
+      sub_len++;
+      start = 0;
+    }
+  
+  if (start_index) *start_index = -1;
+  return NULL;
+}
+
 void search_rightward(int start_x, int start_y, char* word)
 {
   int x = start_x;
