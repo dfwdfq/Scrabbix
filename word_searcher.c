@@ -52,111 +52,78 @@ void search(VertexListNode* head)
 #if PRINT_DEBUG == 1       
       printf("word found in left direction:%s %ld\n",word,strlen(word));
 #endif      
-      if(does_match(word))
+      substr = get_next_substring(word,1,&substr_start);
+      while (substr != NULL)
 	{
-	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  save_found_word(word,current->x,current->y,0);
-	}
-      else
-	{
-	  substr = get_next_substring(word,1,&substr_start);
-	  while (substr != NULL)
+	  //check word
+	  if(does_match(substr))
 	    {
-	      //check word
-	      if(does_match(substr))
-		{
-		  printf("##@@@@@@%s substr matched in left! start pos:%d\n",substr,substr_start);
-		  save_found_word(substr,current->x-substr_start,current->y,0);
-		}
-
-	      free(substr);	      
-	      substr = get_next_substring(NULL, 0,&substr_start);
+	      printf("##@@@@@@%s substr matched in left! start pos:%d\n",substr,substr_start);
+	      save_found_word(substr,current->x-substr_start,current->y,0);
 	    }
+	  
+	  free(substr);	      
+	  substr = get_next_substring(NULL, 0,&substr_start);
 	}
+
 
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found right direction:%s %ld\n",word,strlen(word));
 #endif      
-      if(does_match(word))
+      substr = get_next_substring(word,1,&substr_start);
+      while (substr != NULL)
 	{
-	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  save_found_word(word,current->x,current->y,1);
-	}
-      else
-	{
-	  substr = get_next_substring(word,1,&substr_start);
-	  while (substr != NULL)
+	  //check word
+	  if(does_match(substr))
 	    {
-	      //check word
-	      if(does_match(substr))
-		{
-		  printf("##@@@@@@%s substr matched in right! substr start:%d\n",substr,substr_start);
-		  save_found_word(substr,current->x+substr_start,current->y,1);
-		}
-
-	      free(substr);	      
-	      substr = get_next_substring(NULL, 0,&substr_start);
+	      printf("##@@@@@@%s substr matched in right! substr start:%d\n",substr,substr_start);
+	      save_found_word(substr,current->x+substr_start,current->y,1);
 	    }
+
+	  free(substr);	      
+	  substr = get_next_substring(NULL, 0,&substr_start);
 	}
+
 
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found upward:%s %ld\n",word,strlen(word));
 #endif      
-      if(does_match(word))
+      substr = get_next_substring(word,1,&substr_start);
+      while (substr != NULL)
 	{
-	  printf("@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  strcpy(found_words[found_words_counter],word);
-	  save_found_word(word,current->x,current->y,2);
-	}
-      else
-	{
-	  substr = get_next_substring(word,1,&substr_start);
-	  while (substr != NULL)
+	  //check word
+	  if(does_match(substr))
 	    {
-	      //check word
-	      if(does_match(substr))
-		{
-		  printf("##@@@@@@%s substr matched in up! substr start:%d\n",substr,substr_start);
-		  save_found_word(substr,current->x,current->y-substr_start,2);
-		}
-
-	      free(substr);	      
-	      substr = get_next_substring(NULL, 0,&substr_start);
+	      printf("##@@@@@@%s substr matched in up! substr start:%d\n",substr,substr_start);
+	      save_found_word(substr,current->x,current->y-substr_start,2);
 	    }
-
+	  
+	  free(substr);	      
+	  substr = get_next_substring(NULL, 0,&substr_start);
 	}
-
+      
       search_downward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found downward:%s %ld\n",word,strlen(word));
 #endif      
-      if(does_match(word))
+      substr = get_next_substring(word,1,&substr_start);
+      while (substr != NULL)
 	{
-	  printf("@@@@@@@@%s matched! len:%ld\n",word,strlen(word));
-	  save_found_word(word,current->x,current->y,3);
-	}
-      else
-	{
-	  substr = get_next_substring(word,1,&substr_start);
-	  while (substr != NULL)
+	  //check word
+	  if(does_match(substr))
 	    {
-	      //check word
-	      if(does_match(substr))
-		{
-		  printf("##@@@@@@%s substr matched in down! substr start: %d\n",substr,substr_start);
-		  save_found_word(substr,current->x,current->y+substr_start,3);
-		}
-
-	      free(substr);	      
-	      substr = get_next_substring(NULL, 0,&substr_start);
+	      printf("##@@@@@@%s substr matched in down! substr start: %d\n",substr,substr_start);
+	      save_found_word(substr,current->x,current->y+substr_start,3);
 	    }
-
-	}
+	  
+	  free(substr);	      
+	  substr = get_next_substring(NULL, 0,&substr_start);
+	}	
       
       current = current->next;
       i++;
