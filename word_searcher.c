@@ -8,7 +8,8 @@ int found_words_counter = 0;
 bool does_match(char* word)
 {  
   //just for now
-  //sure it's not good, because it's O(n), but I tried bsearch and it didn't work  
+  //sure it's not good, because it's O(n), but I tried bsearch and it didn't work
+  
   for(size_t n = 0;n<google_words_len;++n)
       {
 	if(strcmp(word,google_words[n]) == 0)
@@ -22,12 +23,24 @@ bool does_match(char* word)
       }
 
     return false;
+  
   //    char** found = (char**) bsearch(&word,google_words,google_words_len,sizeof(char*),str_cmp);
   //    return found != NULL;
-  
+   
 }
 void save_found_word(char* word, int x, int y,short dir)
 {
+  //check is word already added
+  //linear search is not ok, but good enough since little amount
+  for(int i = 0;i<found_words_counter;++i)
+    {
+      if(strcmp(word,found_words[i]) == 0)
+	{
+	  DEBUG_PRINT(ANSI_GREEN,"%s is already added!\n",word);
+	  return;
+	}
+    }
+  
   strcpy(found_words[found_words_counter],word);
   found_words_data[found_words_counter].x = x;
   found_words_data[found_words_counter].y = y;
@@ -269,10 +282,29 @@ void conv_to_lower(char* word)
       word[i] = tolower(word[i]);
     }
 }
-int str_cmp(const void* str1, const void* str2)
+bool str_bsearch(char** arr,int size,const char* key)
 {
-  const char *key = (const char*)str1;
-  const char *element = *(const char**)str2;
+  int left = 0;
+  int right = size - 1;
+    
+  while (left <= right)
+    {
+    int mid = left + (right - left) / 2;
+    int cmp = strcmp(arr[mid], key);
+    
+    if (cmp == 0)
+      {
+	return true;
+      }
+    else if (cmp < 0)
+      {
+	left = mid + 1; 
+      }
+    else
+      {
+	right = mid - 1;
+      }
+    }
   
-  return strcmp(key, element);
+  return false;
 }
