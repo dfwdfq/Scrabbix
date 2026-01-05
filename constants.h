@@ -13,7 +13,13 @@
 #define MAP_HEIGHT 14
 #define MAP_WIDTH  8
 
-#define DEBUG 2
+#define LEFT  0
+#define RIGHT 1
+#define UP    2
+#define DOWN  3
+
+#define DEBUG 1
+#define PRINT_DEBUG 1
 
 
 #endif
