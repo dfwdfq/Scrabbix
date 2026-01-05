@@ -132,8 +132,7 @@ void erase_blocks(void)
       int len   = strlen(found_words[n]);
       score     += len*10;
       
-      //right(1)
-      if(dir == 1)
+      if(dir == RIGHT)
 	{
 	  for(int i = x;i<x+len;i++)
 	    {
@@ -142,8 +141,7 @@ void erase_blocks(void)
 	    }
 	}
       
-      //left(0)
-      if(dir == 0)
+      if(dir == LEFT)
 	{
 	  for(int i = 0;i<len;++i)
 	    {
@@ -152,9 +150,9 @@ void erase_blocks(void)
 	    }
 	}
       
-      //up(2)
-      if(dir == 2)
+      if(dir == UP)
 	{
+	  printf("%s %d y=%d\n",found_words[n],len,y);	  
 	  for(int i =0;i<len;++i)
 	    {
 	      map[y-i][x] = '\0';
@@ -162,8 +160,7 @@ void erase_blocks(void)
 	    }
 	}
 
-      //down(3)
-      if(dir == 3)
+      if(dir == DOWN)
 	{
 	  for(int i =y;i<y+len;++i)
 	    {
