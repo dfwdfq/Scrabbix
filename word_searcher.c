@@ -13,7 +13,10 @@ bool does_match(char* word)
       {
 	if(strcmp(word,google_words[n]) == 0)
 	  {
-	    printf("%s matches %s\n",word,google_words[n]);
+	    DEBUG_PRINT(ANSI_RED,
+			"%s matches %s\n",
+			word,
+			google_words[n]);
 	    return true;
 	  }
       }
@@ -67,7 +70,11 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
       //check word
       if(does_match(substr))
 	{
-	  printf("##@@@@@@%s substr found! start pos:%d\n",substr,substr_start);
+	  DEBUG_PRINT(ANSI_RED,
+		      "##@@@@@@%s substr found! start pos:%d\n",
+		      substr,
+		      substr_start);
+	  
 	  save_found_word(substr,
 			  x_pos+(substr_start*x),
 			  y_pos+(substr_start*y),
@@ -77,7 +84,6 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
       free(substr);	      
       substr = get_next_substring(NULL, 0,&substr_start);
     }
-
 }
 void search(VertexListNode* head)
 {
@@ -85,52 +91,61 @@ void search(VertexListNode* head)
 
   char word[14];
   int i = 0;
-  
   while(current != NULL)
     {
-#if PRINT_DEBUG == 1      
-      printf("%d# letter:%c\n",
-	     i,
-	     map[current->y][current->x]);
-#endif      
-	     
+      DEBUG_PRINT(ANSI_RESET,
+		  "%d# letter:%c\n",
+		  i,
+		  map[current->y][current->x]);
+
+
+      //LEFT DIRECTION
       search_leftward(current->x,current->y,word);
       conv_to_lower(word);
       search_word(word,LEFT,current->x,current->y);
-#if PRINT_DEBUG == 1       
-      printf("word found in left direction:%s %ld\n",word,strlen(word));
-#endif      
+      
+      DEBUG_PRINT(ANSI_RESET,
+		  "word found in left direction:%s %ld\n",
+		  word,
+		  strlen(word));
       
 
+      //RIGHT DIRECTION
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
-#if PRINT_DEBUG == 1      
-      printf("word found right direction:%s %ld\n",word,strlen(word));
-#endif      
       search_word(word,RIGHT,current->x,current->y);
 
+      DEBUG_PRINT(ANSI_RESET,
+		  "word found right direction:%s %ld\n",
+		  word,
+		  strlen(word));
+
+      //UP DIRECTION
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
-#if PRINT_DEBUG == 1      
-      printf("word found upward:%s %ld\n",word,strlen(word));
-#endif      
       search_word(word,UP,current->x,current->y);
       
+      DEBUG_PRINT(ANSI_RESET,
+		  "word found upward:%s %ld\n",
+		  word,
+		  strlen(word));
+
+      //DOWN DIRECTION
       search_downward(current->x,current->y,word);
       conv_to_lower(word);
-#if PRINT_DEBUG == 1      
-      printf("word found downward:%s %ld\n",word,strlen(word));
-#endif      
       search_word(word,DOWN,current->x,current->y);
+      
+      DEBUG_PRINT(ANSI_RESET,
+		  "word found downward:%s %ld\n",
+		  word,
+		  strlen(word));
       
       current = current->next;
       i++;
-
       get_next_substring(NULL,1,NULL); //reset generator
     }
-#if PRINT_DEBUG == 1  
-  printf("\n\n");
-#endif  
+
+  DEBUG_PRINT_SEPARATOR;
 }
 char* get_next_substring(const char* str, int reset, int* start_index)
 {
