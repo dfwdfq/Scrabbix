@@ -31,14 +31,61 @@ void save_found_word(char* word, int x, int y,short dir)
   found_words_data[found_words_counter].dir = dir;
   found_words_counter++;
 }
+void search_word(char* word,short dir,int x_pos, int y_pos)
+{
+  char* substr = NULL;
+  int substr_start = -1;
+
+  int x,y;
+  if(dir == 0)//left
+    {
+      x=-1;
+      y= 0;
+    }
+  else
+  if(dir == 1)
+    {
+      x=1;
+      y=0;
+    }
+  else
+  if(dir == 2)
+    {
+      x=0;
+      y=-1;
+    }
+  else
+  if(dir == 3)
+    {
+      x=0;
+      y=1;
+    }
+  
+  substr = get_next_substring(word,1,&substr_start);
+  while (substr != NULL)
+    {
+      //check word
+      if(does_match(substr))
+	{
+	  printf("##@@@@@@%s substr found! start pos:%d\n",substr,substr_start);
+	  save_found_word(substr,
+			  x_pos+(substr_start*x),
+			  y_pos+(substr_start*y),
+			  dir);
+	}
+      
+      free(substr);	      
+      substr = get_next_substring(NULL, 0,&substr_start);
+    }
+
+}
 void search(VertexListNode* head)
 {
   VertexListNode* current = head;
 
   char word[14];
-  char* substr = NULL;
-  int substr_start = -1;
-  int i = 0;  
+  int i = 0;
+  
   while(current != NULL)
     {
 #if PRINT_DEBUG == 1      
@@ -49,88 +96,41 @@ void search(VertexListNode* head)
 	     
       search_leftward(current->x,current->y,word);
       conv_to_lower(word);
+      search_word(word,LEFT,current->x,current->y);
 #if PRINT_DEBUG == 1       
       printf("word found in left direction:%s %ld\n",word,strlen(word));
 #endif      
-      substr = get_next_substring(word,1,&substr_start);
-      while (substr != NULL)
-	{
-	  //check word
-	  if(does_match(substr))
-	    {
-	      printf("##@@@@@@%s substr matched in left! start pos:%d\n",substr,substr_start);
-	      save_found_word(substr,current->x-substr_start,current->y,0);
-	    }
-	  
-	  free(substr);	      
-	  substr = get_next_substring(NULL, 0,&substr_start);
-	}
-
+      
 
       search_rightward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found right direction:%s %ld\n",word,strlen(word));
 #endif      
-      substr = get_next_substring(word,1,&substr_start);
-      while (substr != NULL)
-	{
-	  //check word
-	  if(does_match(substr))
-	    {
-	      printf("##@@@@@@%s substr matched in right! substr start:%d\n",substr,substr_start);
-	      save_found_word(substr,current->x+substr_start,current->y,1);
-	    }
-
-	  free(substr);	      
-	  substr = get_next_substring(NULL, 0,&substr_start);
-	}
-
+      search_word(word,RIGHT,current->x,current->y);
 
       search_upward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found upward:%s %ld\n",word,strlen(word));
 #endif      
-      substr = get_next_substring(word,1,&substr_start);
-      while (substr != NULL)
-	{
-	  //check word
-	  if(does_match(substr))
-	    {
-	      printf("##@@@@@@%s substr matched in up! substr start:%d\n",substr,substr_start);
-	      save_found_word(substr,current->x,current->y-substr_start,2);
-	    }
-	  
-	  free(substr);	      
-	  substr = get_next_substring(NULL, 0,&substr_start);
-	}
+      search_word(word,UP,current->x,current->y);
       
       search_downward(current->x,current->y,word);
       conv_to_lower(word);
 #if PRINT_DEBUG == 1      
       printf("word found downward:%s %ld\n",word,strlen(word));
 #endif      
-      substr = get_next_substring(word,1,&substr_start);
-      while (substr != NULL)
-	{
-	  //check word
-	  if(does_match(substr))
-	    {
-	      printf("##@@@@@@%s substr matched in down! substr start: %d\n",substr,substr_start);
-	      save_found_word(substr,current->x,current->y+substr_start,3);
-	    }
-	  
-	  free(substr);	      
-	  substr = get_next_substring(NULL, 0,&substr_start);
-	}	
+      search_word(word,DOWN,current->x,current->y);
       
       current = current->next;
       i++;
 
-      get_next_substring(NULL,1,&substr_start); //reset
+      get_next_substring(NULL,1,NULL); //reset generator
     }
+#if PRINT_DEBUG == 1  
   printf("\n\n");
+#endif  
 }
 char* get_next_substring(const char* str, int reset, int* start_index)
 {
