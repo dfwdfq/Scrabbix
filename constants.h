@@ -18,8 +18,20 @@
 #define UP    2
 #define DOWN  3
 
-#define DEBUG 1
+#define DEBUG 1//if 1, use pre-defined test bag
 #define PRINT_DEBUG 1
 
+#if PRINT_DEBUG == 1
+    #define ANSI_RESET   "\033[0m"
+    #define ANSI_RED     "\033[31m"
+    #define ANSI_GREEN   "\033[32m"
+    #define ANSI_YELLOW  "\033[33m"
+    #define ANSI_BLUE    "\033[34m"
+    #define ANSI_MAGENTA "\033[35m"
+    #define ANSI_CYAN    "\033[36m"
+    
+    #define DEBUG_PRINT(color, format, ...) printf(color "[DEBUG]" ANSI_RESET " " format, ##__VA_ARGS__)
+    #define DEBUG_PRINT_SEPARATOR printf("\n\n\n")
 
+#endif
 #endif
