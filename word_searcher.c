@@ -53,25 +53,25 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
   int substr_start = -1;
 
   int x,y;
-  if(dir == 0)//left
+  if(dir == LEFT)
     {
       x=-1;
       y= 0;
     }
   else
-  if(dir == 1)
+  if(dir == RIGHT)
     {
       x=1;
       y=0;
     }
   else
-  if(dir == 2)
+  if(dir == UP)
     {
       x=0;
       y=-1;
     }
   else
-  if(dir == 3)
+  if(dir == DOWN)
     {
       x=0;
       y=1;
@@ -152,6 +152,43 @@ void search(VertexListNode* head)
 		  "word found downward:%s %ld\n",
 		  word,
 		  strlen(word));
+
+
+      //LEFT-DOWN DIRECTION
+      search_L_left_down(current->x,current->y,word);
+      conv_to_lower(word);
+      search_word(word,LEFT_DOWN,current->x,current->y);
+      
+      DEBUG_PRINT(ANSI_CYAN,
+		  "L-word left-down:%s\n",
+		  word);
+
+      //RIGHT-DOWN DIRECTION
+      search_L_right_down(current->x,current->y,word);
+      conv_to_lower(word);
+      search_word(word,RIGHT_DOWN,current->x,current->y);
+      
+      DEBUG_PRINT(ANSI_CYAN,
+		  "L-word right-down:%s\n",
+		  word);
+
+      //LEFT-UP DIRECTION
+      search_L_left_up(current->x,current->y,word);
+      conv_to_lower(word);
+      search_word(word,LEFT_UP,current->x,current->y);
+      
+      DEBUG_PRINT(ANSI_CYAN,
+		  "L-word left-up:%s\n",
+		  word);
+
+      //RIGHT-UP DIRECTION
+      search_L_right_up(current->x,current->y,word);
+      conv_to_lower(word);
+      search_word(word,RIGHT_UP,current->x,current->y);
+      
+      DEBUG_PRINT(ANSI_CYAN,
+		  "L-word right-up:%s\n",
+		  word);
       
       current = current->next;
       i++;
@@ -275,6 +312,78 @@ void search_upward(int start_x, int start_y, char* word)
   }
   word[i] = '\0';  
 }
+void search_L_left_down(int start_x, int start_y, char* word)
+{
+  //can't search
+  if(start_y+1 == 14)return;
+  
+  int y = start_y;
+  int x = start_x;  
+  int i = 0;
+  
+  word[i++] = map[y][x];  
+  ++y;
+  while(x >= 0 && map[y][x] != '\0')
+    {
+      word[i++] = map[y][x];
+      x--;
+    }
+  word[i] = '\0';  
+}
+void search_L_right_down(int start_x, int start_y, char* word)
+{
+  //can't search
+  if(start_y+1 == 14)return;
+  
+  int y = start_y;
+  int x = start_x;  
+  int i = 0;
+  
+  word[i++] = map[y][x];  
+  ++y;
+  while(x < 8 && map[y][x] != '\0')
+    {
+      word[i++] = map[y][x];
+      x++;
+    }
+  word[i] = '\0';  
+}
+void search_L_left_up(int start_x,int start_y, char* word)
+{
+  if(start_y-1 == -1)return;
+
+    int y = start_y;
+    int x = start_x;  
+    int i = 0;
+    
+    word[i++] = map[y][x];
+    --y;
+    while(x >= 0 && map[y][x] != '\0')
+      {
+	word[i++] = map[y][x];
+	x--;
+      }
+    word[i] = '\0';  
+}
+void search_L_right_up(int start_x, int start_y,char* word)
+{
+  //can't search
+  if(start_y-1 == -1)return;
+  
+  int y = start_y;
+  int x = start_x;  
+  int i = 0;
+  
+  word[i++] = map[y][x];  
+  --y;
+  while(x < 8 && map[y][x] != '\0')
+    {
+      word[i++] = map[y][x];
+      x++;
+    }
+  word[i] = '\0';  
+}
+
 void conv_to_lower(char* word)
 {
   for (int i = 0; word[i] != '\0'; i++)
