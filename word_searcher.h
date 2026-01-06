@@ -20,12 +20,10 @@ extern char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_counter;
 extern FWord found_words_data[MAX_FOUND_WORDS_SIZE];
 
-extern void search(VertexListNode* head);
-extern void save_found_word(char* word, int x, int y,short dir);
-
+extern void search(VertexListNode* head); //search.c
 extern void search_word(char* word,short dir,int x_pos,int y_pos);
 
-extern char* get_next_substring(const char* str, int reset,int* start_index);
+extern void save_found_word(char* word, int x, int y,short dir);
 extern bool does_match(char* word);
 
 //horizontal
@@ -45,6 +43,7 @@ extern void search_L_right_up(int start_x,int start_y, char* word);
 //some util functions
 extern void conv_to_lower(char*word);
 extern void reverse_string(char* in, char* out);
+extern char* get_next_substring(const char* str, int reset,int* start_index);
 
 #if USE_BINARY_SEARCH == 1
 //define this function if you are going to use binary search

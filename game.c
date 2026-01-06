@@ -8,7 +8,6 @@ int found_words_labels_counter;
 Color fading_w_color = (Color){255,255,255,255};
 
 
-
 void free_game(void)
 {
   clear_VertexList(letters_head);
