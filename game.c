@@ -3,8 +3,9 @@
 VertexListNode* letters_head;
 int score = 0;
 
-char found_words_labels[10][14];
+char found_words_labels[100][14];
 int found_words_labels_counter;
+Color fading_w_color = (Color){255,255,255,255};
 
 
 #if TEST == 0 || TEST == 13 //13 is sandboxing
@@ -394,7 +395,7 @@ void run_game(void)
   if(found_words_counter > 0)
     {
       UPDATE_ER_TIMER;
-
+      fading_w_color = (Color){255,255,255,255};
       found_words_labels_counter = found_words_counter;
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
@@ -583,7 +584,8 @@ void draw_found_words(void)
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);
-	  DrawText(str,start_x,start_y+(i*50),32,WHITE);	  
+	  DrawText(str,start_x,start_y+(i*50),32,fading_w_color);	  
 	}
+      fading_w_color.a-=1;
     }
 }

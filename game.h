@@ -12,9 +12,9 @@ extern VertexListNode* letters_head;
 extern int score;
 
 
-extern char found_words_labels[10][14];
+extern char found_words_labels[100][14];
 extern int found_words_labels_counter;
-
+extern Color fading_w_color; //fading word color
 
 extern void handle_keys(void);
 
