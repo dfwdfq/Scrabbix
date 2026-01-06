@@ -3,6 +3,10 @@
 VertexListNode* letters_head;
 int score = 0;
 
+char found_words_labels[10][14];
+int found_words_labels_counter;
+
+
 #if TEST == 0 || TEST == 13 //13 is sandboxing
 void init_game(void)
 {
@@ -386,9 +390,16 @@ void run_game(void)
 
 
   //if there are words to erase, start counting down the timer to erase them
+  //also copy them to draw
   if(found_words_counter > 0)
     {
       UPDATE_ER_TIMER;
+
+      found_words_labels_counter = found_words_counter;
+      for(int i = 0;i<found_words_labels_counter;++i)
+	{
+	  strcpy(found_words_labels[i],found_words[i]);
+	}
     }
 
   //erase words
@@ -397,6 +408,11 @@ void run_game(void)
     RESET_ER_TIMER;
     erase_blocks();
     reupdate_blocks();
+    if(IS_FOUND_TIMER_DONE)
+      {
+	found_words_counter = 0;
+	RESET_FOUND_TIMER;
+      }
   }
 
 }
@@ -405,6 +421,7 @@ void draw_game(void)
   draw_borders();
   draw_map();
   draw_labels();
+  draw_found_words();
 }
 void draw_labels(void)
 {
@@ -553,4 +570,20 @@ void reupdate_blocks(void)
       current = current->next;
     }
   } while(moved);
+}
+void draw_found_words(void)
+{
+  char str[40];
+  if(found_words_labels_counter == 0)return;
+  if(!(IS_FOUND_TIMER_DONE))
+    {
+      UPDATE_FOUND_TIMER;
+      int start_x = 570;
+      int start_y = 330;
+      for(int i = 0;i<found_words_labels_counter;++i)
+	{
+	  sprintf(str,"%s found!\n",found_words_labels[i]);
+	  DrawText(str,start_x,start_y+(i*50),32,WHITE);	  
+	}
+    }
 }

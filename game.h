@@ -11,6 +11,11 @@
 extern VertexListNode* letters_head;
 extern int score;
 
+
+extern char found_words_labels[10][14];
+extern int found_words_labels_counter;
+
+
 extern void handle_keys(void);
 
 extern void init_game(void);
@@ -19,6 +24,7 @@ extern void free_game(void);
 extern void run_game(void);
 extern void draw_game(void);
 extern void draw_labels(void);
+extern void draw_found_words(void);
 
 extern void erase_blocks(void);
 extern void reupdate_blocks(void);
