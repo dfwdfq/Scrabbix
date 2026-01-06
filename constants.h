@@ -23,7 +23,7 @@
 #define RIGHT_UP   7
 
 #define DEBUG 1 //if 1, use pre-defined test bag
-#define TEST  13 //set 13 to use sandbox testing
+#define TEST  0 //set 13 to use sandbox testing
 #define PRINT_DEBUG 1
 
 #if PRINT_DEBUG == 1
