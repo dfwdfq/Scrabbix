@@ -1,8 +1,8 @@
 #include"word_searcher.h"
 
 
-char found_words[10][14];
-FWord found_words_data[10];
+char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
+FWord found_words_data[MAX_FOUND_WORDS_SIZE];
 int found_words_counter = 0;
 
 #if USE_BINARY_SEARCH == 1
@@ -16,6 +16,7 @@ bool does_match(char* word)
 {  
   //just for now
   //sure it's not good, because it's O(n), but I tried bsearch and it didn't work
+  //now I use binary search(hoo-ray!)
 #if USE_BINARY_SEARCH != 1  
   for(size_t n = 0;n<google_words_len;++n)
       {

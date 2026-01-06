@@ -9,9 +9,6 @@
 #include"map.h"
 #include"google_words.h"
 
-//if 0, then use linear search(yikes forever!)
-#define USE_BINARY_SEARCH 1
-
 typedef struct
 {
   int x,y; //start position
@@ -19,9 +16,9 @@ typedef struct
 } FWord;
 
 
-extern char found_words[10][14];
+extern char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_counter;
-extern FWord found_words_data[10];
+extern FWord found_words_data[MAX_FOUND_WORDS_SIZE];
 
 extern void search(VertexListNode* head);
 extern void save_found_word(char* word, int x, int y,short dir);
@@ -45,7 +42,7 @@ extern void search_L_right_down(int start_x, int start_y, char* word);
 extern void search_L_left_up(int start_x,int start_y, char* word);
 extern void search_L_right_up(int start_x,int start_y, char* word);
 
-
+//some util functions
 extern void conv_to_lower(char*word);
 extern void reverse_string(char* in, char* out);
 

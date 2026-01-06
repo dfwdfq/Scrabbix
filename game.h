@@ -12,7 +12,7 @@ extern VertexListNode* letters_head;
 extern int score;
 
 
-extern char found_words_labels[100][14];
+extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;
 extern Color fading_w_color; //fading word color
 

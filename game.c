@@ -3,7 +3,7 @@
 VertexListNode* letters_head;
 int score = 0;
 
-char found_words_labels[100][14];
+char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter;
 Color fading_w_color = (Color){255,255,255,255};
 
