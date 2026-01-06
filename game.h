@@ -11,14 +11,13 @@
 extern VertexListNode* letters_head;
 extern int score;
 
-
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;
 extern Color fading_w_color; //fading word color
 
 extern void handle_keys(void);
 
-extern void init_game(void);
+extern void init_game(void);  //init_game.c
 extern void free_game(void);
 
 extern void run_game(void);
