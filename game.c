@@ -3,7 +3,7 @@
 VertexListNode* letters_head;
 int score = 0;
 
-#if TEST == 0
+#if TEST == 0 || TEST == 13 //13 is sandboxing
 void init_game(void)
 {
   init_bag();
@@ -492,7 +492,7 @@ void erase_blocks(void)
 	  for(int i = 0;i<len-1;++i)
 	    {
 	      map[y][x+i] = '\0';
-	      letters_head = remove_by_value(letters_head,x-i,y);
+	      letters_head = remove_by_value(letters_head,x+i,y);
 	    }
 	}
       if(dir == LEFT_UP)
@@ -512,7 +512,7 @@ void erase_blocks(void)
 	  for(int i = 0;i<len-1;++i)
 	    {
 	      map[y][x+i] = '\0';
-	      letters_head = remove_by_value(letters_head,x-i,y);
+	      letters_head = remove_by_value(letters_head,x+i,y);
 	    }
 	}
 
