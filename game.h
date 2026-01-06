@@ -26,5 +26,5 @@ extern void draw_labels(void);
 extern void draw_found_words(void);
 
 extern void erase_blocks(void);    //erase_blocks.c
-extern void reupdate_blocks(void);
+extern void reupdate_blocks(void); //reupdate_blocks.c
 #endif
