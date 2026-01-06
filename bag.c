@@ -10,7 +10,7 @@ void init_bag(void)
   srand(time(0));
 
   //actual bag  
-#if DEBUG == 0
+#if TEST == 0
   memcpy(bag,
 	 "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
 	 98);
@@ -19,13 +19,9 @@ void init_bag(void)
   
   //test bags - different sequences for different tests
 #if DEBUG == 1
-  #if TEST == 11 || TEST == 12
+  #if TEST > 0
   memcpy(bag,
-	 "CATDOGBATRATMATSITBITLITPITFITHITWITZITAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-	 98);
-  #else
-  memcpy(bag,
-	 "coadtwaybbbagdadgreatZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+	 "CAWTBEERTRATMATSITBITLITPITFITHITWITZITAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 	 98);
   #endif
 #endif    
@@ -44,9 +40,9 @@ void shuffle(char* array, size_t n)
 }
 char get_next_letter(void)
 {
-  if(current_letter == 99)
+  if(current_letter == 98)
     {
-      shuffle(bag,100);
+      shuffle(bag,98);
       current_letter = 0;
     }
   return bag[current_letter++];
