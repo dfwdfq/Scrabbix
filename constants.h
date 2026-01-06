@@ -17,8 +17,13 @@
 #define RIGHT 1
 #define UP    2
 #define DOWN  3
+#define LEFT_DOWN  4
+#define RIGHT_DOWN 5
+#define LEFT_UP    6
+#define RIGHT_UP   7
 
-#define DEBUG 1//if 1, use pre-defined test bag
+#define DEBUG 1 //if 1, use pre-defined test bag
+#define TEST  12
 #define PRINT_DEBUG 1
 
 #if PRINT_DEBUG == 1
