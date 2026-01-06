@@ -9,6 +9,9 @@
 #include"map.h"
 #include"google_words.h"
 
+//if 0, then use linear search(yikes forever!)
+#define USE_BINARY_SEARCH 1
+
 typedef struct
 {
   int x,y; //start position
@@ -45,5 +48,10 @@ extern void search_L_right_up(int start_x,int start_y, char* word);
 
 extern void conv_to_lower(char*word);
 extern void reverse_string(char* in, char* out);
+
+#if USE_BINARY_SEARCH == 1
+//define this function if you are going to use binary search
+int str_cmp(const void* a, const void* b);
+#endif
 
 #endif

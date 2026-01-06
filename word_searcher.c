@@ -5,11 +5,18 @@ char found_words[10][14];
 FWord found_words_data[10];
 int found_words_counter = 0;
 
+#if USE_BINARY_SEARCH == 1
+int str_cmp(const void* a, const void* b)
+{
+  return strcmp(*(const char**)a, *(const char**)b);
+}
+#endif
+
 bool does_match(char* word)
 {  
   //just for now
   //sure it's not good, because it's O(n), but I tried bsearch and it didn't work
-  
+#if USE_BINARY_SEARCH != 1  
   for(size_t n = 0;n<google_words_len;++n)
       {
 	if(strcmp(word,google_words[n]) == 0)
@@ -21,11 +28,16 @@ bool does_match(char* word)
 	    return true;
 	  }
       }
-
-    return false;
   
-  //    char** found = (char**) bsearch(&word,google_words,google_words_len,sizeof(char*),str_cmp);
-  //    return found != NULL;
+    return false;
+#endif
+#if USE_BINARY_SEARCH == 1
+    char** found = bsearch(&word,
+			   google_words,
+			   google_words_len, 
+			   sizeof(char*), str_cmp);
+    return found != NULL;
+#endif    
    
 }
 void save_found_word(char* word, int x, int y,short dir)

@@ -1,9 +1,14 @@
 #include<raylib.h>
+#include<stdlib.h>
 #include"constants.h"
 #include"game.h"
 
 int main()
 {
+#if USE_BINARY_SEARCH == 1
+    qsort(google_words, google_words_len, sizeof(char*), str_cmp);
+#endif
+  
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetTargetFPS(60);
 
