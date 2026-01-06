@@ -44,5 +44,6 @@ extern void search_L_right_up(int start_x,int start_y, char* word);
 
 
 extern void conv_to_lower(char*word);
+extern void reverse_string(char* in, char* out);
 
 #endif
