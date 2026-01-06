@@ -43,7 +43,7 @@ extern void search_L_right_up(int start_x,int start_y, char* word);
 //some util functions
 extern void conv_to_lower(char*word);
 extern void reverse_string(char* in, char* out);
-extern char* get_next_substring(const char* str, int reset,int* start_index);
+extern char* get_next_substring(const char* str, int reset,int* start_index); //get_next_substring.c
 
 #if USE_BINARY_SEARCH == 1
 //define this function if you are going to use binary search
