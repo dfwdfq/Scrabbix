@@ -2,6 +2,7 @@
 #define GAME_H
 #include<stddef.h>
 #include<stdio.h>
+#include<stdbool.h>
 #include"map.h"
 #include"timer.h"
 #include"bag.h"
@@ -10,6 +11,7 @@
 
 extern VertexListNode* letters_head;
 extern int score;
+extern bool _pause;
 
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;

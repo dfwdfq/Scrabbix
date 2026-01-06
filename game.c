@@ -2,6 +2,7 @@
 
 VertexListNode* letters_head;
 int score = 0;
+bool _pause = false;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter;
@@ -130,6 +131,11 @@ void draw_labels(void)
   char _score[30];
   sprintf(_score,"score:%s",score_line);
   DrawText(_score,550,200,32,WHITE);
+
+  if(_pause)
+    {
+      DrawText("paused!",550,840,48,WHITE);
+    }
 }
 
 void draw_found_words(void)
