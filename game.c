@@ -3,6 +3,7 @@
 VertexListNode* letters_head;
 int score = 0;
 bool _pause = false;
+bool victory = false, game_over=false;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter;
