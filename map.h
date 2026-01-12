@@ -4,6 +4,7 @@
 #include<stdio.h> //sprintf
 #include<string.h>
 #include"constants.h"
+#include"font.h"
 
 //get drawable position
 #define GPX(x) (4+ BORDER_OX+(x*CELL_SIZE) ) 
@@ -16,8 +17,8 @@ extern int block_x, block_y;
 void init_map(void);
 
 extern void draw_borders(void);
-extern void draw_block(int x, int y,char* str);
-extern void draw_map(void);
+extern void draw_block(int x, int y,char* str,Font* font);
+extern void draw_map(Font* font);
 extern void update_map(void);
 
 extern void generate_random_start_pos(void);

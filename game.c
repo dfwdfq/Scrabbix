@@ -9,6 +9,20 @@ char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter;
 Color fading_w_color = (Color){255,255,255,255};
 
+Font font32,font48,font56;
+
+void load_fonts(void)
+{
+  font32 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
+  font48 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,58,NULL,0);
+  font56 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,64,NULL,0);
+}
+void unload_fonts(void)
+{
+  UnloadFont(font32);
+  UnloadFont(font48);
+  UnloadFont(font56);
+}
 
 void free_game(void)
 {
@@ -106,20 +120,23 @@ void run_game(void)
 void draw_game(void)
 {
   draw_borders();
-  draw_map();
+  draw_map(&font48);
   draw_labels();
   draw_found_words();
 }
 void draw_labels(void)
 {
-  DrawText("next:",570,250,32,WHITE);
-  DrawRectangle(655,250,CELL_SIZE/2,CELL_SIZE/2,WHITE);
+  //DrawText("next:",570,250,32,WHITE);
+  DrawTextEx(font32,"next:",(Vector2){560,250},44,0.0f,WHITE);
+  DrawRectangle(655,255,40,40,WHITE);
   
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
-  DrawText(str,660,250,32,BLACK);
+  //DrawText(str,660,250,32,BLACK);
+  DrawTextEx(font32,str,(Vector2){664,250},48,0.0f,BLACK);
 
-  DrawText("Scrabbix",540,20,56,WHITE);
+  //DrawText("Scrabbix",540,20,56,WHITE);
+  DrawTextEx(font56,"Scrabbix",(Vector2){540,20},64,0.0f,WHITE);
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
   char score_str[6];
@@ -131,11 +148,13 @@ void draw_labels(void)
     }
   char _score[30];
   sprintf(_score,"score:%s",score_line);
-  DrawText(_score,550,200,32,WHITE);
-
+  //DrawText(_score,550,200,32,WHITE);
+  DrawTextEx(font32,_score,(Vector2){540,200},44,0.0f,WHITE);
+  
   if(_pause)
     {
-      DrawText("paused!",550,840,48,WHITE);
+      //DrawText("paused!",550,840,48,WHITE);
+      DrawTextEx(font48,"paused!",(Vector2){550,840},48,0.0f,WHITE);
     }
 }
 
@@ -146,12 +165,12 @@ void draw_found_words(void)
   if(!(IS_FOUND_TIMER_DONE))
     {
       UPDATE_FOUND_TIMER;
-      int start_x = 570;
+      int start_x = 550;
       int start_y = 330;
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);
-	  DrawText(str,start_x,start_y+(i*50),32,fading_w_color);	  
+	  DrawTextEx(font48,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
       fading_w_color.a-=1;
     }

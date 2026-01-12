@@ -10,14 +10,13 @@ int main()
     qsort(google_words, google_words_len, sizeof(char*), str_cmp);
 #endif
 
-    
-    
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetExitKey(KEY_NULL);
   SetTargetFPS(60);
   
   init_map();
   init_game();
+  load_fonts();
   while(1)
     {
       if(WindowShouldClose())break;
@@ -25,7 +24,7 @@ int main()
       if(IsKeyReleased(KEY_ESCAPE))
 	_pause = !_pause;
       
-      if(!_pause)
+      if(!_pause && !victory && !game_over)
 	run_game();
       
       BeginDrawing();
@@ -35,6 +34,7 @@ int main()
       
     }
   free_game();
+  unload_fonts();
   CloseWindow();
   return 0;
 }

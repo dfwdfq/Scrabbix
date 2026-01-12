@@ -48,12 +48,12 @@ void draw_borders(void)
     }
 
 }
-void draw_block(int x, int y,char* str)
+void draw_block(int x, int y,char* str,Font* font)
 {
   DrawRectangle(GPX(x),GPX(y),CELL_SIZE,CELL_SIZE,WHITE);
-  DrawText(str,GPX(x)+20,GPY(y)+16,32,BLACK);
+  DrawTextEx(*font,str,(Vector2){GPX(x)+20,GPY(y)+8},48,0.0f,BLACK);
 }
-void draw_map(void)
+void draw_map(Font* font)
 {
   char str[2];
   for(int y =0;y<MAP_HEIGHT;++y)
@@ -62,7 +62,7 @@ void draw_map(void)
 	if(map[y][x] != '\0')
 	  {
 	    sprintf(str,"%c\n",map[y][x]);
-	    draw_block(x,y,str);
+	    draw_block(x,y,str,font);
 	  }
       }
 }
