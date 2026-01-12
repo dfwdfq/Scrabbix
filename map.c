@@ -51,7 +51,10 @@ void draw_borders(void)
 void draw_block(int x, int y,char* str,Font* font)
 {
   DrawRectangle(GPX(x),GPX(y),CELL_SIZE,CELL_SIZE,WHITE);
-  DrawTextEx(*font,str,(Vector2){GPX(x)+20,GPY(y)+8},48,0.0f,BLACK);
+
+  Vector2 size = MeasureTextEx(*font,str,48,0.0f);
+  int awidth = (CELL_SIZE-size.x)/2;
+  DrawTextEx(*font,str,(Vector2){GPX(x)+awidth,GPY(y)+8},48,0.0f,BLACK);
 }
 void draw_map(Font* font)
 {

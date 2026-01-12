@@ -128,12 +128,15 @@ void draw_labels(void)
 {
   //DrawText("next:",570,250,32,WHITE);
   DrawTextEx(font32,"next:",(Vector2){560,250},44,0.0f,WHITE);
-  DrawRectangle(655,255,40,40,WHITE);
+  
   
   char str[2];
   sprintf(str,"%c\n",bag[current_letter]);
+  Vector2 size = MeasureTextEx(font32,str,48,0.0f);
+  int awidth = (40-size.x)/2;
   //DrawText(str,660,250,32,BLACK);
-  DrawTextEx(font32,str,(Vector2){664,250},48,0.0f,BLACK);
+  DrawRectangle(660,255,40,40,WHITE);
+  DrawTextEx(font32,str,(Vector2){660+awidth,250},48,0.0f,BLACK);
 
   //DrawText("Scrabbix",540,20,56,WHITE);
   DrawTextEx(font56,"Scrabbix",(Vector2){540,20},64,0.0f,WHITE);
