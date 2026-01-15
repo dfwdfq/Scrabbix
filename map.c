@@ -58,7 +58,7 @@ void draw_block(int x, int y,char* str,Font* font)
 }
 void draw_map(Font* font)
 {
-  char str[2];
+  char str[4];
   for(int y =0;y<MAP_HEIGHT;++y)
     for(int x =0;x<MAP_WIDTH;++x)
       {
