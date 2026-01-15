@@ -130,7 +130,7 @@ void draw_labels(void)
   DrawTextEx(font32,"next:",(Vector2){560,250},44,0.0f,WHITE);
   
   
-  char str[2];
+  char str[4];
   sprintf(str,"%c\n",bag[current_letter]);
   Vector2 size = MeasureTextEx(font32,str,48,0.0f);
   int awidth = (40-size.x)/2;
