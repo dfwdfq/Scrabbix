@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include"constants.h"
+#include"gb_palette.h"
 #include"game.h"
 
 int main()
@@ -28,7 +29,7 @@ int main()
 	run_game();
       
       BeginDrawing();
-      ClearBackground(BLACK);
+      ClearBackground(GB_DMG_DARKEST);
       draw_game();
       EndDrawing();
       
