@@ -123,6 +123,7 @@ void draw_game(void)
   draw_map(&font48);
   draw_labels();
   draw_found_words();
+  draw_vignette();
 }
 void draw_labels(void)
 {

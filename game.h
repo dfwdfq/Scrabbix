@@ -9,6 +9,7 @@
 #include"vertex_list.h"
 #include"word_searcher.h"
 #include"font.h"
+#include"gb_palette.h"
 
 extern VertexListNode* letters_head;
 extern int score;
