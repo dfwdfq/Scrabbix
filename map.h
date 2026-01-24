@@ -5,6 +5,7 @@
 #include<string.h>
 #include"constants.h"
 #include"font.h"
+#include"gb_palette.h"
 
 //get drawable position
 #define GPX(x) (4+ BORDER_OX+(x*CELL_SIZE) ) 

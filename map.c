@@ -58,14 +58,12 @@ void draw_block(int x, int y,char* str,Font* font)
 }
 void draw_map(Font* font)
 {
-  char str[4];
   for(int y =0;y<MAP_HEIGHT;++y)
     for(int x =0;x<MAP_WIDTH;++x)
       {
 	if(map[y][x] != '\0')
 	  {
-	    sprintf(str,"%c\n",map[y][x]);
-	    draw_block(x,y,str,font);
+	    draw_gb_block(x,y,map[y][x],font,1);
 	  }
       }
 }
