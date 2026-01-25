@@ -119,27 +119,25 @@ void run_game(void)
 }
 void draw_game(void)
 {
-  draw_borders();
+  //draw_borders();
+  draw_gb_borders();
   draw_map(&font48);
   draw_labels();
   draw_found_words();
   draw_vignette();
+  draw_scanlines(10000);
+  draw_pixel_grid();
 }
 void draw_labels(void)
 {
   //DrawText("next:",570,250,32,WHITE);
-  DrawTextEx(font32,"next:",(Vector2){560,250},44,0.0f,WHITE);
+  DrawTextEx(font32,"next:",(Vector2){560,260},44,0.0f,WHITE);
   
   
-  char str[4];
-  sprintf(str,"%c\n",bag[current_letter]);
-  Vector2 size = MeasureTextEx(font32,str,48,0.0f);
-  int awidth = (40-size.x)/2;
-  //DrawText(str,660,250,32,BLACK);
-  DrawRectangle(660,255,40,40,WHITE);
-  DrawTextEx(font32,str,(Vector2){660+awidth,250},48,0.0f,BLACK);
+  draw_gb_block_next(660,255,bag[current_letter],&font32,1);
 
-  //DrawText("Scrabbix",540,20,56,WHITE);
+
+
   DrawTextEx(font56,"Scrabbix",(Vector2){540,20},64,0.0f,WHITE);
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
