@@ -17,6 +17,6 @@ extern void draw_scanlines(int scanline_height);
 extern void draw_pixel_grid(void);
 extern void draw_gb_borders(void);
 extern void draw_gb_block(int x, int y, char letter, Font* font, bool is_falling);
-
+extern void draw_gb_block_next(int x, int y, char letter, Font* font, bool is_falling);
 
 #endif /* GB_PALETTE_H */
