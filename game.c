@@ -135,7 +135,6 @@ void draw_labels(void)
   draw_gb_block_next(620,255,bag[current_letter],&font32,1);
 
 
-
   DrawTextEx(font56,"Scrabbix",(Vector2){480,20},64,0.0f,WHITE);
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
@@ -154,7 +153,7 @@ void draw_labels(void)
   if(_pause)
     {
       //DrawText("paused!",550,840,48,WHITE);
-      DrawTextEx(font48,"paused!",(Vector2){550,840},48,0.0f,WHITE);
+      DrawTextEx(font48,"paused!",(Vector2){500,560},48,0.0f,WHITE);
     }
 }
 
