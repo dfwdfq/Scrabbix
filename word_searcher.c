@@ -143,7 +143,7 @@ void search_downward(int start_x, int start_y, char* word)
   int y = start_y;
   int i = 0;
   
-  while(y < 14 && map[y][start_x] != '\0')
+  while(y < MAP_HEIGHT && map[y][start_x] != '\0')
   {
     word[i++] = map[y][start_x];
     y++;
@@ -166,7 +166,7 @@ void search_upward(int start_x, int start_y, char* word)
 void search_L_left_down(int start_x, int start_y, char* word)
 {
   //can't search
-  if(start_y+1 == 14)return;
+  if(start_y+1 == MAP_HEIGHT)return;
   
   int y = start_y;
   int x = start_x;  
@@ -184,7 +184,7 @@ void search_L_left_down(int start_x, int start_y, char* word)
 void search_L_right_down(int start_x, int start_y, char* word)
 {
   //can't search
-  if(start_y+1 == 14)return;
+  if(start_y+1 == MAP_HEIGHT)return;
   
   int y = start_y;
   int x = start_x;  
