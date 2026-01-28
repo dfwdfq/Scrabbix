@@ -2,16 +2,17 @@
 #define CONSTANTS_H
 
 #define WINDOW_WIDTH  800
-#define WINDOW_HEIGHT 930
+#define WINDOW_HEIGHT 680
 
-#define CELL_SIZE 62
-#define BORDER_WIDTH CELL_SIZE*8
-#define BORDER_HEIGHT CELL_SIZE*14
+#define MAP_HEIGHT 13
+#define MAP_WIDTH  8
+
+#define CELL_SIZE 50
+#define BORDER_WIDTH CELL_SIZE*MAP_WIDTH
+#define BORDER_HEIGHT CELL_SIZE*MAP_HEIGHT
 #define BORDER_OX 20  //top left x position
 #define BORDER_OY 20  //top left y position
 
-#define MAP_HEIGHT 14
-#define MAP_WIDTH  8
 
 #define MAX_FOUND_WORDS_SIZE 100
 #define FOUND_WORD_LEN       14

@@ -131,14 +131,12 @@ void draw_game(void)
 void draw_labels(void)
 {
   //DrawText("next:",570,250,32,WHITE);
-  DrawTextEx(font32,"next:",(Vector2){560,260},44,0.0f,WHITE);
-  
-  
-  draw_gb_block_next(660,255,bag[current_letter],&font32,1);
+  DrawTextEx(font32,"next:",(Vector2){520,260},44,0.0f,WHITE);    
+  draw_gb_block_next(620,255,bag[current_letter],&font32,1);
 
 
 
-  DrawTextEx(font56,"Scrabbix",(Vector2){540,20},64,0.0f,WHITE);
+  DrawTextEx(font56,"Scrabbix",(Vector2){480,20},64,0.0f,WHITE);
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
   char score_str[6];
@@ -151,7 +149,7 @@ void draw_labels(void)
   char _score[30];
   sprintf(_score,"score:%s",score_line);
   //DrawText(_score,550,200,32,WHITE);
-  DrawTextEx(font32,_score,(Vector2){540,200},44,0.0f,WHITE);
+  DrawTextEx(font32,_score,(Vector2){500,200},44,0.0f,WHITE);
   
   if(_pause)
     {
