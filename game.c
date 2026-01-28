@@ -164,8 +164,8 @@ void draw_found_words(void)
   if(!(IS_FOUND_TIMER_DONE))
     {
       UPDATE_FOUND_TIMER;
-      int start_x = 550;
-      int start_y = 330;
+      int start_x = 500;
+      int start_y = 350;
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);
