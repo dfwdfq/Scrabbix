@@ -163,11 +163,11 @@ void draw_gb_block_next(int x, int y, char letter, Font* font, bool is_falling)
   DrawRectangle(screen_x + CELL_SIZE - 2, screen_y, 2, CELL_SIZE, GB_DMG_DARKEST);
     
   char letter_str[2] = {letter, '\0'};
-  Vector2 text_size = MeasureTextEx(*font, letter_str, 32, 0);
+  Vector2 text_size = MeasureTextEx(*font, letter_str, 44, 0);
     
   DrawTextEx(*font, letter_str,
 	     (Vector2){screen_x + (CELL_SIZE - text_size.x) / 2,
 		       screen_y + (CELL_SIZE - text_size.y) / 2 - 4},
-	     32, 0, GB_DMG_DARKEST);
+	     44, 0, GB_DMG_DARKEST);
 }
 
