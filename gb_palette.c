@@ -56,33 +56,17 @@ void draw_gb_borders(void)
   int border_thickness = 8;
     
   DrawRectangle(BORDER_OX - border_thickness,
-		BORDER_OY - border_thickness,
-		BORDER_WIDTH + border_thickness * 2,
-		BORDER_HEIGHT + border_thickness * 2,
-		GB_DMG_DARK);
+  		BORDER_OY - border_thickness,
+  		BORDER_WIDTH + border_thickness * 2,
+  		BORDER_HEIGHT + border_thickness * 2,
+  		GB_DMG_DARK);
     
   DrawRectangleLinesEx((Rectangle){BORDER_OX - border_thickness + 2,
-				   BORDER_OY - border_thickness + 2,
-				   BORDER_WIDTH + border_thickness * 2 - 4,
-				   BORDER_HEIGHT + border_thickness * 2 - 4},
-    2, GB_DMG_LIGHT);
+  				   BORDER_OY - border_thickness + 2,
+  				   BORDER_WIDTH + border_thickness * 2 - 4,
+  				   BORDER_HEIGHT + border_thickness * 2 - 4},
+  2, GB_DMG_LIGHT);
     
-  for (int i = 0; i < 4; i++)
-    {
-      DrawRectangleGradientH(BORDER_OX - border_thickness + i,
-			     BORDER_OY - border_thickness + i,
-			     BORDER_WIDTH + border_thickness * 2 - i * 2,
-			     1,
-			     GB_DMG_DARKEST,
-			     GB_DMG_DARK);
-      
-      DrawRectangleGradientH(BORDER_OX - border_thickness + i,
-			     BORDER_OY + BORDER_HEIGHT + border_thickness - i - 1,
-			     BORDER_WIDTH + border_thickness * 2 - i * 2,
-			     1,
-			     GB_DMG_DARK,
-			     GB_DMG_DARKEST);
-    }
 }
 void draw_gb_block(int x, int y, char letter, Font* font, bool is_falling)
 {
