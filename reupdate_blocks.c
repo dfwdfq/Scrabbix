@@ -9,11 +9,11 @@ void reupdate_blocks(void)
     VertexListNode* current = letters_head;
     while(current != NULL)
     {
-      if(current->y < 13)
+      if(current->y < 12)
       {
         int new_y = current->y;
         
-        while(new_y < 13 && map[new_y + 1][current->x] == '\0')
+        while(new_y < 12 && map[new_y + 1][current->x] == '\0')
         {
           new_y++;
         }
