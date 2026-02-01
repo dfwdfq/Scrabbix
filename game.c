@@ -187,7 +187,7 @@ void draw_labels(void)
   if(_pause)
     {
       //DrawText("paused!",550,840,48,WHITE);
-      DrawTextEx(font48,"paused!",(Vector2){500,560},48,0.0f,WHITE);
+      DrawTextEx(font48,"paused!",(Vector2){500,600},48,0.0f,WHITE);
     }
 }
 
