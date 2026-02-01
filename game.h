@@ -38,4 +38,7 @@ extern void draw_found_words(void);
 
 extern void erase_blocks(void);    //erase_blocks.c
 extern void reupdate_blocks(void); //reupdate_blocks.c
+
+// Helper function to handle movement logic (avoids duplication)
+extern void try_move(void);
 #endif

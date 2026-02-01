@@ -30,38 +30,72 @@ void free_game(void)
 }
 void handle_keys(void)
 {
-  if(IsKeyReleased(KEY_A) &&
-     block_y != -1)
-    {
-      if(block_x > 0 &&
-	 map[block_y][block_x-1] == '\0')
-	{
-	  char val = map[block_y][block_x];
-	  map[block_y][block_x] = '\0';
-	  map[block_y][--block_x] = val;
-	}
-    }
-  if(IsKeyReleased(KEY_D) &&
-     block_y != -1)
-    {
-      if(block_x < MAP_WIDTH-1 &&
-	 map[block_y][block_x+1] == '\0')
-	{
-	  char val = map[block_y][block_x];
-	  map[block_y][block_x] = '\0';
-	  map[block_y][++block_x] = val;
-	}
-    }
-  if(IsKeyReleased(KEY_S))
-    {
-      if(block_y < MAP_HEIGHT-1 && map[block_y+1][block_x] == '\0')
-	{
-	  char val = map[block_y][block_x];
-	  map[block_y][block_x] = '\0';
-	  map[++block_y][block_x] = val;
-	}
-    }
+    static float move_cooldown = 0.0f;
+    const float initial_delay = 0.25f;
+    const float repeat_delay = 0.08f;
+    static bool key_was_down = false;
+
+    if (block_y == -1) return;
+
+    float dt = GetFrameTime();
+    bool key_down = 
+        IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) ||
+        IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) ||
+        IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN);
+
+    if (!key_down)
+      {
+        move_cooldown = 0.0f;
+        key_was_down = false;
+        return;
+      }
+
+    if (!key_was_down)
+      {
+        move_cooldown = initial_delay;
+        key_was_down = true;
+        try_move();
+        return;
+      }
+
+    move_cooldown -= dt;
+    if (move_cooldown <= 0.0f)
+      {
+        move_cooldown = repeat_delay;
+        try_move();
+      }
 }
+
+void try_move(void)
+{
+    if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && 
+        block_x > 0 && map[block_y][block_x-1] == '\0')
+      {
+        char val = map[block_y][block_x];
+        map[block_y][block_x] = '\0';
+        map[block_y][--block_x] = val;
+        return;
+      }
+
+    if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && 
+        block_x < MAP_WIDTH-1 && map[block_y][block_x+1] == '\0')
+      {
+        char val = map[block_y][block_x];
+        map[block_y][block_x] = '\0';
+        map[block_y][++block_x] = val;
+        return;
+      }
+
+    if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && 
+        block_y < MAP_HEIGHT-1 && map[block_y+1][block_x] == '\0')
+      {
+        char val = map[block_y][block_x];
+        map[block_y][block_x] = '\0';
+        map[++block_y][block_x] = val;
+        return;
+      }
+}
+
 void run_game(void)
 {  
   handle_keys();
