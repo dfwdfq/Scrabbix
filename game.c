@@ -28,6 +28,23 @@ void free_game(void)
 {
   clear_VertexList(letters_head);
 }
+void hard_drop(void)
+{
+    if (block_y == -1) return;
+
+    int drop_distance = 0;
+
+    while (block_y < MAP_HEIGHT - 1 &&
+           map[block_y + 1][block_x] == '\0')
+    {
+        char val = map[block_y][block_x];
+        map[block_y][block_x] = '\0';
+        map[++block_y][block_x] = val;
+        drop_distance++;
+    }
+
+    score += drop_distance * 2;
+}
 void handle_keys(void)
 {
     static float move_cooldown = 0.0f;
@@ -38,6 +55,11 @@ void handle_keys(void)
     if (block_y == -1) return;
 
     float dt = GetFrameTime();
+    if(IsKeyPressed(KEY_SPACE))
+      {
+	hard_drop();
+	return;
+      }
     bool key_down = 
         IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) ||
         IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) ||
