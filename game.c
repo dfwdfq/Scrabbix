@@ -166,6 +166,8 @@ void increase_complexity(void)
   int level = floor(sqrt(score / 150.0));
   mov_timer = fmax(60 - level * 4, 18);
   //DEBUG_PRINT(ANSI_MAGENTA,"%d\n",mov_timer);
+
+  
 }
 void run_game(void)
 {  
@@ -264,6 +266,8 @@ void draw_labels(void)
   sprintf(_score,"score:%s",score_line);
   //DrawText(_score,550,200,32,WHITE);
   DrawTextEx(font32,_score,(Vector2){500,200},44,0.0f,WHITE);
+
+  DrawTextEx(font32,TextFormat("min length: %d+",min_word_len),(Vector2){500,300},44,0.0f,WHITE);
   
   if(_pause)
     {
