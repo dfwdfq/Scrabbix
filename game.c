@@ -96,6 +96,13 @@ void try_move(void)
       }
 }
 
+void increase_complexity(void)
+{
+  //yeah, kinda tricky
+  int level = floor(sqrt(score / 150.0));
+  mov_timer = fmax(60 - level * 4, 18);
+  //DEBUG_PRINT(ANSI_MAGENTA,"%d\n",mov_timer);
+}
 void run_game(void)
 {  
   handle_keys();
@@ -124,6 +131,14 @@ void run_game(void)
     }
 
 
+  //when score reaches particular points
+  //increase movement speed
+  if(score == 100)
+    {
+      mov_timer = 50;
+    }
+  
+
   //if there are words to erase, start counting down the timer to erase them
   //also copy them to draw
   if(found_words_counter > 0)
@@ -150,6 +165,7 @@ void run_game(void)
       }
   }
 
+  increase_complexity();
 }
 void draw_game(void)
 {
