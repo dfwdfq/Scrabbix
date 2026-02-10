@@ -108,7 +108,8 @@ void handle_keys(void)
     bool key_down = 
         IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) ||
         IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) ||
-        IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN);
+        IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN) ||
+      IsKeyDown(KEY_SPACE);
 
     if (!key_down)
       {
@@ -277,11 +278,11 @@ void draw_labels(void)
      score_line[i] = score_str[j++];     
     }
   char _score[30];
-  sprintf(_score,"score:%s",score_line);
+  sprintf(_score,"score: %s",score_line);
   //DrawText(_score,550,200,32,WHITE);
   DrawTextEx(font32,_score,(Vector2){500,200},44,0.0f,WHITE);
 
-  DrawTextEx(font32,TextFormat("min length: %d+",min_word_len),(Vector2){500,330},44,0.0f,WHITE);
+  DrawTextEx(font32,TextFormat("min: %d+",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
   
   if(_pause)
     {
@@ -304,6 +305,7 @@ void draw_found_words(void)
 	  sprintf(str,"%s found!\n",found_words_labels[i]);
 	  DrawTextEx(font48,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
+      
       fading_w_color.a-=1;
     }
 }
