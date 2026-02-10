@@ -4,6 +4,7 @@
 char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 FWord found_words_data[MAX_FOUND_WORDS_SIZE];
 int found_words_counter = 0;
+int min_word_len = 3;
 
 #if USE_BINARY_SEARCH == 1
 int str_cmp(const void* a, const void* b)
@@ -13,7 +14,13 @@ int str_cmp(const void* a, const void* b)
 #endif
 
 bool does_match(char* word)
-{  
+{
+  //if it's too short, then it doesn't match
+  if(strlen(word) != min_word_len)
+    {
+      return false;
+    }
+  
   //just for now
   //sure it's not good, because it's O(n), but I tried bsearch and it didn't work
   //now I use binary search(hoo-ray!)
