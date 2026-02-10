@@ -4,6 +4,9 @@ VertexListNode* letters_head;
 int score = 0;
 bool _pause = false;
 bool victory = false, game_over=false;
+int combo = 0;
+int max_combo = 0;
+
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter;
@@ -167,6 +170,15 @@ void increase_complexity(void)
   mov_timer = fmax(60 - level * 4, 18);
   //DEBUG_PRINT(ANSI_MAGENTA,"%d\n",mov_timer);
 
+  if (found_words_counter == 0)
+    {
+      if (score >= 2000)
+	min_word_len = 5;
+      else if (score >= 500)
+	min_word_len = 4;
+      else
+	min_word_len = 3;
+    }
   
 }
 void run_game(void)
@@ -196,22 +208,24 @@ void run_game(void)
       update_map();
     }
 
-
-  //when score reaches particular points
-  //increase movement speed
-  if(score == 100)
-    {
-      mov_timer = 50;
-    }
   
 
   //if there are words to erase, start counting down the timer to erase them
   //also copy them to draw
   if(found_words_counter > 0)
     {
+      if (found_words_counter > 0)
+	{
+	  combo++;
+	  if (combo > max_combo)
+            max_combo = combo;
+	}
+      
       UPDATE_ER_TIMER;
       fading_w_color = (Color){255,255,255,255};
       found_words_labels_counter = found_words_counter;
+      
+      
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  strcpy(found_words_labels[i],found_words[i]);
@@ -267,7 +281,7 @@ void draw_labels(void)
   //DrawText(_score,550,200,32,WHITE);
   DrawTextEx(font32,_score,(Vector2){500,200},44,0.0f,WHITE);
 
-  DrawTextEx(font32,TextFormat("min length: %d+",min_word_len),(Vector2){500,300},44,0.0f,WHITE);
+  DrawTextEx(font32,TextFormat("min length: %d+",min_word_len),(Vector2){500,330},44,0.0f,WHITE);
   
   if(_pause)
     {
@@ -284,7 +298,7 @@ void draw_found_words(void)
     {
       UPDATE_FOUND_TIMER;
       int start_x = 500;
-      int start_y = 350;
+      int start_y = 390;
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);

@@ -16,6 +16,8 @@ extern VertexListNode* letters_head;
 extern int score;
 extern bool _pause;
 extern bool victory,game_over;
+extern int combo;
+extern int max_combo;
 
 extern Font font32,font48,font56;
 
