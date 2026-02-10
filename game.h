@@ -38,6 +38,8 @@ extern void draw_labels(void);
 extern void draw_found_words(void);
 
 extern void increase_complexity(void);
+extern int get_ghost_y(void);
+extern void draw_ghost_block(Font *font);
 extern void hard_drop(void);
 
 extern void erase_blocks(void);    //erase_blocks.c

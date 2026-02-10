@@ -44,7 +44,49 @@ void hard_drop(void)
     }
 
     score += drop_distance * 2;
+    RESET_MOV_TIMER;
 }
+int get_ghost_y(void)
+{
+  if (block_y == -1) return -1;
+  
+  int y = block_y;
+  
+  while (y < MAP_HEIGHT - 1 &&
+	 map[y + 1][block_x] == '\0')
+    {
+      y++;
+    }
+  
+  return y;
+}
+void draw_ghost_block(Font *font)
+{
+    if (block_y == -1) return;
+
+    int ghost_y = get_ghost_y();
+    if (ghost_y == block_y) return;
+
+    char letter = map[block_y][block_x];
+
+    Color ghost_color = (Color){255, 255, 255, 80};
+
+    Vector2 text_size = MeasureTextEx(*font, TextFormat("%c", letter), 44, 0);
+    
+      
+    Vector2 pos = {
+      GPX(block_x) + (CELL_SIZE - text_size.x) / 2,
+      GPY(ghost_y)
+    };
+
+    DrawTextEx(*font,
+               TextFormat("%c", letter),
+               pos,
+               CELL_SIZE,
+               0.0f,
+               ghost_color);
+}
+
 void handle_keys(void)
 {
     static float move_cooldown = 0.0f;
@@ -194,6 +236,7 @@ void draw_game(void)
   //draw_borders();
   draw_gb_borders();
   draw_map(&font48);
+  draw_ghost_block(&font48);
   draw_labels();
   draw_found_words();
   draw_vignette();
