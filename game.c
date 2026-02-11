@@ -270,6 +270,8 @@ void run_game(void)
 
     erase_blocks();
     reupdate_blocks();
+    letters_head = clear_list(letters_head);
+    
     printf("after!:\n");
     print_list(letters_head);
     printf("\n\n");
@@ -343,4 +345,35 @@ void draw_found_words(void)
       
       fading_w_color.a-=1;
     }
+}
+VertexListNode* clear_list(VertexListNode* head)
+{
+  VertexListNode* current = head;
+  VertexListNode* prev = NULL;
+
+  while (current != NULL)
+    {
+      VertexListNode* next = current->next;
+      
+      if (map[current->y][current->x] == '\0')
+        {
+	  if (prev == NULL)
+	    {
+	      head = next;
+            }
+	  else
+	    {
+	      prev->next = next;
+            }
+	  free(current);
+        }
+      else
+        {
+	  prev = current;
+        }
+      
+      current = next;
+    }
+  
+  return head;
 }

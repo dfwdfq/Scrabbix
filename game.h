@@ -53,6 +53,7 @@ extern void draw_lock_flash(void);
 extern void erase_blocks(void);    //erase_blocks.c
 extern void reupdate_blocks(void); //reupdate_blocks.c
 
-// Helper function to handle movement logic (avoids duplication)
+extern VertexListNode* clear_list(VertexListNode* lst);
+
 extern void try_move(void);
 #endif
