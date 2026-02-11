@@ -26,24 +26,20 @@ void draw_map(Font* font)
 }
 void update_map(void)
 {
-  if(block_x == -1 &&
+  if(block_x == -1 ||
      block_y == -1)
     return;
+
+  if (block_y == MAP_HEIGHT - 1)
+    return;
   
-  if(block_y == MAP_HEIGHT-1)
+  char val = map[block_y][block_x];
+  if(map[block_y+1][block_x] == '\0')
     {
-      block_x = -1;
-      block_y = -1;
+      map[block_y][block_x] = '\0';
+      map[++block_y][block_x] = val;
     }
-  else
-    {
-      char val = map[block_y][block_x];
-      if(map[block_y+1][block_x] == '\0')
-	{
-	  map[block_y][block_x] = '\0';
-	  map[++block_y][block_x] = val;
-	}
-    }
+
 }
 void generate_random_start_pos(void)
 {
