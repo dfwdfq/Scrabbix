@@ -9,7 +9,7 @@ int max_combo = 0;
 
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
-int found_words_labels_counter;
+int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
 
 Font font32,font48,font56;
