@@ -17,7 +17,6 @@ extern int block_x, block_y;
 
 void init_map(void);
 
-extern void draw_borders(void);
 extern void draw_map(Font* font);
 extern void update_map(void);
 

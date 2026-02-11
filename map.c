@@ -13,41 +13,6 @@ void init_map(void)
   block_x = -1, block_y = -1;
 }
 
-void draw_borders(void)
-{
-  //top border
-  for(int i = 0;i<8;++i)
-    {
-      DrawLine(BORDER_OX+i,BORDER_OY+i,
-	       BORDER_OX+BORDER_WIDTH+(8-i),BORDER_OY+i,
-	       WHITE);
-    }
-
-  //bottom border
-  for(int i = 0;i<8;++i)
-    {
-            DrawLine(BORDER_OX+i,BORDER_HEIGHT+BORDER_OY+i+1,
-      		     BORDER_OX+BORDER_WIDTH+(8-i),BORDER_HEIGHT+BORDER_OY+i,
-            	       WHITE);
-    }
-
-  //left border
-  for(int i = 0;i<8;++i)
-    {
-      DrawLine(BORDER_OX+i,BORDER_OY,
-	       BORDER_OX+i,BORDER_HEIGHT+BORDER_OY,
-      	       WHITE);
-    }
-
-  //right border
-  for(int i = 0;i<9;++i)
-    {
-            DrawLine(BORDER_OX+BORDER_WIDTH+i,BORDER_OY+(8-i),
-		     BORDER_OX+BORDER_WIDTH+i,BORDER_HEIGHT+BORDER_OY+(8-i),
-            	       WHITE);
-    }
-
-}
 void draw_map(Font* font)
 {
   for(int y =0;y<MAP_HEIGHT;++y)
