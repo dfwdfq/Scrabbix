@@ -7,6 +7,9 @@ bool victory = false, game_over=false;
 int combo = 0;
 int max_combo = 0;
 
+int lock_flash_x = -1;
+int lock_flash_y = -1;
+int lock_flash_timer = 0;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
@@ -165,7 +168,6 @@ void increase_complexity(void)
   //yeah, kinda tricky
   int level = floor(sqrt(score / 150.0));
   mov_timer = fmax(60 - level * 4, 18);
-  //DEBUG_PRINT(ANSI_MAGENTA,"%d\n",mov_timer);
 
   if (found_words_counter == 0)
     {
@@ -175,8 +177,29 @@ void increase_complexity(void)
 	min_word_len = 4;
       else
 	min_word_len = 3;
-    }
+    }  
+}
+void draw_lock_flash(void)
+{
+  if (lock_flash_timer <= 0) return;
   
+  char letter = map[lock_flash_y][lock_flash_x];  
+  Color flash_color = (Color){255, 255, 255, 255};
+  Vector2 text_size = MeasureTextEx(font, TextFormat("%c", letter), 44, 0);
+
+    Vector2 pos = {
+      GPX(lock_flash_x) + (CELL_SIZE - text_size.x) / 2,
+      GPY(lock_flash_y)      
+    };
+
+    DrawTextEx(font,
+               TextFormat("%c", letter),
+               pos,
+               CELL_SIZE,
+               0.0f,
+               flash_color);
+
+    lock_flash_timer--;
 }
 void run_game(void)
 {  
@@ -186,6 +209,10 @@ void run_game(void)
   if(map[block_y+1][block_x] != '\0' ||
      block_y == MAP_HEIGHT-1)
     {
+      lock_flash_x = block_x;
+      lock_flash_y = block_y;
+      lock_flash_timer = 4;
+    
       push_node(&letters_head,block_x,block_y); //add new block to list of existing blocks
 
       //nullify block
@@ -233,8 +260,15 @@ void run_game(void)
   if(IS_ER_TIMER_DONE)
   {
     RESET_ER_TIMER;
+    printf("before:\n");
+    print_list(letters_head);
+    printf("\n\n");
+
     erase_blocks();
     reupdate_blocks();
+    printf("after!:\n");
+    print_list(letters_head);
+    printf("\n\n");
     if(IS_FOUND_TIMER_DONE)
       {
 	found_words_counter = 0;
@@ -249,7 +283,8 @@ void draw_game(void)
   //draw_borders();
   draw_gb_borders();
   draw_map(&font);
-  draw_ghost_block(&font);
+  draw_lock_flash();
+  draw_ghost_block(&font);  
   draw_labels();
   draw_found_words();
   draw_vignette();
