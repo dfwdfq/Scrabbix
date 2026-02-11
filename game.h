@@ -19,7 +19,7 @@ extern bool victory,game_over;
 extern int combo;
 extern int max_combo;
 
-extern Font font32,font48,font56;
+extern Font font;
 
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;

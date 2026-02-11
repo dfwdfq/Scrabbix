@@ -12,19 +12,15 @@ char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
 
-Font font32,font48,font56;
+Font font;
 
 void load_fonts(void)
 {
-  font32 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
-  font48 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,58,NULL,0);
-  font56 = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,64,NULL,0);
+  font = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
 }
 void unload_fonts(void)
 {
-  UnloadFont(font32);
-  UnloadFont(font48);
-  UnloadFont(font56);
+  UnloadFont(font);
 }
 
 void free_game(void)
@@ -252,8 +248,8 @@ void draw_game(void)
 {
   //draw_borders();
   draw_gb_borders();
-  draw_map(&font48);
-  draw_ghost_block(&font48);
+  draw_map(&font);
+  draw_ghost_block(&font);
   draw_labels();
   draw_found_words();
   draw_vignette();
@@ -263,11 +259,11 @@ void draw_game(void)
 void draw_labels(void)
 {
   //DrawText("next:",570,250,32,WHITE);
-  DrawTextEx(font32,"next:",(Vector2){520,260},44,0.0f,WHITE);    
-  draw_gb_block_next(620,255,bag[current_letter],&font32,1);
+  DrawTextEx(font,"next:",(Vector2){520,260},44,0.0f,WHITE);    
+  draw_gb_block_next(620,255,bag[current_letter],&font,1);
 
 
-  DrawTextEx(font56,"Scrabbix",(Vector2){480,20},64,0.0f,WHITE);
+  DrawTextEx(font,"Scrabbix",(Vector2){480,20},64,0.0f,WHITE);
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
   char score_str[6];
@@ -280,14 +276,14 @@ void draw_labels(void)
   char _score[30];
   sprintf(_score,"score: %s",score_line);
   //DrawText(_score,550,200,32,WHITE);
-  DrawTextEx(font32,_score,(Vector2){500,200},44,0.0f,WHITE);
+  DrawTextEx(font,_score,(Vector2){500,200},44,0.0f,WHITE);
 
-  DrawTextEx(font32,TextFormat("min: %d+",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
+  DrawTextEx(font,TextFormat("min: %d+",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
   
   if(_pause)
     {
       //DrawText("paused!",550,840,48,WHITE);
-      DrawTextEx(font48,"paused!",(Vector2){500,600},48,0.0f,WHITE);
+      DrawTextEx(font,"paused!",(Vector2){500,600},48,0.0f,WHITE);
     }
 }
 
@@ -303,7 +299,7 @@ void draw_found_words(void)
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);
-	  DrawTextEx(font48,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
+	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
       
       fading_w_color.a-=1;
