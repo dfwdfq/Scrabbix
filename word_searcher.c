@@ -40,7 +40,8 @@ bool does_match(char* word)
     return false;
 #endif
 #if USE_BINARY_SEARCH == 1
-    char** found = bsearch(&word,
+    char *key = word;
+    char** found = bsearch(&key,
 			   google_words,
 			   google_words_len, 
 			   sizeof(char*), str_cmp);
