@@ -206,6 +206,8 @@ void run_game(void)
 {  
   handle_keys();
   
+  
+  if(block_y != -1) //this is another hack and .... well, it fixes some obscure shit
   //this fancy-pancy hack prevents block from being moved when it get stucked
   if(map[block_y+1][block_x] != '\0' ||
      block_y == MAP_HEIGHT-1)
