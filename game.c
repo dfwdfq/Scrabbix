@@ -201,6 +201,7 @@ void draw_lock_flash(void)
 
     lock_flash_timer--;
 }
+
 void run_game(void)
 {  
   handle_keys();
@@ -237,14 +238,7 @@ void run_game(void)
   //if there are words to erase, start counting down the timer to erase them
   //also copy them to draw
   if(found_words_counter > 0)
-    {
-      if (found_words_counter > 0)
-	{
-	  combo++;
-	  if (combo > max_combo)
-            max_combo = combo;
-	}
-      
+    {      
       UPDATE_ER_TIMER;
       fading_w_color = (Color){255,255,255,255};
       found_words_labels_counter = found_words_counter;
@@ -259,6 +253,14 @@ void run_game(void)
   //erase words
   if(IS_ER_TIMER_DONE)
   {
+    if (found_words_counter > 0)
+      {
+	combo++;
+	if (combo > max_combo)
+	  max_combo = combo;
+      }
+
+    
     RESET_ER_TIMER;
     printf("before:\n");
     print_list(letters_head);
