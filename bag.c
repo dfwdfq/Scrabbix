@@ -6,9 +6,7 @@ int current_letter = 0;
 
 void init_bag(void)
 {
-
   srand(time(0));
-
   //actual bag  
 #if TEST == 0
   memcpy(bag,
@@ -40,7 +38,7 @@ void shuffle(char* array, size_t n)
 }
 char get_next_letter(void)
 {
-  if(current_letter == 98)
+  if(current_letter == 97)
     {
       shuffle(bag,98);
       current_letter = 0;
