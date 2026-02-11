@@ -48,6 +48,7 @@ void erase_blocks(void)
       if(dir == LEFT_DOWN)
 	{
 	  map[y][x] = '\0';
+	  
 	  ++y;
 	  for(int i = 0;i<len-1;++i)
 	    {
@@ -58,6 +59,7 @@ void erase_blocks(void)
       if(dir == RIGHT_DOWN)
 	{
 	  map[y][x] = '\0';
+	  
 	  ++y;
 	  for(int i = 0;i<len-1;++i)
 	    {
@@ -68,6 +70,7 @@ void erase_blocks(void)
       if(dir == LEFT_UP)
 	{
 	  map[y][x] = '\0';
+	  
 	  --y;
 	  for(int i = 0;i<len-1;++i)
 	    {
@@ -78,6 +81,7 @@ void erase_blocks(void)
       if(dir == RIGHT_UP)
 	{
 	  map[y][x] = '\0';
+	  
 	  --y;
 	  for(int i = 0;i<len-1;++i)
 	    {
