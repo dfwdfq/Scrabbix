@@ -13,6 +13,9 @@ float combo_phase = 0.0f;
 
 int hitstop_counter = 0;
 
+int last_drop_x = -1, last_drop_y = -1;
+float hard_drop_glow = 0.0f;  
+
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
@@ -49,6 +52,10 @@ void hard_drop(void)
 
     score += drop_distance * 2;
     RESET_MOV_TIMER;
+
+    last_drop_x = block_x;
+    last_drop_y = block_y;
+    hard_drop_glow = 0.2f;  
 }
 int get_ghost_y(void)
 {
@@ -279,7 +286,20 @@ void draw_game(void)
   //draw_borders();
   draw_gb_borders();
   draw_map(&font);
-  draw_ghost_block(&font);  
+  draw_ghost_block(&font);
+  if (hard_drop_glow > 0.0f && last_drop_x >= 0 && last_drop_y >= 0)
+    {
+      float t = hard_drop_glow * 30.0f;        
+      float intensity = sinf(t) * 0.5f + 0.5f;
+
+      Color glow_color = {255, 255, 255, (unsigned char)(intensity * 200)};
+      DrawRectangle(GPX(last_drop_x), GPY(last_drop_y), CELL_SIZE, CELL_SIZE, glow_color);
+      
+      hard_drop_glow -= GetFrameTime(); 
+      if (hard_drop_glow <= 0.0f)
+	last_drop_x = last_drop_y = -1;
+    }
+  
   draw_labels();
   draw_found_words();
   draw_vignette();
