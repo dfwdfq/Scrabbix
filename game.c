@@ -323,7 +323,7 @@ void draw_found_words(void)
 	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
       
-      fading_w_color.a-=1;
+      fading_w_color.a-=2;
     }
 
 
