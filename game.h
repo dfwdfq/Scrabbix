@@ -21,10 +21,6 @@ extern int max_combo;
 
 extern Font font;
 
-extern int lock_flash_x;
-extern int lock_flash_y;
-extern int lock_flash_timer;
-
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;
 extern Color fading_w_color; //fading word color
@@ -48,7 +44,6 @@ extern int get_ghost_y(void);
 extern void draw_ghost_block(Font *font);
 extern void hard_drop(void);
 
-extern void draw_lock_flash(void);
 
 extern void erase_blocks(void);    //erase_blocks.c
 extern void reupdate_blocks(void); //reupdate_blocks.c

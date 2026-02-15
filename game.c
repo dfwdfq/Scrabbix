@@ -7,9 +7,6 @@ bool victory = false, game_over=false;
 int combo = 0;
 int max_combo = 0;
 
-int lock_flash_x = -1;
-int lock_flash_y = -1;
-int lock_flash_timer = 0;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
@@ -179,28 +176,6 @@ void increase_complexity(void)
 	min_word_len = 3;
     }  
 }
-void draw_lock_flash(void)
-{
-  if (lock_flash_timer <= 0) return;
-  
-  char letter = map[lock_flash_y][lock_flash_x];  
-  Color flash_color = (Color){255, 255, 255, 255};
-  Vector2 text_size = MeasureTextEx(font, TextFormat("%c", letter), 44, 0);
-
-    Vector2 pos = {
-      GPX(lock_flash_x) + (CELL_SIZE - text_size.x) / 2,
-      GPY(lock_flash_y)      
-    };
-
-    DrawTextEx(font,
-               TextFormat("%c", letter),
-               pos,
-               CELL_SIZE,
-               0.0f,
-               flash_color);
-
-    lock_flash_timer--;
-}
 
 void run_game(void)
 {  
@@ -211,11 +186,7 @@ void run_game(void)
   //this fancy-pancy hack prevents block from being moved when it get stucked
   if(map[block_y+1][block_x] != '\0' ||
      block_y == MAP_HEIGHT-1)
-    {
-      lock_flash_x = block_x;
-      lock_flash_y = block_y;
-      lock_flash_timer = 4;
-    
+    {    
       push_node(&letters_head,block_x,block_y); //add new block to list of existing blocks
 
       //nullify block
@@ -289,7 +260,6 @@ void draw_game(void)
   //draw_borders();
   draw_gb_borders();
   draw_map(&font);
-  draw_lock_flash();
   draw_ghost_block(&font);  
   draw_labels();
   draw_found_words();
