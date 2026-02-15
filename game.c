@@ -200,6 +200,8 @@ void run_game(void)
       hitstop_counter--;
       return;//skip logic for a moment
     }
+  if(perfect_display)
+    return;
   
   handle_keys();
   
