@@ -11,6 +11,8 @@ char combo_message[40] = "";
 int combo_timer = 0;
 float combo_phase = 0.0f;
 
+int hitstop_counter = 0;
+
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
@@ -181,7 +183,13 @@ void increase_complexity(void)
 }
 
 void run_game(void)
-{  
+{
+  if (hitstop_counter > 0)
+    {
+      hitstop_counter--;
+      return;//skip logic for a moment
+    }
+  
   handle_keys();
   
   
@@ -223,6 +231,7 @@ void run_game(void)
 	{
 	  strcpy(found_words_labels[i],found_words[i]);
 	}
+      hitstop_counter = 3;
     }
 
   //erase words
