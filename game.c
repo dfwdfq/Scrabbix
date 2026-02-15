@@ -239,7 +239,7 @@ void run_game(void)
 	  {
 	    printf("combo!!!!\n");
 	    sprintf(combo_message, "combo %dx!", combo);
-	    combo_timer = 100;   
+	    combo_timer = 60;   
 	  }
       }
 
@@ -339,7 +339,7 @@ void draw_found_words(void)
       Color combo_color = GOLD;
       combo_color.a = (unsigned char)(255 * alpha_factor);
 
-      Vector2 pos = { 500, 390 + (found_words_labels_counter + 1) * 50 };
+      Vector2 pos = { 500, 360 + (found_words_labels_counter + 1) * 50 };
 
       Color shadow_color = {0, 0, 0, combo_color.a / 2};
       Vector2 shadow_pos = { pos.x + 4, pos.y + 4 };

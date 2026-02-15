@@ -19,7 +19,7 @@ extern int found_counter;
 
 #define UPDATE_FOUND_TIMER    --found_counter;
 #define IS_FOUND_TIMER_DONE   (found_counter == 0)
-#define RESET_FOUND_TIMER     found_counter=100;
+#define RESET_FOUND_TIMER     found_counter=60;
 
 
 #endif
