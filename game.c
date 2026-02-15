@@ -119,8 +119,7 @@ void handle_keys(void)
       }
     bool key_down = 
         IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) ||
-        IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) ||
-        IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN) ||
+        IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) ||     
       IsKeyDown(KEY_SPACE);
 
     if (!key_down)
@@ -163,15 +162,6 @@ void try_move(void)
         char val = map[block_y][block_x];
         map[block_y][block_x] = '\0';
         map[block_y][++block_x] = val;
-        return;
-      }
-
-    if ((IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) && 
-        block_y < MAP_HEIGHT-1 && map[block_y+1][block_x] == '\0')
-      {
-        char val = map[block_y][block_x];
-        map[block_y][block_x] = '\0';
-        map[++block_y][block_x] = val;
         return;
       }
 }
