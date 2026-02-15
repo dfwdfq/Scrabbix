@@ -7,6 +7,9 @@ bool victory = false, game_over=false;
 int combo = 0;
 int max_combo = 0;
 
+char combo_message[40] = "";
+int combo_timer = 0;
+float combo_phase = 0.0f;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
@@ -216,7 +219,6 @@ void run_game(void)
       fading_w_color = (Color){255,255,255,255};
       found_words_labels_counter = found_words_counter;
       
-      
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
 	  strcpy(found_words_labels[i],found_words[i]);
@@ -228,9 +230,17 @@ void run_game(void)
   {
     if (found_words_counter > 0)
       {
-	combo++;
+	printf("here! %d\n",found_words_counter);
+	combo = found_words_counter;
 	if (combo > max_combo)
 	  max_combo = combo;
+
+	if(combo >= 2)
+	  {
+	    printf("combo!!!!\n");
+	    sprintf(combo_message, "combo %dx!", combo);
+	    combo_timer = 100;   
+	  }
       }
 
     
@@ -301,7 +311,7 @@ void draw_labels(void)
 void draw_found_words(void)
 {
   char str[40];
-  if(found_words_labels_counter == 0)return;
+ if (found_words_labels_counter == 0 && combo_timer == 0) return;
   if(!(IS_FOUND_TIMER_DONE))
     {
       UPDATE_FOUND_TIMER;
@@ -309,11 +319,36 @@ void draw_found_words(void)
       int start_y = 390;
       for(int i = 0;i<found_words_labels_counter;++i)
 	{
-	  sprintf(str,"%s found!\n",found_words_labels[i]);
+	  sprintf(str,"%s found!\n",found_words_labels[i]);	 
 	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
       
       fading_w_color.a-=1;
+    }
+
+
+  if (combo_timer > 0)
+    {
+      combo_phase += GetFrameTime() * 6.0f;          
+
+      float base_size = 56.0f;
+      float pulse = sinf(combo_phase) * 3.0f;        
+      float current_size = base_size + pulse;
+
+      float alpha_factor = (float)combo_timer / 100.0f;
+      Color combo_color = GOLD;
+      combo_color.a = (unsigned char)(255 * alpha_factor);
+
+      Vector2 pos = { 500, 390 + (found_words_labels_counter + 1) * 50 };
+
+      Color shadow_color = {0, 0, 0, combo_color.a / 2};
+      Vector2 shadow_pos = { pos.x + 4, pos.y + 4 };
+      DrawTextEx(font, combo_message, shadow_pos, current_size, 0, shadow_color);
+
+      DrawTextEx(font, combo_message, pos, current_size, 0, combo_color);
+
+      combo_timer--;
+      if (combo_timer <= 0) combo_phase = 0.0f;
     }
 }
 VertexListNode* clear_list(VertexListNode* head)
