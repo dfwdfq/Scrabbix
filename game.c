@@ -14,7 +14,11 @@ float combo_phase = 0.0f;
 int hitstop_counter = 0;
 
 int last_drop_x = -1, last_drop_y = -1;
-float hard_drop_glow = 0.0f;  
+float hard_drop_glow = 0.0f;
+
+bool perfect_display = false;
+int perfect_timer = 0;
+float perfect_phase = 0.0f;
 
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
@@ -268,6 +272,11 @@ void run_game(void)
     erase_blocks();
     reupdate_blocks();
     letters_head = clear_list(letters_head);
+    if (letters_head == NULL && !perfect_display)
+      {
+	perfect_display = true;
+	perfect_timer = 60;  
+    }
     
     printf("after!:\n");
     print_list(letters_head);
@@ -283,7 +292,6 @@ void run_game(void)
 }
 void draw_game(void)
 {
-  //draw_borders();
   draw_gb_borders();
   draw_map(&font);
   draw_ghost_block(&font);
@@ -298,6 +306,33 @@ void draw_game(void)
       hard_drop_glow -= GetFrameTime(); 
       if (hard_drop_glow <= 0.0f)
 	last_drop_x = last_drop_y = -1;
+    }
+
+  if (perfect_display)
+    {
+      const char* msg = "PERFECT!";
+      perfect_phase += GetFrameTime() * 10.0f;
+      
+      float pulse = sinf(perfect_phase);      
+      float scale = 1.0f + pulse * 0.1f;      
+      float alpha = 200 + pulse * 55;         
+      
+      Color glow_color = GOLD;
+      glow_color.a = (unsigned char)alpha;
+
+      float base_size = 72.0f;
+      float current_size = base_size * scale;
+      Vector2 text_size = MeasureTextEx(font, msg, current_size, 0);
+      Vector2 pos = { (WINDOW_WIDTH - text_size.x) / 2, (WINDOW_HEIGHT - text_size.y) / 2 };
+      
+
+      Vector2 shadow_pos = { pos.x + 4, pos.y + 4 };
+      DrawTextEx(font, msg, shadow_pos, current_size, 0, (Color){0,0,0,(unsigned char)(alpha/2)});
+
+      DrawTextEx(font, msg, pos, current_size, 0, glow_color);
+      
+      perfect_timer--;
+      if (perfect_timer <= 0) perfect_display = false;
     }
   
   draw_labels();
