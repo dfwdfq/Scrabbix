@@ -13,10 +13,11 @@ void init_map(void)
   block_x = -1, block_y = -1;
 }
 
-void draw_map(Font* font) {
-    bool marked[MAP_HEIGHT][MAP_WIDTH] = {false};
+void draw_map(Font* font)
+{
+  bool marked[MAP_HEIGHT][MAP_WIDTH] = {false};
 
-    if (er_counter > 0 && found_words_counter > 0)
+  if (er_counter > 0 && found_words_counter > 0)
       {
         for (int idx = 0; idx < found_words_counter; idx++)
 	  {
