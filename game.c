@@ -169,9 +169,8 @@ void try_move(void)
 void increase_complexity(void)
 {
   //yeah, kinda tricky
-  int level = floor(sqrt(score / 150.0));
-  mov_timer = fmax(60 - level * 4, 18);
-
+  int level = floor(sqrt(score / 100.0));
+  mov_timer = fmax(30 - level * 4, 14);
   if (found_words_counter == 0)
     {
       if (score >= 2000)
