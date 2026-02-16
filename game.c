@@ -20,6 +20,8 @@ bool perfect_display = false;
 int perfect_timer = 0;
 float perfect_phase = 0.0f;
 
+int reupdate_delay = 0;
+
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
@@ -83,9 +85,7 @@ void draw_ghost_block(Font *font)
     if (ghost_y == block_y) return;
 
     char letter = map[block_y][block_x];
-
     Color ghost_color = (Color){255, 255, 255, 80};
-
     Vector2 text_size = MeasureTextEx(*font, TextFormat("%c", letter), 44, 0);
     
       
@@ -184,102 +184,111 @@ void increase_complexity(void)
 
 void run_game(void)
 {
-  if (hitstop_counter > 0)
+    if (hitstop_counter > 0)
     {
-      hitstop_counter--;
-      return;//skip logic for a moment
-    }
-  if(perfect_display)
-    return;
-  
-  handle_keys();
-  
-  
-  if(block_y != -1) //this is another hack and .... well, it fixes some obscure shit
-  //this fancy-pancy hack prevents block from being moved when it get stucked
-  if(map[block_y+1][block_x] != '\0' ||
-     block_y == MAP_HEIGHT-1)
-    {    
-      push_node(&letters_head,block_x,block_y); //add new block to list of existing blocks
-
-      //nullify block
-      block_x = -1;
-      block_y = -1;
-      search(letters_head);
-
-      generate_random_start_pos();
-      map[block_y][block_x] = get_next_letter();
+        hitstop_counter--;
+        return;//freeze game briefly after word detection
     }
 
-  //move blocks down every 60 tick
-  UPDATE_MOV_TIMER;
-  if(IS_MOV_TIMER_DONE)
+    if (perfect_display)
+        return;//freeze game while "PERFECT!" is shown
+
+    handle_keys();
+
+    //---Block placement (when current block can no longer move) ---
+    if (block_y != -1)//only if a block exists
     {
-      RESET_MOV_TIMER;
-      update_map();
+        if (map[block_y + 1][block_x] != '\0' || block_y == MAP_HEIGHT - 1)
+        {
+            //fix block in place
+            push_node(&letters_head, block_x, block_y);
+
+            block_x = -1;
+            block_y = -1;
+            search(letters_head);//look for words
+
+            generate_random_start_pos();
+            map[block_y][block_x] = get_next_letter();
+        }
     }
 
-  
-
-  //if there are words to erase, start counting down the timer to erase them
-  //also copy them to draw
-  if(found_words_counter > 0)
-    {      
-      UPDATE_ER_TIMER;
-      fading_w_color = (Color){255,255,255,255};
-      found_words_labels_counter = found_words_counter;
-      
-      for(int i = 0;i<found_words_labels_counter;++i)
-	{
-	  strcpy(found_words_labels[i],found_words[i]);
-	}
-      hitstop_counter = 3;
+    //--- Automatic downward movement (gravity) ---
+    UPDATE_MOV_TIMER;
+    if (IS_MOV_TIMER_DONE)
+    {
+        RESET_MOV_TIMER;
+        update_map();
     }
 
-  //erase words
-  if(IS_ER_TIMER_DONE)
-  {
+    //--- Word discovery → start erase timer and copy words for display ---
     if (found_words_counter > 0)
-      {
-	printf("here! %d\n",found_words_counter);
-	combo = found_words_counter;
-	if (combo > max_combo)
-	  max_combo = combo;
+    {
+        UPDATE_ER_TIMER;
+        fading_w_color = (Color){255, 255, 255, 255};
+        found_words_labels_counter = found_words_counter;
 
-	if(combo >= 2)
-	  {
-	    printf("combo!!!!\n");
-	    sprintf(combo_message, "combo %dx!", combo);
-	    combo_timer = 60;   
-	  }
-      }
+        for (int i = 0; i < found_words_labels_counter; ++i)
+            strcpy(found_words_labels[i], found_words[i]);
 
-    
-    RESET_ER_TIMER;
-    printf("before:\n");
-    print_list(letters_head);
-    printf("\n\n");
-
-    erase_blocks();
-    reupdate_blocks();
-    letters_head = clear_list(letters_head);
-    if (letters_head == NULL && !perfect_display)
-      {
-	perfect_display = true;
-	perfect_timer = 60;  
+        hitstop_counter = 3;//brief freeze for visual feedback
     }
-    
-    printf("after!:\n");
-    print_list(letters_head);
-    printf("\n\n");
-    if(IS_FOUND_TIMER_DONE)
-      {
-	found_words_counter = 0;
-	RESET_FOUND_TIMER;
-      }
-  }
 
-  increase_complexity();
+    // --- Erase words when erase timer expires ---
+    if (IS_ER_TIMER_DONE)
+    {
+        if (found_words_counter > 0)
+        {
+            combo = found_words_counter;//number of words in this batch
+            if (combo > max_combo)
+                max_combo = combo;
+
+            if (combo >= 2)
+            {
+                sprintf(combo_message, "combo %dx!", combo);
+                combo_timer = 60;//show combo for 1 second (60 frames)
+            }
+        }
+
+        RESET_ER_TIMER;
+
+        printf("before:\n");
+        print_list(letters_head);
+        printf("\n\n");
+
+        erase_blocks();//remove the found words
+
+        //Start the delay before blocks re‑fall
+        reupdate_delay = 10;//10 frames ~ 0.17 seconds at 60 FPS
+
+        if (IS_FOUND_TIMER_DONE)
+        {
+            found_words_counter = 0;
+            RESET_FOUND_TIMER;
+        }
+    }
+
+    //---Reupdate delay: wait a moment, then let blocks fall ---
+    if (reupdate_delay > 0)
+    {
+        reupdate_delay--;
+        if (reupdate_delay == 0)
+        {
+            reupdate_blocks();//blocks drop to fill gaps
+            letters_head = clear_list(letters_head);//clean up empty nodes
+
+            printf("after!:\n");
+            print_list(letters_head);
+            printf("\n\n");
+
+            if (letters_head == NULL && !perfect_display)
+            {
+                perfect_display = true;
+                perfect_timer = 60;//show "PERFECT!" for 1 second
+            }
+        }
+    }
+
+    increase_complexity();//adjust speed and min word length
 }
 void draw_game(void)
 {

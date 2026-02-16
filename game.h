@@ -18,6 +18,7 @@ extern bool _pause;
 extern bool victory,game_over;
 extern int combo;
 extern int max_combo;
+extern int reupdate_delay;
 
 extern Font font;
 
