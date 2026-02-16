@@ -208,7 +208,15 @@ void run_game(void)
             search(letters_head);//look for words
 
             generate_random_start_pos();
-            map[block_y][block_x] = get_next_letter();
+
+	    if(map[block_y][block_x] == '\0')
+	      {
+		map[block_y][block_x] = get_next_letter();
+	      }
+	    else
+	      {
+		printf("GAME OVER!!!!!!!\n");
+	      }
         }
     }
 
@@ -363,7 +371,7 @@ void draw_labels(void)
   //DrawText(_score,550,200,32,WHITE);
   DrawTextEx(font,_score,(Vector2){500,200},44,0.0f,WHITE);
 
-  DrawTextEx(font,TextFormat("min: %d+",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
+  DrawTextEx(font,TextFormat("min: %d",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
   
   if(_pause)
     {
