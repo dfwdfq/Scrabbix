@@ -63,6 +63,7 @@ void search(VertexListNode* head)
       
 
       //LEFT-DOWN DIRECTION
+      /*
       search_L_left_down(current->x,current->y,word);
       conv_to_lower(word);
       reverse_string(word,rword);
@@ -114,7 +115,8 @@ void search(VertexListNode* head)
       DEBUG_PRINT(ANSI_CYAN,
 		  "L-word right-up:%s\n",
 		  word);
-      
+      */
+		  
       current = current->next;
       i++;
       get_next_substring(NULL,1,NULL); //reset generator
