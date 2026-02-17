@@ -17,9 +17,6 @@
 #define MAX_FOUND_WORDS_SIZE 100
 #define FOUND_WORD_LEN       14
 
-//if 0, then use linear search(yikes forever!)
-#define USE_BINARY_SEARCH 1
-
 //directions
 #define LEFT  0
 #define RIGHT 1
