@@ -40,7 +40,6 @@ extern void search_downward(int start_x,int start_y,char* word);
 
 //some util functions
 extern void conv_to_lower(char*word);
-extern void reverse_string(char* in, char* out);
 extern char* get_next_substring(const char* str, int reset,int* start_index); //get_next_substring.c
 
 int str_cmp(const void* a, const void* b);

@@ -204,13 +204,3 @@ void conv_to_lower(char* word)
       word[i] = tolower(word[i]);
     }
 }
-void reverse_string(char* in, char* out)
-{
-  size_t size = strlen(in);
-  for (size_t i = 0; i < size; i++)
-    {
-      out[i] = in[size - 1 - i];
-    }
-    
-  out[size] = '\0';  
-}
