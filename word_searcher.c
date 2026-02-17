@@ -4,7 +4,7 @@
 char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 FWord found_words_data[MAX_FOUND_WORDS_SIZE];
 int found_words_counter = 0;
-int min_word_len = 3;
+size_t min_word_len = 3;
 
 int str_cmp(const void* a, const void* b)
 {
@@ -51,7 +51,7 @@ void save_found_word(char* word, int x, int y,short dir)
     case LEFT:
        _x = x-1;
        _y = y;
-      for(int i = 0;i<strlen(word)-1;++i)
+      for(size_t i = 0;i<strlen(word)-1;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x-i;
 	  found_words_data[found_words_counter].tail[i].y = _y;
@@ -61,7 +61,7 @@ void save_found_word(char* word, int x, int y,short dir)
     case RIGHT:
        _x = x+1;
        _y = y;
-      for(int i = 0;i<strlen(word)-1;++i)
+      for(size_t i = 0;i<strlen(word)-1;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x+i;
 	  found_words_data[found_words_counter].tail[i].y = _y;
@@ -71,7 +71,7 @@ void save_found_word(char* word, int x, int y,short dir)
     case UP:
        _x = x;
        _y = y-1;
-      for(int i = 0;i<strlen(word)-1;++i)
+      for(size_t i = 0;i<strlen(word)-1;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x;
 	  found_words_data[found_words_counter].tail[i].y = _y-i;
@@ -81,7 +81,7 @@ void save_found_word(char* word, int x, int y,short dir)
     case DOWN:
        _x = x;
        _y = y+1;
-      for(int i = 0;i<strlen(word)-1;++i)
+      for(size_t i = 0;i<strlen(word)-1;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x;
 	  found_words_data[found_words_counter].tail[i].y = _y+i;
@@ -125,11 +125,14 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
   substr = get_next_substring(word,1,&substr_start);
   while (substr != NULL)
     {
+      DEBUG_PRINT(ANSI_MAGENTA,
+		  "found substring: %s\n",
+		  substr);
       //check word
       if(does_match(substr))
 	{
 	  DEBUG_PRINT(ANSI_RED,
-		      "##@@@@@@%s substr found! start pos:%d\n",
+		      "word matched:%s start pos:%d\n",
 		      substr,
 		      substr_start);
 	  
@@ -137,8 +140,7 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
 			  x_pos+(substr_start*x),
 			  y_pos+(substr_start*y),
 			  dir);
-	}
-      
+	}            
       free(substr);	      
       substr = get_next_substring(NULL, 0,&substr_start);
     }

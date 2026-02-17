@@ -24,6 +24,16 @@ void init_bag(void)
 
 }
 #endif
+#if TEST == 2
+void init_bag(void)
+{  
+  srand(time(0));
+  memcpy(bag,
+	 "RECATSETTAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
+	 98);
+
+}
+#endif
 void shuffle(char* array, size_t n)
 {
   size_t i;
