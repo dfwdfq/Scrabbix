@@ -5,11 +5,12 @@
 #include"gb_palette.h"
 #include"game.h"
 
+void run(void);
 int main()
 {
-#if USE_BINARY_SEARCH == 1
-    qsort(google_words, google_words_len, sizeof(char*), str_cmp);
-#endif
+
+  qsort(google_words, google_words_len, sizeof(char*), str_cmp);
+
 
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetExitKey(KEY_NULL);
@@ -18,24 +19,26 @@ int main()
   init_map();
   init_game();
   load_fonts();
-  while(1)
+  while(!WindowShouldClose())
     {
-      if(WindowShouldClose())break;
-      
-      if(IsKeyReleased(KEY_ESCAPE))
-	_pause = !_pause;
-      
-      if(!_pause && !victory && !game_over)
-	run_game();
-      
-      BeginDrawing();
-      ClearBackground(GB_DMG_DARKEST);
-      draw_game();
-      EndDrawing();
-      
+      run();
     }
   free_game();
   unload_fonts();
   CloseWindow();
   return 0;
+}
+void run()
+{  
+  if(IsKeyReleased(KEY_ESCAPE))
+    _pause = !_pause;
+  
+  if(!_pause && !victory && !game_over)
+    run_game();
+  
+  BeginDrawing();
+  ClearBackground(GB_DMG_DARKEST);
+  draw_game();
+  EndDrawing();
+
 }
