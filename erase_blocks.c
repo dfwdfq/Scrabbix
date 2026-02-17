@@ -29,7 +29,6 @@ void erase_blocks(void)
       
       if(dir == UP)
 	{
-	  printf("%s %d y=%d\n",found_words[n],len,y);	  
 	  for(int i =0;i<len;++i)
 	    {
 	      map[y-i][x] = '\0';
@@ -43,54 +42,8 @@ void erase_blocks(void)
 	    {
 	      map[i][x] = '\0';
 	      letters_head = remove_by_value(letters_head,x,i);
-	      }
-	}
-      if(dir == LEFT_DOWN)
-	{
-	  map[y][x] = '\0';
-	  
-	  ++y;
-	  for(int i = 0;i<len-1;++i)
-	    {
-	      map[y][x-i] = '\0';
-	      letters_head = remove_by_value(letters_head,x-i,y);
 	    }
 	}
-      if(dir == RIGHT_DOWN)
-	{
-	  map[y][x] = '\0';
-	  
-	  ++y;
-	  for(int i = 0;i<len-1;++i)
-	    {
-	      map[y][x+i] = '\0';
-	      letters_head = remove_by_value(letters_head,x+i,y);
-	    }
-	}
-      if(dir == LEFT_UP)
-	{
-	  map[y][x] = '\0';
-	  
-	  --y;
-	  for(int i = 0;i<len-1;++i)
-	    {
-	      map[y][x-i] = '\0';
-	      letters_head = remove_by_value(letters_head,x-i,y);
-	    }
-	}
-      if(dir == RIGHT_UP)
-	{
-	  map[y][x] = '\0';
-	  
-	  --y;
-	  for(int i = 0;i<len-1;++i)
-	    {
-	      map[y][x+i] = '\0';
-	      letters_head = remove_by_value(letters_head,x+i,y);
-	    }
-	}
-
-
     }
   found_words_counter = 0;
 }
