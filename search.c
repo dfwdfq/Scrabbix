@@ -20,11 +20,11 @@ void search(VertexListNode* head)
       search_word(word,LEFT,current->x,current->y);
 
       
-      DEBUG_PRINT(ANSI_RESET,
+      /*DEBUG_PRINT(ANSI_RESET,
 		  "word found in left direction:%s %ld\n",
 		  word,
 		  strlen(word));
-      
+      */
 
       //RIGHT DIRECTION
       search_rightward(current->x,current->y,word);
@@ -32,11 +32,11 @@ void search(VertexListNode* head)
       search_word(word,RIGHT,current->x,current->y);
 
       
-      DEBUG_PRINT(ANSI_RESET,
+      /*DEBUG_PRINT(ANSI_RESET,
 		  "word found right direction:%s %ld\n",
 		  word,
 		  strlen(word));
-      
+      */
 		  
       //UP DIRECTION
       search_upward(current->x,current->y,word);
@@ -44,11 +44,11 @@ void search(VertexListNode* head)
       search_word(word,UP,current->x,current->y);
 
       
-      DEBUG_PRINT(ANSI_RESET,
+      /*DEBUG_PRINT(ANSI_RESET,
 		  "word found upward:%s %ld\n",
 		  word,
 		  strlen(word));
-      
+      */
 		  
       //DOWN DIRECTION
       search_downward(current->x,current->y,word);
@@ -56,11 +56,11 @@ void search(VertexListNode* head)
       search_word(word,DOWN,current->x,current->y);
 
       
-      DEBUG_PRINT(ANSI_RESET,
+      /*DEBUG_PRINT(ANSI_RESET,
 		  "word found downward:%s %ld\n",
 		  word,
 		  strlen(word));
-      
+      */
 		  
       current = current->next;
       i++;
