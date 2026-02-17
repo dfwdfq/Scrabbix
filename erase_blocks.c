@@ -3,7 +3,6 @@ void erase_blocks(void)
 {
   for(int n = 0;n<found_words_counter;++n)
     {	
-      short dir = found_words_data[n].dir;
       int x     = found_words_data[n].x;
       int y     = found_words_data[n].y;
       int len   = strlen(found_words[n]);
