@@ -214,8 +214,13 @@ void run_game(void)
 
 	  block_x = -1;
 	  block_y = -1;
-	  search(letters_head);//look for words
 
+	  //prevent problem, when word is not erased
+	  if(found_words_counter == 0)
+	    {
+	      search(letters_head);//look for words
+	    }
+	  
 	  generate_random_start_pos();
 
 	  if(map[block_y][block_x] == '\0')
