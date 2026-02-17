@@ -44,6 +44,52 @@ void save_found_word(char* word, int x, int y,short dir)
   found_words_data[found_words_counter].x = x;
   found_words_data[found_words_counter].y = y;
   found_words_data[found_words_counter].dir = dir;
+
+  int _x,_y;
+  switch(dir)
+    {
+    case LEFT:
+       _x = x-1;
+       _y = y;
+      for(int i = 0;i<strlen(word)-1;++i)
+	{
+	  found_words_data[found_words_counter].tail[i].x = _x-i;
+	  found_words_data[found_words_counter].tail[i].y = _y;
+	}
+      found_words_data[found_words_counter].tail_len = strlen(word)-1;
+      break;
+    case RIGHT:
+       _x = x+1;
+       _y = y;
+      for(int i = 0;i<strlen(word)-1;++i)
+	{
+	  found_words_data[found_words_counter].tail[i].x = _x+i;
+	  found_words_data[found_words_counter].tail[i].y = _y;
+	}
+      found_words_data[found_words_counter].tail_len = strlen(word)-1;
+      break;
+    case UP:
+       _x = x;
+       _y = y-1;
+      for(int i = 0;i<strlen(word)-1;++i)
+	{
+	  found_words_data[found_words_counter].tail[i].x = _x;
+	  found_words_data[found_words_counter].tail[i].y = _y-i;
+	}
+      found_words_data[found_words_counter].tail_len = strlen(word)-1;
+      break;
+    case DOWN:
+       _x = x;
+       _y = y+1;
+      for(int i = 0;i<strlen(word)-1;++i)
+	{
+	  found_words_data[found_words_counter].tail[i].x = _x;
+	  found_words_data[found_words_counter].tail[i].y = _y+i;
+	}
+      found_words_data[found_words_counter].tail_len = strlen(word)-1;
+
+      break;
+    }
   found_words_counter++;
 }
 void search_word(char* word,short dir,int x_pos, int y_pos)

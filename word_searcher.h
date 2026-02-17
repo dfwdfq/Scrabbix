@@ -12,6 +12,8 @@
 typedef struct
 {
   int x,y; //start position
+  Vector2 tail[22]; //the rest of positions from start
+  int tail_len;
   short dir;
 } FWord;
 
