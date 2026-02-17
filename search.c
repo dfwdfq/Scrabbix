@@ -53,6 +53,7 @@ void search(VertexListNode* head)
       conv_to_lower(word);      
       search_word(word,DOWN,current->x,current->y);
 
+      search_L_shaped(current->x, current->y);
       
       /*DEBUG_PRINT(ANSI_RESET,
 		  "word found downward:%s %ld\n",
