@@ -28,6 +28,7 @@ extern void search(VertexListNode* head); //search.c
 extern void search_word(char* word,short dir,int x_pos,int y_pos);
 
 extern void save_found_word(char* word, int x, int y,short dir);
+extern void save_found_word_path(char* word, Vector2* cells, int num_cells);
 extern bool does_match(char* word);
 
 //horizontal
@@ -37,6 +38,8 @@ extern void search_leftward(int start_x, int start_y, char* word);
 //vertical
 extern void search_upward(int start_x, int start_y, char* word);
 extern void search_downward(int start_x,int start_y,char* word);
+
+void search_L_shaped(int start_x, int start_y);
 
 //some util functions
 extern void conv_to_lower(char*word);
