@@ -4,7 +4,6 @@ void search(VertexListNode* head)
   VertexListNode* current = head;
 
   char word[14];
-  char rword[14];
   int i = 0;
   while(current != NULL)
     {
@@ -16,11 +15,8 @@ void search(VertexListNode* head)
 
       //LEFT DIRECTION
       search_leftward(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word, rword);
-      
+      conv_to_lower(word);     
       search_word(word,LEFT,current->x,current->y);
-      search_word(rword,LEFT,current->x,current->y);
       
       /*DEBUG_PRINT(ANSI_RESET,
 		  "word found in left direction:%s %ld\n",
@@ -30,11 +26,8 @@ void search(VertexListNode* head)
 
       //RIGHT DIRECTION
       search_rightward(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word, rword);
-      
+      conv_to_lower(word);      
       search_word(word,RIGHT,current->x,current->y);
-      search_word(rword,RIGHT,current->x,current->y);
 
       
       /*DEBUG_PRINT(ANSI_RESET,
@@ -45,11 +38,8 @@ void search(VertexListNode* head)
 		  
       //UP DIRECTION
       search_upward(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word, rword);
-      
+      conv_to_lower(word);      
       search_word(word,UP,current->x,current->y);
-      search_word(rword,UP,current->x,current->y);
 
       
       /*DEBUG_PRINT(ANSI_RESET,
@@ -60,11 +50,8 @@ void search(VertexListNode* head)
 		  
       //DOWN DIRECTION
       search_downward(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word, rword);
-      
+      conv_to_lower(word);      
       search_word(word,DOWN,current->x,current->y);
-      search_word(rword,DOWN,current->x,current->y);
 
       
       /*DEBUG_PRINT(ANSI_RESET,
