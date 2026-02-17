@@ -30,6 +30,8 @@
 #define DEBUG 1 //if 1, use pre-defined test bag
 #define PRINT_DEBUG 1
 
+#define TEST 1 //0 - standard game, 1 and more - test bags
+
 #if PRINT_DEBUG == 1
     #define ANSI_RESET   "\033[0m"
     #define ANSI_RED     "\033[31m"
