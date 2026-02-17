@@ -47,7 +47,10 @@ void shuffle(char* array, size_t n)
 }
 char get_next_letter(void)
 {
-  if(current_letter >= 98)
+  /*
+    So when we hit the end. Reshuffle it
+  */
+  if(current_letter == 97)
     {
       shuffle(bag,98);
       current_letter = 0;
