@@ -61,7 +61,7 @@ void hard_drop(void)
         drop_distance++;
     }
 
-    score += drop_distance * 2;
+    score += drop_distance * 0.2;
     RESET_MOV_TIMER;
 
     last_drop_x = block_x;
@@ -386,9 +386,13 @@ void draw_game(void)
 }
 void draw_labels(void)
 {
-  //DrawText("next:",570,250,32,WHITE);
+  //prevent one tricky problem
+  char next_letter = '?';
+  if (current_letter < 98)
+    next_letter = bag[current_letter];
+  
   DrawTextEx(font,"next:",(Vector2){520,260},44,0.0f,WHITE);    
-  draw_gb_block_next(620,255,bag[current_letter],&font,1);
+  draw_gb_block_next(620,255,next_letter,&font,1);
 
 
   DrawTextEx(font,"Scrabbix",(Vector2){480,20},64,0.0f,WHITE);
