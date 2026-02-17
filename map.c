@@ -15,102 +15,22 @@ void init_map(void)
 
 void draw_map(Font* font)
 {
-  bool marked[MAP_HEIGHT][MAP_WIDTH] = {false};
+   bool marked[MAP_HEIGHT][MAP_WIDTH] = {false};
 
-  if (er_counter > 0 && found_words_counter > 0)
-      {
+    if (er_counter > 0 && found_words_counter > 0)
+    {
         for (int idx = 0; idx < found_words_counter; idx++)
-	  {
+        {
             FWord *fw = &found_words_data[idx];
-            int len = strlen(found_words[idx]);
             int x = fw->x;
             int y = fw->y;
-            int dir = fw->dir;
-
-            switch (dir)
-	      {
-                case LEFT:
-                    for (int i = 0; i < len; i++)
-		      {
-                        int cx = x - i;
-                        if (cx >= 0) marked[y][cx] = true;
-                    }
-                    break;
-                case RIGHT:
-                    for (int i = 0; i < len; i++)
-		      {
-                        int cx = x + i;
-                        if (cx < MAP_WIDTH) marked[y][cx] = true;
-                    }
-                    break;
-                case UP:
-                    for (int i = 0; i < len; i++)
-		      {
-                        int cy = y - i;
-                        if (cy >= 0) marked[cy][x] = true;
-                    }
-                    break;
-                case DOWN:
-                    for (int i = 0; i < len; i++)
-		      {
-                        int cy = y + i;
-                        if (cy < MAP_HEIGHT) marked[cy][x] = true;
-                    }
-                    break;
-                case LEFT_DOWN:
-                    if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
-                        marked[y][x] = true;
-                    if (y + 1 < MAP_HEIGHT)
-		      {
-                        marked[y + 1][x] = true;
-                        for (int i = 1; i < len - 1; i++)
-			  {
-                            int cx = x - i;
-                            if (cx >= 0) marked[y + 1][cx] = true;
-                        }
-                    }
-                    break;
-                case RIGHT_DOWN:
-                    if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
-                        marked[y][x] = true;
-		    
-                    if (y + 1 < MAP_HEIGHT)
-		      {
-                        marked[y + 1][x] = true;
-                        for (int i = 1; i < len - 1; i++)
-			  {
-                            int cx = x + i;
-                            if (cx < MAP_WIDTH) marked[y + 1][cx] = true;
-                        }
-                    }
-                    break;
-                case LEFT_UP:
-                    if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
-                        marked[y][x] = true;
-		    
-                    if (y - 1 >= 0)
-		      {
-                        marked[y - 1][x] = true;
-                        for (int i = 1; i < len - 1; i++)
-			  {
-                            int cx = x - i;
-                            if (cx >= 0) marked[y - 1][cx] = true;
-                        }
-                    }
-                    break;
-                case RIGHT_UP:
-                    if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
-                        marked[y][x] = true;
-                    if (y - 1 >= 0)
-		      {
-                        marked[y - 1][x] = true;
-                        for (int i = 1; i < len - 1; i++)
-			  {
-                            int cx = x + i;
-                            if (cx < MAP_WIDTH) marked[y - 1][cx] = true;
-                        }
-                    }
-                    break;
+            marked[y][x] = true;                     //mark start
+            for (int i = 0; i < fw->tail_len; i++)   //mark tail cells
+            {
+                int tx = fw->tail[i].x;
+                int ty = fw->tail[i].y;
+                if (tx >= 0 && tx < MAP_WIDTH && ty >= 0 && ty < MAP_HEIGHT)
+                    marked[ty][tx] = true;
             }
         }
     }
