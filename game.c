@@ -435,7 +435,7 @@ void draw_found_words(void)
       UPDATE_FOUND_TIMER;
       int start_x = 500;
       int start_y = 390;
-      for(int i = 0;i<found_words_labels_counter;++i)
+      for(int i = 0;i<(found_words_labels_counter>3?3:found_words_labels_counter);++i)
 	{
 	  sprintf(str,"%s found!\n",found_words_labels[i]);	 
 	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
