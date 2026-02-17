@@ -258,17 +258,17 @@ void run_game(void)
     // --- Erase words when erase timer expires ---
     if (IS_ER_TIMER_DONE)
     {
-        if (found_words_counter > 0)
+      if (found_words_counter > 0)
         {
-            combo = found_words_counter;//number of words in this batch
-            if (combo > max_combo)
-                max_combo = combo;
-
-            if (combo >= 2)
-            {
-                sprintf(combo_message, "combo %dx!", combo);
-                combo_timer = 60;//show combo for 1 second (60 frames)
-            }
+	  combo = found_words_counter;//number of words in this batch
+	  if (combo > max_combo)
+	    max_combo = combo;
+	  
+	  if (combo >= 2)
+	    {
+	      sprintf(combo_message, "combo %dx!", combo);
+	      combo_timer = 60;//show combo for 1 second (60 frames)
+	    }
         }
 
         RESET_ER_TIMER;
@@ -289,7 +289,6 @@ void run_game(void)
         if (IS_FOUND_TIMER_DONE)
         {
             found_words_counter = 0;
-	    found_words_labels_counter = 0;
             RESET_FOUND_TIMER;
         }
     }
@@ -400,16 +399,23 @@ void draw_labels(void)
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
   char score_str[6];
-  sprintf(score_str,"%d",score);
-  int j = 0;
-  for(int i = 6-strlen(score_str);i<6;++i)
+  if(score >= 999999)
     {
-     score_line[i] = score_str[j++];     
+      printf("VICTORY!!!!!!!!!\n");
     }
-  char _score[30];
-  sprintf(_score,"score: %s",score_line);
-  //DrawText(_score,550,200,32,WHITE);
-  DrawTextEx(font,_score,(Vector2){500,200},44,0.0f,WHITE);
+  else
+    {
+      sprintf(score_str,"%d",score);
+      int j = 0;
+      for(int i = 6-strlen(score_str);i<6;++i)
+	{
+	  score_line[i] = score_str[j++];     
+	}
+      char _score[30];
+      sprintf(_score,"score: %s",score_line);
+      //DrawText(_score,550,200,32,WHITE);
+      DrawTextEx(font,_score,(Vector2){500,200},44,0.0f,WHITE);
+    }
 
   DrawTextEx(font,TextFormat("min: %d",min_word_len),(Vector2){535,330},44,0.0f,WHITE);
   
