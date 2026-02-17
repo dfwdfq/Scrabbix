@@ -42,8 +42,13 @@ extern void search_downward(int start_x,int start_y,char* word);
 void search_L_shaped(int start_x, int start_y);
 
 //some util functions
-extern void conv_to_lower(char*word);
-extern char* get_next_substring(const char* str, int reset,int* start_index); //get_next_substring.c
+extern  void conv_to_lower(char*word);
+
+extern bool get_next_substring(const char* str,
+			       int reset,
+			       int* start_index,
+			       char* out_buf,
+			       size_t buf_size);//get_next_substring.c
 
 int str_cmp(const void* a, const void* b);
 

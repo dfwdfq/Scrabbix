@@ -48,12 +48,14 @@ void save_found_word(char* word, int x, int y,short dir)
   found_words_data[found_words_counter].dir = dir;
 
   int _x,_y;
+  size_t size;
   switch(dir)
     {
     case LEFT:
        _x = x-1;
        _y = y;
-      for(size_t i = 0;i<strlen(word)-1;++i)
+       size = strlen(word)-1;
+      for(size_t i = 0;i<size;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x-i;
 	  found_words_data[found_words_counter].tail[i].y = _y;
@@ -63,7 +65,8 @@ void save_found_word(char* word, int x, int y,short dir)
     case RIGHT:
        _x = x+1;
        _y = y;
-      for(size_t i = 0;i<strlen(word)-1;++i)
+       size = strlen(word)-1;
+      for(size_t i = 0;i<size;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x+i;
 	  found_words_data[found_words_counter].tail[i].y = _y;
@@ -73,7 +76,8 @@ void save_found_word(char* word, int x, int y,short dir)
     case UP:
        _x = x;
        _y = y-1;
-      for(size_t i = 0;i<strlen(word)-1;++i)
+       size = strlen(word)-1;
+      for(size_t i = 0;i<size;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x;
 	  found_words_data[found_words_counter].tail[i].y = _y-i;
@@ -83,7 +87,8 @@ void save_found_word(char* word, int x, int y,short dir)
     case DOWN:
        _x = x;
        _y = y+1;
-      for(size_t i = 0;i<strlen(word)-1;++i)
+       size = strlen(word)-1;
+      for(size_t i = 0;i<size;++i)
 	{
 	  found_words_data[found_words_counter].tail[i].x = _x;
 	  found_words_data[found_words_counter].tail[i].y = _y+i;
@@ -96,9 +101,6 @@ void save_found_word(char* word, int x, int y,short dir)
 }
 void search_word(char* word,short dir,int x_pos, int y_pos)
 {
-  char* substr = NULL;
-  int substr_start = -1;
-
   int x,y;
   if(dir == LEFT)
     {
@@ -123,32 +125,20 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
       x=0;
       y=1;
     }
-  
-  substr = get_next_substring(word,1,&substr_start);
-  while (substr != NULL)
+
+  char substr_buf[14];
+  int substr_start = -1;
+  if (get_next_substring(word, 1, &substr_start, substr_buf, sizeof(substr_buf)))
     {
-#if PRINT_DEBUG == 1      
-      DEBUG_PRINT(ANSI_MAGENTA,
-		  "found substring: %s\n",
-		  substr);
-#endif      
-      //check word
-      if(does_match(substr))
-	{
-#if PRINT_DEBUG == 1	  
-	  DEBUG_PRINT(ANSI_RED,
-		      "word matched:%s start pos:%d\n",
-		      substr,
-		      substr_start);
-#endif
-	  
-	  save_found_word(substr,
-			  x_pos+(substr_start*x),
-			  y_pos+(substr_start*y),
-			  dir);
-	}            
-      free(substr);	      
-      substr = get_next_substring(NULL, 0,&substr_start);
+      do {
+        if (does_match(substr_buf))
+	  {
+            save_found_word(substr_buf,
+                            x_pos + (substr_start * x),
+                            y_pos + (substr_start * y),
+                            dir);
+	  }
+      } while (get_next_substring(NULL, 0, &substr_start, substr_buf, sizeof(substr_buf)));
     }
 }
 
@@ -296,29 +286,29 @@ void search_L_shaped(int start_x, int start_y)
                         path_str[idx] = tolower(map[by][bx]);
                         path_str[idx + 1] = '\0';
 
-                        //reset substring generator with the current path string
-                        int substr_start;
-			char* substr = get_next_substring(path_str, 1, &substr_start); //reset and get first
-			while (substr != NULL)
+			char substr_buf[14];
+			int substr_start;
+			if (get_next_substring(path_str, 1, &substr_start, substr_buf, sizeof(substr_buf)))
 			  {
-#if PRINT_DEBUG == 1			    
-			    DEBUG_PRINT(ANSI_MAGENTA, "found substring: %s\n", substr);
-#endif			    
-			    if (does_match(substr))
-			      {
-				int word_len = strlen(substr);
-				Vector2 word_cells[13];
-				for (int i = 0; i < word_len; i++)
-				  word_cells[i] = path_pos[substr_start + i];
-				save_found_word_path(substr, word_cells, word_len);
-			      }
-			    free(substr);
-			    substr = get_next_substring(NULL, 0, &substr_start);
+			    do {
+			      if (does_match(substr_buf))
+				{
+				  int word_len = strlen(substr_buf);
+				  Vector2 word_cells[13];
+				  for (int i = 0; i < word_len; i++)
+				    word_cells[i] = path_pos[substr_start + i];
+				  save_found_word_path(substr_buf, word_cells, word_len);
+				}
+			    } while (get_next_substring(NULL,
+							0,
+							&substr_start,
+							substr_buf,
+							sizeof(substr_buf)));
 			  }
-                    }
-                }
-            }
-        }
+		    }
+		}
+	    }
+	}
     }
 }
 void conv_to_lower(char* word)

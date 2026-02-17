@@ -64,7 +64,6 @@ void search(VertexListNode* head)
 		  
       current = current->next;
       i++;
-      get_next_substring(NULL,1,NULL); //reset generator
     }
 #if PRINT_DEBUG == 1
   DEBUG_PRINT_SEPARATOR;
