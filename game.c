@@ -171,6 +171,8 @@ void increase_complexity(void)
   //yeah, kinda tricky
   int level = floor(sqrt(score / 100.0));
   mov_timer = fmax(30 - level * 4, 14);
+  
+#if TEST == 0      
   if (found_words_counter == 0)
     {
       if (score >= 2000)
@@ -179,7 +181,8 @@ void increase_complexity(void)
 	min_word_len = 4;
       else
 	min_word_len = 3;
-    }  
+    }
+#endif  
 }
 
 void run_game(void)
@@ -228,7 +231,7 @@ void run_game(void)
         update_map();
     }
 
-    //--- Word discovery → start erase timer and copy words for display ---
+    //--- word discovery -> start erase timer and copy words for display ---
     if (found_words_counter > 0)
     {
         UPDATE_ER_TIMER;
@@ -259,12 +262,16 @@ void run_game(void)
 
         RESET_ER_TIMER;
 
-        //printf("before:\n");
-        //print_list(letters_head);
-        //printf("\n\n");
+	DEBUG_PRINT(ANSI_RESET, "letters list before erasing:\n");
+        print_list(letters_head,map);
+	DEBUG_PRINT(ANSI_RESET,"end of list.\n");
 
         erase_blocks();//remove the found words
 
+	DEBUG_PRINT(ANSI_RESET,"letters list before erasing:\n");
+	print_list(letters_head,map);
+	DEBUG_PRINT(ANSI_RESET,"end of list.\n");
+	
         //Start the delay before blocks re‑fall
         reupdate_delay = 10;//10 frames ~ 0.17 seconds at 60 FPS
 
