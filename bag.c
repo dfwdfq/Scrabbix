@@ -3,7 +3,7 @@
 char bag[98];
 int current_letter = 0;
 
-
+#if TEST == 0
 void init_bag(void)
 {
   srand(time(0));
@@ -13,6 +13,17 @@ void init_bag(void)
 	 98);
   shuffle(bag,98);      
 }
+#endif
+#if TEST == 1
+void init_bag(void)
+{  
+  srand(time(0));
+  memcpy(bag,
+	 "RESETAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
+	 98);
+
+}
+#endif
 void shuffle(char* array, size_t n)
 {
   size_t i;
