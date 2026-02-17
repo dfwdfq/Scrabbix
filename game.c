@@ -388,11 +388,11 @@ void draw_game(void)
       if (perfect_timer <= 0) perfect_display = false;
     }
   
-  draw_labels();
-  draw_found_words();
-  draw_vignette();
-  draw_scanlines(10000);
-  draw_pixel_grid();
+    draw_labels();
+    draw_found_words();
+    draw_vignette();
+    draw_scanlines(10000);
+    draw_pixel_grid();
 }
 void draw_labels(void)
 {
@@ -417,7 +417,8 @@ void draw_labels(void)
     {
       sprintf(score_str,"%d",score);
       int j = 0;
-      for(int i = 6-strlen(score_str);i<6;++i)
+      int i = 6-strlen(score_str);
+      for(i;i<6;++i)
 	{
 	  score_line[i] = score_str[j++];     
 	}
