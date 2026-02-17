@@ -7,11 +7,12 @@ void search(VertexListNode* head)
   int i = 0;
   while(current != NULL)
     {
+#if PRINT_DEBUG == 1      
       DEBUG_PRINT(ANSI_RESET,
 		  "%d# letter:%c\n",
 		  i,
 		  map[current->y][current->x]);
-
+#endif
 
       //LEFT DIRECTION
       search_leftward(current->x,current->y,word);
@@ -65,6 +66,7 @@ void search(VertexListNode* head)
       i++;
       get_next_substring(NULL,1,NULL); //reset generator
     }
-
+#if PRINT_DEBUG == 1
   DEBUG_PRINT_SEPARATOR;
+#endif  
 }

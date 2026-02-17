@@ -35,7 +35,9 @@ void save_found_word(char* word, int x, int y,short dir)
     {
       if(strcmp(word,found_words[i]) == 0)
 	{
+#if PRINT_DEBUG == 1	  
 	  DEBUG_PRINT(ANSI_GREEN,"%s is already added!\n",word);
+#endif	  
 	  return;
 	}
     }
@@ -125,16 +127,20 @@ void search_word(char* word,short dir,int x_pos, int y_pos)
   substr = get_next_substring(word,1,&substr_start);
   while (substr != NULL)
     {
+#if PRINT_DEBUG == 1      
       DEBUG_PRINT(ANSI_MAGENTA,
 		  "found substring: %s\n",
 		  substr);
+#endif      
       //check word
       if(does_match(substr))
 	{
+#if PRINT_DEBUG == 1	  
 	  DEBUG_PRINT(ANSI_RED,
 		      "word matched:%s start pos:%d\n",
 		      substr,
 		      substr_start);
+#endif
 	  
 	  save_found_word(substr,
 			  x_pos+(substr_start*x),
@@ -205,7 +211,9 @@ void save_found_word_path(char* word, Vector2* cells, int num_cells)
     {
         if (strcmp(word, found_words[i]) == 0)
         {
+#if PRINT_DEBUG == 1	  
             DEBUG_PRINT(ANSI_GREEN, "%s is already added!\n", word);
+#endif	    
             return;
         }
     }
@@ -293,7 +301,9 @@ void search_L_shaped(int start_x, int start_y)
 			char* substr = get_next_substring(path_str, 1, &substr_start); //reset and get first
 			while (substr != NULL)
 			  {
+#if PRINT_DEBUG == 1			    
 			    DEBUG_PRINT(ANSI_MAGENTA, "found substring: %s\n", substr);
+#endif			    
 			    if (does_match(substr))
 			      {
 				int word_len = strlen(substr);

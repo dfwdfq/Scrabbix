@@ -1,6 +1,6 @@
 #include"game.h"
 
-#if PRINT_DEBUG_MAP == 1
+#if PRINT_DEBUG_MAP == 0
 bool dump_map = false;
 #endif
 
@@ -208,7 +208,12 @@ void run_game(void)
     {
         if (map[block_y + 1][block_x] != '\0' || block_y == MAP_HEIGHT - 1)
         {
+
+#if PRINT_DEBUG	== 1
+#if PRINT_DEBUG_MAP == 1	  
 	  dump_map = true;
+#endif
+#endif	  
 	  //fix block in place
 	  push_node(&letters_head, block_x, block_y);
 
@@ -273,15 +278,18 @@ void run_game(void)
 
         RESET_ER_TIMER;
 
+#if PRINT_DEBUG == 1
 	DEBUG_PRINT(ANSI_RESET, "letters list before erasing:\n");
         print_list(letters_head,map);
 	DEBUG_PRINT(ANSI_RESET,"end of list.\n");
-
+#endif
         erase_blocks();//remove the found words
 
+#if PRINT_DEBUG == 1	
 	DEBUG_PRINT(ANSI_RESET,"letters list before erasing:\n");
 	print_list(letters_head,map);
 	DEBUG_PRINT(ANSI_RESET,"end of list.\n");
+#endif
 	
         //Start the delay before blocks re‑fall
         reupdate_delay = 10;//10 frames ~ 0.17 seconds at 60 FPS
@@ -311,6 +319,7 @@ void run_game(void)
     }
 
     increase_complexity();//adjust speed and min word length
+#if PRINT_DEBUG == 1    
 #if PRINT_DEBUG_MAP == 1
     if(dump_map)
       {
@@ -331,7 +340,8 @@ void run_game(void)
 	DEBUG_PRINT(ANSI_RESET,"map dump end.\n\n");
       }    
       
-#endif    
+#endif
+#endif
 }
 void draw_game(void)
 {

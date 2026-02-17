@@ -12,7 +12,7 @@
 #include"font.h"
 #include"gb_palette.h"
 
-#if PRINT_DEBUG_MAP == 1
+#if PRINT_DEBUG_MAP == 0
 extern bool dump_map;
 #endif
 

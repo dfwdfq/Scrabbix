@@ -27,8 +27,8 @@
 #define LEFT_UP    6
 #define RIGHT_UP   7
 
-#define DEBUG 1 //if 1, use pre-defined test bag
-#define PRINT_DEBUG 1
+#define DEBUG 0 //if 1, use pre-defined test bag
+#define PRINT_DEBUG 0
 
 #define TEST 0 //0 - standard game, 1 and more - test bags
 #define PRINT_DEBUG_MAP 1
