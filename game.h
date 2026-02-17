@@ -12,6 +12,11 @@
 #include"font.h"
 #include"gb_palette.h"
 
+#if PRINT_DEBUG_MAP == 1
+extern bool dump_map;
+#endif
+
+
 extern VertexListNode* letters_head;
 extern int score;
 extern bool _pause;

@@ -1,5 +1,10 @@
 #include"game.h"
 
+#if PRINT_DEBUG_MAP == 1
+bool dump_map = false;
+#endif
+
+
 VertexListNode* letters_head;
 int score = 0;
 bool _pause = false;
@@ -203,23 +208,24 @@ void run_game(void)
     {
         if (map[block_y + 1][block_x] != '\0' || block_y == MAP_HEIGHT - 1)
         {
-            //fix block in place
-            push_node(&letters_head, block_x, block_y);
+	  dump_map = true;
+	  //fix block in place
+	  push_node(&letters_head, block_x, block_y);
 
-            block_x = -1;
-            block_y = -1;
-            search(letters_head);//look for words
+	  block_x = -1;
+	  block_y = -1;
+	  search(letters_head);//look for words
 
-            generate_random_start_pos();
+	  generate_random_start_pos();
 
-	    if(map[block_y][block_x] == '\0')
-	      {
-		map[block_y][block_x] = get_next_letter();
-	      }
-	    else
-	      {
-		printf("GAME OVER!!!!!!!\n");
-	      }
+	  if(map[block_y][block_x] == '\0')
+	    {
+	      map[block_y][block_x] = get_next_letter();
+	    }
+	  else
+	    {
+	      printf("GAME OVER!!!!!!!\n");
+	    }
         }
     }
 
@@ -291,10 +297,6 @@ void run_game(void)
             reupdate_blocks();//blocks drop to fill gaps
             letters_head = clear_list(letters_head);//clean up empty nodes
 
-            //printf("after!:\n");
-            //print_list(letters_head);
-            //printf("\n\n");
-
             if (letters_head == NULL && !perfect_display)
             {
                 perfect_display = true;
@@ -304,6 +306,27 @@ void run_game(void)
     }
 
     increase_complexity();//adjust speed and min word length
+#if PRINT_DEBUG_MAP == 1
+    if(dump_map)
+      {
+	DEBUG_PRINT(ANSI_RESET,"map dump start:\n\n");
+	for(int y = 0;y<MAP_HEIGHT;++y)
+	  {
+	    for(int x = 0;x<MAP_WIDTH;++x)
+	      {
+		char el = map[y][x];
+		if(el != '\0')
+		  printf("%c",map[y][x]);
+		else
+		  printf("_");
+	      }
+	    printf("\n");
+	  }
+	dump_map = false;
+	DEBUG_PRINT(ANSI_RESET,"map dump end.\n\n");
+      }    
+      
+#endif    
 }
 void draw_game(void)
 {
