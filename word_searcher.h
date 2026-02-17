@@ -19,7 +19,7 @@ typedef struct
 
 
 
-extern int min_word_len;
+extern size_t min_word_len;
 extern char found_words[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_counter;
 extern FWord found_words_data[MAX_FOUND_WORDS_SIZE];
