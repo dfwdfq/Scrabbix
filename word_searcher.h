@@ -36,12 +36,6 @@ extern void search_leftward(int start_x, int start_y, char* word);
 extern void search_upward(int start_x, int start_y, char* word);
 extern void search_downward(int start_x,int start_y,char* word);
 
-//L-shaped words
-extern void search_L_left_down(int start_x, int start_y, char* word);
-extern void search_L_right_down(int start_x, int start_y, char* word);
-extern void search_L_left_up(int start_x,int start_y, char* word);
-extern void search_L_right_up(int start_x,int start_y, char* word);
-
 //some util functions
 extern void conv_to_lower(char*word);
 extern void reverse_string(char* in, char* out);

@@ -30,6 +30,7 @@ void save_found_word(char* word, int x, int y,short dir)
 {
   //check is word already added
   //linear search is not ok, but good enough since little amount
+
   for(int i = 0;i<found_words_counter;++i)
     {
       if(strcmp(word,found_words[i]) == 0)
@@ -148,78 +149,6 @@ void search_upward(int start_x, int start_y, char* word)
   }
   word[i] = '\0';  
 }
-void search_L_left_down(int start_x, int start_y, char* word)
-{
-  //can't search
-  if(start_y+1 == MAP_HEIGHT)return;
-  
-  int y = start_y;
-  int x = start_x;  
-  int i = 0;
-  
-  word[i++] = map[y][x];  
-  ++y;
-  while(x >= 0 && map[y][x] != '\0')
-    {
-      word[i++] = map[y][x];
-      x--;
-    }
-  word[i] = '\0';  
-}
-void search_L_right_down(int start_x, int start_y, char* word)
-{
-  //can't search
-  if(start_y+1 == MAP_HEIGHT)return;
-  
-  int y = start_y;
-  int x = start_x;  
-  int i = 0;
-  
-  word[i++] = map[y][x];  
-  ++y;
-  while(x < 8 && map[y][x] != '\0')
-    {
-      word[i++] = map[y][x];
-      x++;
-    }
-  word[i] = '\0';  
-}
-void search_L_left_up(int start_x,int start_y, char* word)
-{
-  if(start_y-1 == -1)return;
-
-    int y = start_y;
-    int x = start_x;  
-    int i = 0;
-    
-    word[i++] = map[y][x];
-    --y;
-    while(x >= 0 && map[y][x] != '\0')
-      {
-	word[i++] = map[y][x];
-	x--;
-      }
-    word[i] = '\0';  
-}
-void search_L_right_up(int start_x, int start_y,char* word)
-{
-  //can't search
-  if(start_y-1 == -1)return;
-  
-  int y = start_y;
-  int x = start_x;  
-  int i = 0;
-  
-  word[i++] = map[y][x];  
-  --y;
-  while(x < 8 && map[y][x] != '\0')
-    {
-      word[i++] = map[y][x];
-      x++;
-    }
-  word[i] = '\0';  
-}
-
 void conv_to_lower(char* word)
 {
   for (int i = 0; word[i] != '\0'; i++)

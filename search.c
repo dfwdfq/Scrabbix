@@ -61,61 +61,6 @@ void search(VertexListNode* head)
 		  word,
 		  strlen(word));
       
-
-      //LEFT-DOWN DIRECTION
-      /*
-      search_L_left_down(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word,rword);
-      
-      search_word(word,LEFT_DOWN,current->x,current->y);
-      search_word(rword,LEFT_DOWN,current->x,current->y);
-            
-      DEBUG_PRINT(ANSI_CYAN,
-		  "L-word left-down:%s\n",
-		  word);
-
-      //RIGHT-DOWN DIRECTION
-      search_L_right_down(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word,rword);
-      DEBUG_PRINT(ANSI_YELLOW,
-		  "reversed string. RIGHT DOWN:%s\n",
-		  rword);
-      
-      search_word(word,RIGHT_DOWN,current->x,current->y);
-      search_word(rword,RIGHT_DOWN,current->x,current->y);
-      
-      
-      DEBUG_PRINT(ANSI_CYAN,
-		  "L-word right-down:%s\n",
-		  word);
-
-      //LEFT-UP DIRECTION
-      search_L_left_up(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word,rword);
-      
-      search_word(word,LEFT_UP,current->x,current->y);
-      search_word(rword,LEFT_UP,current->x,current->y);
-      
-      DEBUG_PRINT(ANSI_CYAN,
-		  "L-word left-up:%s\n",
-		  word);
-
-      //RIGHT-UP DIRECTION
-      search_L_right_up(current->x,current->y,word);
-      conv_to_lower(word);
-      reverse_string(word,rword);
-      
-      search_word(word,RIGHT_UP,current->x,current->y);
-      search_word(rword,RIGHT_UP,current->x,current->y);
-      
-      
-      DEBUG_PRINT(ANSI_CYAN,
-		  "L-word right-up:%s\n",
-		  word);
-      */
 		  
       current = current->next;
       i++;
