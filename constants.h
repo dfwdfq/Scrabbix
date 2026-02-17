@@ -30,7 +30,7 @@
 #define DEBUG 1 //if 1, use pre-defined test bag
 #define PRINT_DEBUG 1
 
-#define TEST 1 //0 - standard game, 1 and more - test bags
+#define TEST 0 //0 - standard game, 1 and more - test bags
 #define PRINT_DEBUG_MAP 1
 
 #if PRINT_DEBUG == 1
