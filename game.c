@@ -259,9 +259,9 @@ void run_game(void)
 
         RESET_ER_TIMER;
 
-        printf("before:\n");
-        print_list(letters_head);
-        printf("\n\n");
+        //printf("before:\n");
+        //print_list(letters_head);
+        //printf("\n\n");
 
         erase_blocks();//remove the found words
 
@@ -284,9 +284,9 @@ void run_game(void)
             reupdate_blocks();//blocks drop to fill gaps
             letters_head = clear_list(letters_head);//clean up empty nodes
 
-            printf("after!:\n");
-            print_list(letters_head);
-            printf("\n\n");
+            //printf("after!:\n");
+            //print_list(letters_head);
+            //printf("\n\n");
 
             if (letters_head == NULL && !perfect_display)
             {
