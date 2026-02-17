@@ -425,7 +425,10 @@ void draw_found_words(void)
 	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
       
-      fading_w_color.a-=2;
+      if (fading_w_color.a > 2)
+	fading_w_color.a -= 2;
+      else
+	fading_w_color.a = 0;
     }
 
 
