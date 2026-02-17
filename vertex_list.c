@@ -26,15 +26,15 @@ void clear_VertexList(VertexListNode* head)
       free(tmp);
     }
 }
-void print_list(VertexListNode* head)
+void print_list(VertexListNode* head,
+		char map[MAP_HEIGHT][MAP_WIDTH])
 {
   VertexListNode* current = head;
   while(current != NULL)
     {
-      printf("%d %d\n",current->x,current->y);
+      printf("%d %d %c\n",current->x,current->y,map[current->y][current->x]);
       current = current->next;
     }
-  printf("end!\n");
 }
 VertexListNode* remove_by_value(VertexListNode* head,
 				int x,
