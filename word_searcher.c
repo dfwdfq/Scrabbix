@@ -14,7 +14,7 @@ int str_cmp(const void* a, const void* b)
 bool does_match(char* word)
 {
   //if it's too short, then it doesn't match
-  if(strlen(word) != min_word_len)
+  if(strlen(word) < min_word_len)
     {
       return false;
     }
