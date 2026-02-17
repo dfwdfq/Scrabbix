@@ -289,6 +289,7 @@ void run_game(void)
         if (IS_FOUND_TIMER_DONE)
         {
             found_words_counter = 0;
+	    found_words_labels_counter = 0;
             RESET_FOUND_TIMER;
         }
     }
