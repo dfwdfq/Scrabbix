@@ -556,6 +556,37 @@ void draw_game_over(void)
       DrawTextEx(font, suffix, (Vector2){start_x + prefix_size.x + blink_size.x, y_pos}, 36, 0, WHITE);
     }
 }
+void reset_game(void)
+{
+  free_game();
+  init_map();
+  init_game();
+  
+  score = 0;
+  _pause = false;
+  victory = false;
+  game_over = false;
+  combo = 0;
+  max_combo = 0;
+  combo_timer = 0;
+  //TODO: combo_message
+  combo_phase = 0.0f;
+  hitstop_counter = 0;
+  last_drop_x = -1;
+  last_drop_y = -1;
+  hard_drop_glow = 0.0f;
+  perfect_display = false;
+  perfect_timer = 0;
+  perfect_phase = 0.0f;
+  reupdate_delay = 0;
+  death_flash_timer = 4;
+  found_words_labels_counter = 0;
+  //TODO: found_words_labels
+  fading_w_color.r = 255;
+  fading_w_color.g = 255;
+  fading_w_color.b = 255;
+  fading_w_color.a = 255; 
+}
 VertexListNode* clear_list(VertexListNode* head)
 {
   VertexListNode* current = head;

@@ -11,7 +11,6 @@ int main()
 
   qsort(google_words, google_words_len, sizeof(char*), str_cmp);
 
-
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetExitKey(KEY_NULL);
   SetTargetFPS(60);
@@ -35,6 +34,14 @@ void run()
   
   if(!_pause && !victory && !game_over)
     run_game();
+
+  if(game_over && IS_GAME_OVER_TIMER_DONE)
+    {
+      if(IsKeyReleased(KEY_R))
+	{
+	  reset_game();
+	}
+    }
   
   BeginDrawing();
   ClearBackground(GB_DMG_DARKEST);
