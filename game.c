@@ -445,7 +445,9 @@ void draw_found_words(void)
  if (found_words_labels_counter == 0 && combo_timer == 0) return;
   if(!(IS_FOUND_TIMER_DONE))
     {
-      UPDATE_FOUND_TIMER;
+      if(!_pause)
+	UPDATE_FOUND_TIMER;
+      
       int start_x = 500;
       int start_y = 390;
       for(int i = 0;i<(found_words_labels_counter>3?3:found_words_labels_counter);++i)
@@ -453,11 +455,14 @@ void draw_found_words(void)
 	  sprintf(str,"%s found!\n",found_words_labels[i]);	 
 	  DrawTextEx(font,str,(Vector2){start_x,start_y+(i*50)},48,0.0f,fading_w_color);	  
 	}
-      
-      if (fading_w_color.a > 2)
-	fading_w_color.a -= 2;
-      else
-	fading_w_color.a = 0;
+
+      if(!_pause)
+	{
+	  if (fading_w_color.a > 2)
+	    fading_w_color.a -= 2;
+	  else
+	    fading_w_color.a = 0;
+	}
     }
 
 
@@ -481,7 +486,8 @@ void draw_found_words(void)
 
       DrawTextEx(font, combo_message, pos, current_size, 0, combo_color);
 
-      combo_timer--;
+      if(!_pause)
+	combo_timer--;
       if (combo_timer <= 0) combo_phase = 0.0f;
     }
 }
