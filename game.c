@@ -117,6 +117,7 @@ void handle_keys(void)
     static bool key_was_down = false;
 
     if (block_y == -1) return;
+    if(found_words_counter > 0) return;
 
     float dt = GetFrameTime();
     if(IsKeyPressed(KEY_SPACE))
