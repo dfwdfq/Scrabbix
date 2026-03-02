@@ -191,7 +191,7 @@ void increase_complexity(void)
 }
 
 void run_game(void)
-{
+{  
     if (hitstop_counter > 0)
     {
         hitstop_counter--;
@@ -234,7 +234,7 @@ void run_game(void)
 	    }
 	  else
 	    {
-	      printf("GAME OVER!!!!!!!\n");
+	      game_over = true;
 	    }
         }
     }
