@@ -10,9 +10,9 @@ extern int er_counter;
 extern int found_counter;
 extern int game_over_timer;
 
-#define UPDATE_GAME_OVER_TIMER --game_over_timer;
-#define IS_GAME_OVER_TIMER_DONE (game_over_timer == 0)
-#define RESET_GAME_OVER_TIMER   game_over_timer=30;
+#define UPDATE_GAME_OVER_TIMER ++game_over_timer;
+#define IS_GAME_OVER_TIMER_DONE (game_over_timer == 30)
+#define RESET_GAME_OVER_TIMER   game_over_timer=0;
 
 #define UPDATE_MOV_TIMER    --mov_counter;
 #define IS_MOV_TIMER_DONE   (mov_counter == 0)
