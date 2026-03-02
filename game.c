@@ -27,6 +27,8 @@ float perfect_phase = 0.0f;
 
 int reupdate_delay = 0;
 
+int death_flash_timer = 4;
+
 char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 int found_words_labels_counter = 0;
 Color fading_w_color = (Color){255,255,255,255};
@@ -436,7 +438,6 @@ void draw_labels(void)
       DrawTextEx(font,"paused!",(Vector2){500,600},48,0.0f,WHITE);
     }
 }
-
 void draw_found_words(void)
 {
   char str[40];
@@ -481,6 +482,78 @@ void draw_found_words(void)
 
       combo_timer--;
       if (combo_timer <= 0) combo_phase = 0.0f;
+    }
+}
+void draw_game_over(void)
+{
+  if (death_flash_timer > 0)
+    {
+      float t = (float)death_flash_timer / 4;
+      unsigned char alpha = (unsigned char)(255 * t);
+      
+      Color flash;
+
+      if (death_flash_timer > 2)
+        flash = GB_DMG_LIGHTEST;
+      else
+        flash = GB_DMG_DARK;
+
+      flash.a = alpha;
+      DrawRectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, flash);
+    
+      death_flash_timer--;
+    }
+  if(!IS_GAME_OVER_TIMER_DONE)
+    UPDATE_GAME_OVER_TIMER;
+
+  float alpha_factor = (float)game_over_timer / 50;
+  alpha_factor = 1.0f - (1.0f - alpha_factor) * (1.0f - alpha_factor); 
+  if (alpha_factor > 1.0f) alpha_factor = 1.0f;
+  unsigned char overlay_alpha = (unsigned char)(230 * alpha_factor);
+  
+  DrawRectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+		(Color){0, 0, 0, overlay_alpha});
+      
+  static const char* msg1 = "OUT OF SPACE";
+  char* msg2 = TextFormat("SCORE: %d", score);
+
+      
+  Vector2 size1 = MeasureTextEx(font, msg1, 48, 0);
+  Vector2 size2 = MeasureTextEx(font, msg2, 48, 0);
+
+  int centerX = WINDOW_WIDTH / 2;
+  int startY = WINDOW_HEIGHT / 2 - 80;
+
+  DrawTextEx(font, msg1,
+	     (Vector2){centerX - size1.x/2, startY},
+	     48, 0, WHITE);
+  
+  DrawTextEx(font, msg2,
+	     (Vector2){centerX - size2.x/2, startY + 60},
+	     48, 0, WHITE);
+      //}
+
+  if (IS_GAME_OVER_TIMER_DONE)
+    {
+      const char* prefix = "press ";
+      const char* blink_char = "R";
+      const char* suffix = " to restart";
+      
+      Vector2 prefix_size = MeasureTextEx(font, prefix, 36, 0);
+      Vector2 blink_size = MeasureTextEx(font, blink_char, 36, 0);
+      Vector2 suffix_size = MeasureTextEx(font, suffix, 36, 0);
+      
+      float total_width = prefix_size.x + blink_size.x + suffix_size.x;
+      float start_x = centerX - total_width / 2;
+      float y_pos = startY + 140;
+      
+      DrawTextEx(font, prefix, (Vector2){start_x, y_pos}, 36, 0, WHITE);
+      
+      static int blink_frame = 0;
+      blink_frame = (blink_frame + 1) % 20;
+      Color blink_color = (blink_frame < 10) ? WHITE : (Color){255, 255, 255, 100};	  
+      DrawTextEx(font, blink_char, (Vector2){start_x + prefix_size.x, y_pos}, 36, 0, blink_color);
+      DrawTextEx(font, suffix, (Vector2){start_x + prefix_size.x + blink_size.x, y_pos}, 36, 0, WHITE);
     }
 }
 VertexListNode* clear_list(VertexListNode* head)

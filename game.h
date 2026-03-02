@@ -25,6 +25,8 @@ extern int combo;
 extern int max_combo;
 extern int reupdate_delay;
 
+extern int death_flash_timer;
+
 extern Font font;
 
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
@@ -44,6 +46,7 @@ extern void run_game(void);
 extern void draw_game(void);
 extern void draw_labels(void);
 extern void draw_found_words(void);
+extern void draw_game_over(void);
 
 extern void increase_complexity(void);
 extern int get_ghost_y(void);

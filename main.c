@@ -39,6 +39,8 @@ void run()
   BeginDrawing();
   ClearBackground(GB_DMG_DARKEST);
   draw_game();
+  if(game_over)
+    draw_game_over();
   EndDrawing();
 
 }
