@@ -1,4 +1,5 @@
 #include"game.h"
+#include"gb_palette.h"
 //implementations of init_game
 
 void init_game(void)
@@ -8,4 +9,6 @@ void init_game(void)
 
   generate_random_start_pos();
   map[block_y][block_x] = get_next_letter();
+
+  create_vignette_texture();
 }
