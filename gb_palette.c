@@ -1,6 +1,7 @@
 #include "gb_palette.h"
 
-Texture2D vignette_tex;
+Texture2D vignette_tex,
+          scanlines_tex;
 
 Color get_dithered_color(int x, int y, Color a, Color b)
 {
@@ -51,13 +52,28 @@ void draw_vignette(void)
 {
   DrawTexture(vignette_tex, 0, 0, WHITE);
 }
-void draw_scanlines(int scanline_height)
+
+void create_scanlines_texture(void)
 {
-  for (int y = 0; y < WINDOW_HEIGHT; y += scanline_height * 2)
-    {
-      DrawRectangle(0, y + scanline_height, WINDOW_WIDTH, scanline_height, 
-		    (Color){0, 0, 0, 80});
-    }  
+  int tex_height = SCANLINE_HEIGHT * 2;
+  Image img = GenImageColor(1, tex_height, BLANK);
+
+  for (int y = 0; y < SCANLINE_HEIGHT; y++)
+    ImageDrawPixel(&img, 0, y, BLANK);
+
+  for (int y = SCANLINE_HEIGHT; y < tex_height; y++)
+    ImageDrawPixel(&img, 0, y, (Color){0, 0, 0, 80});
+
+  scanlines_tex = LoadTextureFromImage(img);
+  SetTextureWrap(scanlines_tex, TEXTURE_WRAP_REPEAT); 
+  UnloadImage(img);
+}
+void draw_scanlines(void)
+{
+  DrawTexturePro(scanlines_tex,
+		 (Rectangle){0, 0, scanlines_tex.width, (float)WINDOW_HEIGHT},
+		 (Rectangle){0, 0, WINDOW_WIDTH, WINDOW_HEIGHT},
+		 (Vector2){0, 0}, 0, WHITE);
 }
 void draw_pixel_grid(void)
 {
