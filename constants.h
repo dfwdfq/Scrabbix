@@ -13,6 +13,8 @@
 #define BORDER_OX 20  //top left x position
 #define BORDER_OY 20  //top left y position
 
+#define SCORE_CAP 20
+
 
 #define MAX_FOUND_WORDS_SIZE 100
 #define FOUND_WORD_LEN       14
