@@ -11,6 +11,7 @@ int main()
 
   qsort(google_words, google_words_len, sizeof(char*), str_cmp);
 
+  SetConfigFlags(FLAG_VSYNC_HINT);
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetExitKey(KEY_NULL);
   SetTargetFPS(60);
@@ -21,9 +22,23 @@ int main()
   while(!WindowShouldClose())
     {
       run();
+
+#if PRINT_FPS== 1     
+      static double last_time = 0;
+      double now = GetTime();
+      double dt = now - last_time;
+      if (dt > 0.0)
+	{
+	  printf("FPS: %.1f\n", 1.0 / dt);
+	}
+      last_time = now;
+#endif
+
+      WaitTime(0);
     }
   free_game();
   unload_fonts();
+  UnloadTexture(vignette_tex);
   CloseWindow();
   return 0;
 }
