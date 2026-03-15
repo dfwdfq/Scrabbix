@@ -14,7 +14,7 @@ int main()
   SetConfigFlags(FLAG_VSYNC_HINT);
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
   SetExitKey(KEY_NULL);
-  SetTargetFPS(60);
+  SetTargetFPS(30);
   
   init_map();
   init_game();
