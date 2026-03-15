@@ -77,15 +77,7 @@ void draw_scanlines(void)
 }
 void draw_pixel_grid(void)
 {
-  int pixel_size = 2;
-  for (int y = 0; y < WINDOW_HEIGHT; y += pixel_size)
-    {
-      for (int x = 0; x < WINDOW_WIDTH; x += pixel_size)
-	{
-	  DrawRectangleLines(x, y, pixel_size, pixel_size, 
-			     (Color){0, 0, 0, 20});
-	}
-    }
+    DrawRectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, (Color){0, 0, 0, 20});
 }
 void draw_gb_borders(void)
 {

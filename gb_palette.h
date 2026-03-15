@@ -8,7 +8,7 @@
 #define GB_DMG_LIGHT     (Color){139, 172,  15, 255 }  //#8BAC0F
 #define GB_DMG_LIGHTEST  (Color){155, 188,  15, 255 }  //#9BBC0F
 
-#define SCANLINE_HEIGHT 4
+#define SCANLINE_HEIGHT 1
 
 #define GPX(x) (4+ BORDER_OX+(x*CELL_SIZE) ) 
 #define GPY(y) (4+ BORDER_OY+(y*CELL_SIZE) )
