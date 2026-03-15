@@ -393,7 +393,7 @@ void draw_game(void)
     draw_labels();
     draw_found_words();
     draw_vignette();
-    draw_scanlines(10000);
+    draw_scanlines();
     draw_pixel_grid();
 }
 void draw_labels(void)
@@ -680,6 +680,11 @@ void reset_game(void)
   max_combo = 0;
   combo_timer = 0;
   //TODO: combo_message
+  //update on TODO
+  /*
+    combo_message is simply overwritten,
+    so no need to nullify it
+  */  
   combo_phase = 0.0f;
   hitstop_counter = 0;
   last_drop_x = -1;
@@ -692,6 +697,11 @@ void reset_game(void)
   death_flash_timer = 4;
   found_words_labels_counter = 0;
   //TODO: found_words_labels
+  //update on TODO
+  /*
+    i think there is no need to reset this array, because
+    new values are overwritten, so need to nullify them manually
+  */
   fading_w_color.r = 255;
   fading_w_color.g = 255;
   fading_w_color.b = 255;
