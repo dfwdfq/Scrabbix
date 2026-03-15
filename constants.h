@@ -13,7 +13,7 @@
 #define BORDER_OX 20  //top left x position
 #define BORDER_OY 20  //top left y position
 
-#define SCORE_CAP 20
+#define SCORE_CAP 20000
 
 
 #define MAX_FOUND_WORDS_SIZE 100
@@ -34,6 +34,7 @@
 
 #define TEST 0 //0 - standard game, 1 and more - test bags
 #define PRINT_DEBUG_MAP 1
+#define PRINT_FPS 1
 
 #if PRINT_DEBUG == 1
     #define ANSI_RESET   "\033[0m"
