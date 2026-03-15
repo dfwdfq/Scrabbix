@@ -381,7 +381,6 @@ void draw_game(void)
       Vector2 text_size = MeasureTextEx(font, msg, current_size, 0);
       Vector2 pos = { (WINDOW_WIDTH - text_size.x) / 2, (WINDOW_HEIGHT - text_size.y) / 2 };
       
-
       Vector2 shadow_pos = { pos.x + 4, pos.y + 4 };
       DrawTextEx(font, msg, shadow_pos, current_size, 0, (Color){0,0,0,(unsigned char)(alpha/2)});
 
@@ -412,8 +411,10 @@ void draw_labels(void)
 
   char score_line[7] = {'0','0','0','0','0','0','\0'};
   char score_str[6];
-  if(score >= 999999)
+  if(score >= SCORE_CAP && !victory)
     {
+      victory = true;
+      victory_timer = 0;
       printf("VICTORY!!!!!!!!!\n");
     }
   else
@@ -489,6 +490,108 @@ void draw_found_words(void)
       if(!_pause)
 	combo_timer--;
       if (combo_timer <= 0) combo_phase = 0.0f;
+    }
+}
+void draw_victory(void)
+{
+  UPDATE_VICTORY_TIMER;
+
+  //phase 1
+  if (victory_timer <= VICTORY_FLASH_FRAMES)
+    {
+      int alpha = 200 - (victory_timer * (200 / VICTORY_FLASH_FRAMES));
+      DrawRectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+		    (Color){GB_DMG_LIGHTEST.r, GB_DMG_LIGHTEST.g, GB_DMG_LIGHTEST.b, alpha});
+    }
+    else if (victory_timer <= VICTORY_GLOW_END)//phase 2
+    {
+        float t = (victory_timer - VICTORY_GLOW_START) * 0.3f;//speed factor
+        int alpha = 40 + (int)(sinf(t) * 10);
+        DrawRectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+                      (Color){GB_DMG_LIGHTEST.r, GB_DMG_LIGHTEST.g, GB_DMG_LIGHTEST.b, alpha});
+    }
+
+
+    //phase 3
+  if (victory_timer >= VICTORY_TEXT_START)
+    {
+      const char* msg = "VICTORY";
+      float base_size = 64.0f;
+      float scale;
+      if (victory_timer <= VICTORY_TEXT_END)
+        {
+	  
+	  float progress = (float)(victory_timer - VICTORY_TEXT_START) / (VICTORY_TEXT_END - VICTORY_TEXT_START);
+	  scale = 1.2f - (0.2f * progress);
+        }
+      else
+        {
+	  scale = 1.0f;
+        }
+      float current_size = base_size * scale;
+      Vector2 text_size = MeasureTextEx(font, msg, current_size, 0);
+      int centerX = WINDOW_WIDTH / 2;
+      int y = WINDOW_HEIGHT / 2 - 80;
+      DrawTextEx(font, msg,
+		 (Vector2){centerX - text_size.x/2, y},
+		 current_size, 0, WHITE);
+    }
+
+  //phase 4
+  if (victory_timer >= VICTORY_STATS_START)
+    {
+      int stats_alpha;
+      if (victory_timer <= VICTORY_STATS_END)
+        {
+	  float progress = (float)(victory_timer - VICTORY_STATS_START) / (VICTORY_STATS_END - VICTORY_STATS_START);
+	  stats_alpha = (int)(255 * progress);
+        }
+      else
+        {
+	  stats_alpha = 255;
+        }
+      char score_str[64];
+      sprintf(score_str, "SCORE: %d", score);
+      char combo_str[64];
+      sprintf(combo_str, "MAX COMBO: %d", max_combo);
+      
+      int fontSize = 32;
+      Vector2 score_size = MeasureTextEx(font, score_str, fontSize, 0);
+      Vector2 combo_size = MeasureTextEx(font, combo_str, fontSize, 0);
+      int centerX = WINDOW_WIDTH / 2;
+      int y = WINDOW_HEIGHT / 2 + 20;
+
+      DrawTextEx(font, score_str,
+		 (Vector2){centerX - score_size.x/2, y},
+		 fontSize, 0, (Color){255,255,255, stats_alpha});
+      DrawTextEx(font, combo_str,
+		 (Vector2){centerX - combo_size.x/2, y + 40},
+		 fontSize, 0, (Color){255,255,255, stats_alpha});
+    }
+
+  
+  if (victory_timer >= VICTORY_PROMPT_START)
+    {
+      const char* prefix = "press ";
+      const char* blink_char = "R";
+      const char* suffix = " to restart";
+      
+      Vector2 prefix_size = MeasureTextEx(font, prefix, 36, 0);
+      Vector2 blink_size = MeasureTextEx(font, blink_char, 36, 0);
+      Vector2 suffix_size = MeasureTextEx(font, suffix, 36, 0);
+
+      int centerX = WINDOW_WIDTH / 2;
+      float total_width = prefix_size.x + blink_size.x + suffix_size.x;
+      float start_x = centerX - total_width / 2;
+      int y_pos = WINDOW_HEIGHT - 60;
+      
+      DrawTextEx(font, prefix, (Vector2){start_x, y_pos}, 36, 0, WHITE);
+      
+      static int blink_frame = 0;
+      blink_frame = (blink_frame + 1) % 20;
+      Color blink_color = (blink_frame < 10) ? WHITE : (Color){255, 255, 255, 100};	  
+      DrawTextEx(font, blink_char, (Vector2){start_x + prefix_size.x, y_pos}, 36, 0, blink_color);
+      DrawTextEx(font, suffix, (Vector2){start_x + prefix_size.x + blink_size.x, y_pos}, 36, 0, WHITE);
     }
 }
 void draw_game_over(void)

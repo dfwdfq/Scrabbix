@@ -34,7 +34,6 @@ extern int found_words_labels_counter;
 extern Color fading_w_color; //fading word color
 
 extern void handle_keys(void);
-
 extern void init_game(void);  //init_game.c
 extern void free_game(void);
 
@@ -47,6 +46,7 @@ extern void draw_game(void);
 extern void draw_labels(void);
 extern void draw_found_words(void);
 extern void draw_game_over(void);
+extern void draw_victory(void);
 extern void reset_game(void);
 
 extern void increase_complexity(void);
