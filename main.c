@@ -35,7 +35,14 @@ void run()
   if(!_pause && !victory && !game_over)
     run_game();
 
-  if(game_over && IS_GAME_OVER_TIMER_DONE)
+  if(game_over  && IS_GAME_OVER_TIMER_DONE)
+    {
+      if(IsKeyReleased(KEY_R))
+	{
+	  reset_game();
+	}
+    }
+  if(victory && victory_timer >= VICTORY_PROMPT_START)
     {
       if(IsKeyReleased(KEY_R))
 	{
@@ -48,6 +55,8 @@ void run()
   draw_game();
   if(game_over)
     draw_game_over();
+  if(victory)
+    draw_victory();
   EndDrawing();
 
 }
