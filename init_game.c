@@ -11,4 +11,5 @@ void init_game(void)
   map[block_y][block_x] = get_next_letter();
 
   create_vignette_texture();
+  create_scanlines_texture();
 }
