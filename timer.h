@@ -1,3 +1,4 @@
+
 /*
 This is bad(!), yet primitive and working
 implementation of ticking timer. It's used
@@ -9,6 +10,18 @@ extern int mov_counter, mov_timer;
 extern int er_counter;
 extern int found_counter;
 extern int game_over_timer;
+extern int victory_timer;
+
+#define VICTORY_FLASH_FRAMES 6
+#define VICTORY_GLOW_START 7
+#define VICTORY_GLOW_END 40
+#define VICTORY_TEXT_START 40
+#define VICTORY_TEXT_END 50
+#define VICTORY_STATS_START 60
+#define VICTORY_STATS_END 80
+#define VICTORY_PROMPT_START 90
+
+#define UPDATE_VICTORY_TIMER ++victory_timer;
 
 #define UPDATE_GAME_OVER_TIMER ++game_over_timer;
 #define IS_GAME_OVER_TIMER_DONE (game_over_timer == 30)

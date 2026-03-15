@@ -4,4 +4,4 @@ int mov_timer = 30;
 int er_counter = 8;
 int found_counter = 60;
 int game_over_timer = 0;
-
+int victory_timer = 0;
