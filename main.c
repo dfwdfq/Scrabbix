@@ -39,6 +39,7 @@ int main()
   free_game();
   unload_fonts();
   UnloadTexture(vignette_tex);
+  UnloadTexture(scanlines_tex);
   CloseWindow();
   return 0;
 }
