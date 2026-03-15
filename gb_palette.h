@@ -11,8 +11,14 @@
 #define GPX(x) (4+ BORDER_OX+(x*CELL_SIZE) ) 
 #define GPY(y) (4+ BORDER_OY+(y*CELL_SIZE) )
 
+extern Texture2D vignette_tex;
+
+
 extern Color get_dithered_color(int x, int y, Color a, Color b);
+
+extern void create_vignette_texture(void);
 extern void draw_vignette(void);
+
 extern void draw_scanlines(int scanline_height);
 extern void draw_pixel_grid(void);
 extern void draw_gb_borders(void);

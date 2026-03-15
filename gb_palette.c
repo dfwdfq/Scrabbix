@@ -1,5 +1,7 @@
 #include "gb_palette.h"
 
+Texture2D vignette_tex;
+
 Color get_dithered_color(int x, int y, Color a, Color b)
 {
   if (((x + y) & 1) == 0)
@@ -11,25 +13,43 @@ Color get_dithered_color(int x, int y, Color a, Color b)
       return b;
     }
 }
-void draw_vignette(void)
+void create_vignette_texture(void)
 {
   int margin = 30;
+  int w = WINDOW_WIDTH;
+  int h = WINDOW_HEIGHT;
+  Image img = GenImageColor(w, h, BLANK);
+
+  for (int y = 0; y < h; y++)
+    {
+      for (int x = 0; x < w; x++)
+        {
+	  int alpha = 0;
+	  if (y < margin)
+	    alpha += 120 * (margin - y) / margin;
+	  
+	  if (y >= h - margin)
+	    alpha += 120 * (y - (h - margin)) / margin;
+	  
+	  if (x < margin)
+	    alpha += 120 * (margin - x) / margin;
+
+	  if (x >= w - margin)
+	    alpha += 120 * (x - (w - margin)) / margin;
+	  
+	  if (alpha > 255) alpha = 255;
+	  
+	  Color c = {0, 0, 0, (unsigned char)alpha};
+	  ImageDrawPixel(&img, x, y, c);
+        }
+    }
   
-  DrawRectangleGradientV(0, 0, WINDOW_WIDTH, margin,
-			 (Color){0, 0, 0, 120},
-			 (Color){0, 0, 0, 0});
-  
-  DrawRectangleGradientV(0, WINDOW_HEIGHT - margin, WINDOW_WIDTH, margin,
-			 (Color){0, 0, 0, 0},
-			 (Color){0, 0, 0, 120});
-  
-  DrawRectangleGradientH(0, 0, margin, WINDOW_HEIGHT,
-			 (Color){0, 0, 0, 120},
-			 (Color){0, 0, 0, 0});
-    
-  DrawRectangleGradientH(WINDOW_WIDTH - margin, 0, margin, WINDOW_HEIGHT,
-			 (Color){0, 0, 0, 0},
-			 (Color){0, 0, 0, 120});
+  vignette_tex = LoadTextureFromImage(img);
+  UnloadImage(img);
+}
+void draw_vignette(void)
+{
+  DrawTexture(vignette_tex, 0, 0, WHITE);
 }
 void draw_scanlines(int scanline_height)
 {
