@@ -11,6 +11,7 @@
 #include"word_searcher.h"
 #include"font.h"
 #include"gb_palette.h"
+#include"sfx.h"
 
 #if PRINT_DEBUG_MAP == 0
 extern bool dump_map;
@@ -28,6 +29,14 @@ extern int reupdate_delay;
 extern int death_flash_timer;
 
 extern Font font;
+
+extern Sound move_sound,
+  hard_drop_sound,
+  soft_land_sound,
+  word_found_sound,
+  word_erase_sound,
+  perfect_sound,
+  combo_sound;
 
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;
