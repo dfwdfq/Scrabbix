@@ -35,13 +35,49 @@ Color fading_w_color = (Color){255,255,255,255};
 
 Font font;
 
+Sound move_sound,
+  hard_drop_sound,
+  soft_land_sound,
+  word_found_sound,
+  word_erase_sound,
+  perfect_sound,
+  combo_sound;
+
 void load_fonts(void)
 {
   font = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
+
+  move_sound = create_move_sound();
+  SetSoundVolume(move_sound, 0.5f);
+
+  hard_drop_sound = create_hard_drop_sound();
+  SetSoundVolume(hard_drop_sound, 0.6f);
+
+  soft_land_sound = create_soft_land_sound();
+  SetSoundVolume(soft_land_sound, 0.5f);
+
+  word_found_sound = create_word_found_sound();
+  SetSoundVolume(word_found_sound, 0.4f);
+
+  word_erase_sound = create_word_erase_sound();
+  SetSoundVolume(word_erase_sound, 0.4f);
+
+  perfect_sound = create_perfect_clear_sound();
+  SetSoundVolume(perfect_sound, 0.7f);
+
+  combo_sound = create_combo_sound();
+  SetSoundVolume(combo_sound, 0.8f);
+
 }
 void unload_fonts(void)
 {
   UnloadFont(font);
+  UnloadSound(move_sound);
+  UnloadSound(hard_drop_sound);
+  UnloadSound(soft_land_sound);
+  UnloadSound(word_found_sound);
+  UnloadSound(word_erase_sound);
+  UnloadSound(perfect_sound);
 }
 
 void free_game(void)
@@ -122,6 +158,7 @@ void handle_keys(void)
     float dt = GetFrameTime();
     if(IsKeyPressed(KEY_SPACE))
       {
+	PlaySound(hard_drop_sound);
 	hard_drop();
 	return;
       }
@@ -161,6 +198,8 @@ void try_move(void)
         char val = map[block_y][block_x];
         map[block_y][block_x] = '\0';
         map[block_y][--block_x] = val;
+	SetSoundPan(move_sound,0.0f);
+	PlaySound(move_sound);
         return;
       }
 
@@ -170,6 +209,9 @@ void try_move(void)
         char val = map[block_y][block_x];
         map[block_y][block_x] = '\0';
         map[block_y][++block_x] = val;
+
+	SetSoundPan(move_sound,1.0f);
+	PlaySound(move_sound);
         return;
       }
 }
@@ -216,7 +258,8 @@ void run_game(void)
 #if PRINT_DEBUG_MAP == 1	  
 	  dump_map = true;
 #endif
-#endif	  
+#endif
+	  PlaySound(soft_land_sound);
 	  //fix block in place
 	  push_node(&letters_head, block_x, block_y);
 
@@ -261,6 +304,7 @@ void run_game(void)
             strcpy(found_words_labels[i], found_words[i]);
 
         hitstop_counter = 3;//brief freeze for visual feedback
+	PlaySound(word_found_sound);
     }
 
     // --- Erase words when erase timer expires ---
@@ -275,10 +319,12 @@ void run_game(void)
 	  if (combo >= 2)
 	    {
 	      sprintf(combo_message, "combo %dx!", combo);
+	      PlaySound(combo_sound);
 	      combo_timer = 60;//show combo for 1 second (60 frames)
 	    }
         }
 
+      PlaySound(word_erase_sound);
         RESET_ER_TIMER;
 
 #if PRINT_DEBUG == 1
@@ -315,8 +361,9 @@ void run_game(void)
 
             if (letters_head == NULL && !perfect_display)
             {
-                perfect_display = true;
-                perfect_timer = 60;//show "PERFECT!" for 1 second
+	      PlaySound(perfect_sound);
+	      perfect_display = true;
+	      perfect_timer = 60;//show "PERFECT!" for 1 second
             }
         }
     }
