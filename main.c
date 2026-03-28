@@ -13,6 +13,7 @@ int main()
 
   SetConfigFlags(FLAG_VSYNC_HINT);
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
+  InitAudioDevice();
   SetExitKey(KEY_NULL);
   SetTargetFPS(30);
   
@@ -41,6 +42,7 @@ int main()
   UnloadTexture(vignette_tex);
   UnloadTexture(scanlines_tex);
   CloseWindow();
+  CloseAudioDevice();
   return 0;
 }
 void run()
