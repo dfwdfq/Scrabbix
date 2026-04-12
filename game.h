@@ -36,7 +36,10 @@ extern Sound move_sound,
   word_found_sound,
   word_erase_sound,
   perfect_sound,
-  combo_sound;
+  combo_sound,
+  pause_sound,
+  victory_sound,
+  game_over_sound;
 
 extern char found_words_labels[MAX_FOUND_WORDS_SIZE][FOUND_WORD_LEN];
 extern int found_words_labels_counter;

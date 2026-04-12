@@ -41,7 +41,10 @@ Sound move_sound,
   word_found_sound,
   word_erase_sound,
   perfect_sound,
-  combo_sound;
+  combo_sound,
+  pause_sound,
+  victory_sound,
+  game_over_sound;
 
 void load_fonts(void)
 {
@@ -51,10 +54,10 @@ void load_fonts(void)
   SetSoundVolume(move_sound, 0.5f);
 
   hard_drop_sound = create_hard_drop_sound();
-  SetSoundVolume(hard_drop_sound, 0.6f);
+  SetSoundVolume(hard_drop_sound, 1.0f);
 
   soft_land_sound = create_soft_land_sound();
-  SetSoundVolume(soft_land_sound, 0.5f);
+  SetSoundVolume(soft_land_sound, 1.0f);
 
   word_found_sound = create_word_found_sound();
   SetSoundVolume(word_found_sound, 0.4f);
@@ -63,11 +66,19 @@ void load_fonts(void)
   SetSoundVolume(word_erase_sound, 0.4f);
 
   perfect_sound = create_perfect_clear_sound();
-  SetSoundVolume(perfect_sound, 0.7f);
+  SetSoundVolume(perfect_sound, 0.6f);
 
   combo_sound = create_combo_sound();
   SetSoundVolume(combo_sound, 0.8f);
 
+  pause_sound = create_pause_sound();
+  SetSoundVolume(pause_sound, 0.5f);
+
+  victory_sound = create_victory_sound();
+  SetSoundVolume(victory_sound, 0.7f);
+
+  game_over_sound = create_game_over_sound();
+  SetSoundVolume(game_over_sound,0.6f);
 }
 void unload_fonts(void)
 {
@@ -78,6 +89,9 @@ void unload_fonts(void)
   UnloadSound(word_found_sound);
   UnloadSound(word_erase_sound);
   UnloadSound(perfect_sound);
+  UnloadSound(combo_sound);
+  UnloadSound(victory_sound);
+  UnloadSound(game_over_sound);
 }
 
 void free_game(void)
@@ -281,6 +295,7 @@ void run_game(void)
 	  else
 	    {
 	      game_over = true;
+	      PlaySound(game_over_sound);
 	    }
         }
     }
@@ -463,6 +478,7 @@ void draw_labels(void)
       victory = true;
       victory_timer = 0;
       printf("VICTORY!!!!!!!!!\n");
+      PlaySound(victory_sound);
     }
   else
     {
