@@ -11,6 +11,9 @@ extern Sound create_word_found_sound(void);
 extern Sound create_word_erase_sound(void);
 extern Sound create_perfect_clear_sound(void);
 extern Sound create_combo_sound(void);
+extern Sound create_pause_sound(void);
+extern Sound create_victory_sound(void);
+extern Sound create_game_over_sound(void);
 
 
 #endif /* SFX_H */
