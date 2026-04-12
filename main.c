@@ -48,7 +48,10 @@ int main()
 void run()
 {  
   if(IsKeyReleased(KEY_ESCAPE))
-    _pause = !_pause;
+    {
+      PlaySound(pause_sound);
+      _pause = !_pause;
+    }
   
   if(!_pause && !victory && !game_over)
     run_game();
