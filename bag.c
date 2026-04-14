@@ -6,7 +6,7 @@ int current_letter = 0;
 #if TEST == 0
 void init_bag(void)
 {
-  srand(time(0));
+  current_letter = 0;
   //actual bag  
   memcpy(bag,
 	 "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ",
@@ -50,7 +50,7 @@ char get_next_letter(void)
   /*
     So when we hit the end. Reshuffle it
   */
-  if(current_letter == 97)
+  if(current_letter >= 97)
     {
       shuffle(bag,98);
       current_letter = 0;

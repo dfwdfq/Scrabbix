@@ -31,6 +31,7 @@ void save_found_word(char* word, int x, int y,short dir)
   //check is word already added
   //linear search is not ok, but good enough since little amount
 
+  if (found_words_counter >= MAX_FOUND_WORDS_SIZE) return;  
   for(int i = 0;i<found_words_counter;++i)
     {
       if(strcmp(word,found_words[i]) == 0)
@@ -279,7 +280,7 @@ void search_L_shaped(int start_x, int start_y)
                         b++;
                         bx = nx2; by = ny2;
                         int idx = steps + b;
-                        if (idx >= 20) break; //prevent buffer overflow
+                        if (idx >= 21) break; //prevent buffer overflow
 
                         path_pos[idx].x = bx;
                         path_pos[idx].y = by;

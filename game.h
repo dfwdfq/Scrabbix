@@ -51,7 +51,9 @@ extern void free_game(void);
 
 //init_game is too big, so for fonts I use particular proc
 extern void load_fonts(void);
+extern void load_audio(void);
 extern void unload_fonts(void);
+extern void unload_audio(void);
 
 extern void run_game(void);
 extern void draw_game(void);

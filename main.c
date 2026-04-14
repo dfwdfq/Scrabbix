@@ -5,23 +5,83 @@
 #include"gb_palette.h"
 #include"game.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#include <emscripten/html5.h>
+
+static bool audio_init = false;
+void resume_web_audio(void)
+{
+    EM_ASM({
+        var ctx = null;        
+        if (typeof GL !== 'undefined' && GL.context && GL.context.audioContext)
+	  {
+            ctx = GL.context.audioContext;
+	  }
+        if (!ctx && typeof window !== 'undefined')
+	  {
+            if (window.audioContext) ctx = window.audioContext;
+            else if (window.AudioContext && window.audioContextInstance) ctx = window.audioContextInstance;
+	  }
+        if (!ctx && typeof Module !== 'undefined' && Module.audioContext)
+	  {
+            ctx = Module.audioContext;
+	  }
+        
+        if (ctx && ctx.state === 'suspended')
+	  {
+            ctx.resume().then(function()
+			      {
+				console.log('[Audio] Context resumed');
+			      }).catch(function(e) {
+				  console.error('[Audio] Resume failed:', e);
+				});
+        }
+	else if (ctx)
+	  {
+            console.log('[Audio] Context state:', ctx.state);
+	  }
+	else
+	  {
+            console.warn('[Audio] No AudioContext found');
+	  }
+    });
+}
+#endif
+
+
 void run(void);
 int main()
 {
-
+  srand(time(0));
   qsort(google_words, google_words_len, sizeof(char*), str_cmp);
 
   SetConfigFlags(FLAG_VSYNC_HINT);
   InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
+#ifndef  __EMSCRIPTEN__
   InitAudioDevice();
+#endif  
   SetExitKey(KEY_NULL);
   SetTargetFPS(30);
   
   init_map();
   init_game();
   load_fonts();
+#ifndef __EMSCRIPTEN  
+  load_audio();
+#endif  
   while(!WindowShouldClose())
     {
+     #ifdef __EMSCRIPTEN__
+      if(!audio_init && (GetKeyPressed() != 0 || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+	{
+	  InitAudioDevice();
+	  resume_web_audio();     
+	  load_audio();
+	  audio_init = true;
+	}
+     #endif
+
       run();
 
 #if PRINT_FPS== 1     
@@ -34,11 +94,11 @@ int main()
 	}
       last_time = now;
 #endif
-
       WaitTime(0);
     }
   free_game();
   unload_fonts();
+  unload_audio();
   UnloadTexture(vignette_tex);
   UnloadTexture(scanlines_tex);
   CloseWindow();

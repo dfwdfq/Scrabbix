@@ -33,8 +33,8 @@
 #define PRINT_DEBUG 0
 
 #define TEST 0 //0 - standard game, 1 and more - test bags
-#define PRINT_DEBUG_MAP 1
-#define PRINT_FPS 1
+#define PRINT_DEBUG_MAP 0
+#define PRINT_FPS 0
 
 #if PRINT_DEBUG == 1
     #define ANSI_RESET   "\033[0m"

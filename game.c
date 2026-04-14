@@ -46,11 +46,9 @@ Sound move_sound,
   victory_sound,
   game_over_sound;
 
-void load_fonts(void)
+void load_audio(void)
 {
-  font = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
-
-  move_sound = create_move_sound();
+    move_sound = create_move_sound();
   SetSoundVolume(move_sound, 0.5f);
 
   hard_drop_sound = create_hard_drop_sound();
@@ -80,9 +78,16 @@ void load_fonts(void)
   game_over_sound = create_game_over_sound();
   SetSoundVolume(game_over_sound,0.6f);
 }
+void load_fonts(void)
+{
+  font = LoadFontFromMemory(".otf",Hardpixel_OTF,Hardpixel_OTF_len,48,NULL,0);
+}
 void unload_fonts(void)
 {
   UnloadFont(font);
+}
+void unload_audio(void)
+{
   UnloadSound(move_sound);
   UnloadSound(hard_drop_sound);
   UnloadSound(soft_land_sound);
@@ -768,7 +773,15 @@ void reset_game(void)
   fading_w_color.r = 255;
   fading_w_color.g = 255;
   fading_w_color.b = 255;
-  fading_w_color.a = 255; 
+  fading_w_color.a = 255;
+
+  mov_counter = 60;
+  mov_timer = 30;
+  er_counter = 8;
+  found_counter = 60;
+  game_over_timer = 0;
+  victory_timer = 0;
+  min_word_len = 3; 
 }
 VertexListNode* clear_list(VertexListNode* head)
 {
