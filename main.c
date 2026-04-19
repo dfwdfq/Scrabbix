@@ -57,7 +57,7 @@ int main()
   qsort(google_words, google_words_len, sizeof(char*), str_cmp);
 
   SetConfigFlags(FLAG_VSYNC_HINT);
-  InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabrix");
+  InitWindow(WINDOW_WIDTH,WINDOW_HEIGHT,"Scrabbix");
 #ifndef  __EMSCRIPTEN__
   InitAudioDevice();
 #endif  
